@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<table>
+  <TableProperty>
+    <name>Acc_Bus_BusinessCustomer</name>
+    <Kname>t_Item</Kname>
+    <note>客户</note>
+    <Knote>基础信息表</Knote>
+  </TableProperty>
+  
+  <!--<ColProperty>
+    <name>ID</name>
+    <Kname>FContactID</Kname>
+  </ColProperty>-->
+  
+  <ColProperty>
+    <name>Code</name>
+    <Kname>Fnumber</Kname>
+    <note>代码</note>
+    <Knote>编码</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>CUSTOMERNAME</name>
+    <Kname>FName</Kname>
+    <note>客户名称</note>
+    <Knote>客户名称</Knote>
+  </ColProperty>
+  <!--<ColProperty>
+    <name>ParentID</name>
+    <Kname>FParentID</Kname>
+    <note>上级机构</note>
+    <Knote>上级部门内码</Knote>
+  </ColProperty>-->
+
+</table>
+

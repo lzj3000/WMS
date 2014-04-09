@@ -1,0 +1,163 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <ColumnMap>
+    <SourceName>ID</SourceName>
+    <TargetName />
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FInterID</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FEntryID</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FDCStockID</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Remark</SourceName>
+    <TargetName>FNote</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>NUM</SourceName>
+    <TargetName>FQty</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>NUM</SourceName>
+    <TargetName>FAuxQty</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>BATCHNO</SourceName>
+    <TargetName>FBatchNo</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FPlanMode</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>14036</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FChkPassItem</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>1058</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FBrNo</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>MATERIALCODE</SourceName>
+    <TargetName>FItemID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FUnitID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FSourceTranType</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FSourceInterId</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FSourceBillNo</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FSourceEntryID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FOrderInterID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FOrderBillNo</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceRowID</SourceName>
+    <TargetName>FOrderEntryID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+</DocumentElement>

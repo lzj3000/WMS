@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<table>
+  <TableProperty>
+    <name>Acc_Crm_DispatchNote</name>
+    <Kname>SEOutStock</Kname>
+    <note>发货通知</note>
+    <Knote>发货通知</Knote>
+  </TableProperty>
+
+  <!--<ColProperty>
+    <name>ID</name>
+    <Kname>FID</Kname>
+  </ColProperty>-->
+  
+
+  <ColProperty>
+    <name>Code</name>
+    <Kname>FBillNo</Kname>
+    <note>代码</note>
+    <Knote>编码</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FBILLNAME</name>
+    <Kname>FBillNo</Kname>
+    <note>合同名称</note>
+    <Knote>编码</Knote>
+  </ColProperty>
+  
+  <!--<ColProperty>
+    <name>FBILLNAME</name>
+    <Kname>FName</Kname>
+    <note>合同名称</note>
+    <Knote>合同名称</Knote>
+  </ColProperty>-->
+  
+  <ColProperty>
+    <name>Creationdate</name>
+    <Kname>FDate</Kname>
+    <note>创建日期</note>
+    <Knote>创建日期</Knote>
+  </ColProperty>
+
+  <!--<ColProperty>
+    <name>OUTTIME</name>
+    <Kname>FHeadSelfB0148</Kname>
+    <note>发货时间</note>
+    <Knote>发货时间</Knote>
+  </ColProperty>-->
+  
+  <!--<ColProperty>
+    <name>IsDisable</name>
+    <Kname>FDeleted</Kname>
+    <note>是否禁用</note>
+    <Knote>是否禁用</Knote>
+  </ColProperty>-->
+  <ColProperty>
+    <name>CONSIGNEE</name>
+    <Kname>FHeadSelfS0241</Kname>
+    <note>收货人</note>
+    <Knote>联系人</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FPHONE</name>
+    <Kname>FHeadSelfS0242</Kname>
+    <note>联系电话</note>
+    <Knote>联系电话</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FADDRESS</name>
+    <Kname>FHeadSelfS0243</Kname>
+    <note>收货地址</note>
+    <Knote>收货地址</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>Remark</name>
+    <Kname>FExplanation</Kname>
+    <note>备注</note>
+    <Knote>备注</Knote>
+  </ColProperty>
+</table>
+

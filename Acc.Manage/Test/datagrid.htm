@@ -1,0 +1,47 @@
+﻿<html>
+<link rel="stylesheet" type="text/css" href="../Scripts/jquery-1.3/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../Scripts/jquery-1.3/themes/icon.css" />
+<script type="text/javascript" src="../Scripts/jquery-1.3/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-1.3/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../Scripts/jquery-1.3/easyloader.js"></script>
+<script type="text/javascript" src="../Scripts/jsbase.js"></script>
+<script type="text/javascript" src="../Scripts/webcontrols/toolstrip.js"></script>
+<script type="text/javascript" src="../Scripts/webcontrols/datagrid.js"></script>
+<script type="text/javascript" src="../Scripts/webcontrols/webcontrol.js"></script>
+<script type="text/javascript" src="../Scripts/webcontrols/datasource.js"></script>
+<script type="text/javascript" src="../Scripts/webcontrols/textbox.js"></script>
+<script type="text/javascript" src="../Scripts/webcontrols/form.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var data = new datagrid();
+        data.keys = [];
+        data.items = [
+                                 { field: "t1", title: "测试1", visible: true, isedit: true, foreign: { isfkey: true, objectname: "tt", filedname: "t1"} },
+                                 { field: "t2", title: "测试2", visible: true, isedit: true, type: "date" },
+                                 { field: "t3", title: "测试3", visible: true, isedit: true, type: "datetime" },
+                                 { field: "t4", title: "测试4", visible: true, isedit: true, type: "time" },
+                                 { field: "t5", title: "测试5", visible: true, isedit: true, type: "int" },
+                                 { field: "t6", title: "测试6", visible: true, isedit: true, comvtp: { isvtp: true, items: [{ "Text": "T111", "Value": 1 }, { "Text": "T222", "Value": 2}]} },
+                                 { field: "t7", title: "测试7", visible: true, isedit: true, type: "bool" },
+                                 { field: "t8", title: "测试8", visible: true, isedit: true }
+                                 ];
+        data.applyTo = "t1";
+        data.check = true;
+        data.init();
+
+        var d = [
+                   { t1: "111", t2: "222", t3: "333", t4: "444", t5: "555", t6: "666", t7: "777", t8: "888" },
+                   { t1: "111", t2: "222", t3: "333", t4: "444", t5: "555", t6: "666", t7: "777", t8: "888" },
+                   { t1: "111", t2: "222", t3: "333", t4: "444", t5: "555", t6: "666", t7: "777", t8: "888" },
+                   { t1: "111", t2: "222", t3: "333", t4: "444", t5: "555", t6: "666", t7: "777", t8: "888" },
+                   { t1: "111", t2: "222", t3: "333", t4: "444", t5: "555", t6: "666", t7: "777", t8: "888" },
+                   { t1: "111", t2: "222", t3: "333", t4: "444", t5: "555", t6: "666", t7: "777", t8: "888" },
+                   { t1: "111", t2: "222", t3: "333", t4: "444", t5: "555", t6: "666", t7: "777", t8: "888" }
+                ];
+
+        data.load(d);
+    });
+</script>
+<div id="t1">
+</div>
+</html>

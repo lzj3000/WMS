@@ -1,0 +1,105 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.AcctrueUnPurchaseOrderController";
+            p.applyTo = "t1";
+            //                        var code = webjs.post(p.c, GetCode, "");
+
+            p.onCommandClick = function (command, form, item) {
+                //                alert(123);
+                //                webjs.post(p.c, "GetCode", data);
+                if (command == "add") {
+//                    var tt = p.datasource.post("GetStockOutOrder", null);
+//                    form.setform("CODE", tt);
+                    form.setform("创建人", webjs.username); //或创建人
+                    var myDate = new Date();
+                    var d = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    form.setform("创建日期", d);
+                    //                    var date = myDate.toLocaleString();
+                    form.setform("登记日期", d);
+                    form.setform("登记人", webjs.username);
+                    //item.CREATEDBY = webjs.username;
+
+                    //                    var tt = p.datasource.post("OnOutOrder", null);
+                    //                    form.setform("ORDERNO", tt);
+
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+
+            ///更改下拉框事件
+            p.onFormSelect = function (form, box, item) {
+                var a = box.val();
+                if (box.field == "STOCKOUTTYPE") {
+                    if (a == "001") {
+                        for (var i in form.items) {
+                            switch (form.items[i].field) {
+                                case "TOBIN":
+                                    form.items[i].setdisabled(true);
+                                    break;
+                                default:
+                                    form.items[i].setdisabled(false);
+                                    break;
+                            }
+                        }
+                    }
+                    else if (a == "002") {
+                        for (var i in form.items) {
+                            switch (form.items[i].field) {
+                                case "SALEAREA":
+                                case "TOBIN":
+                                case "SALEUSER":
+                                case "CARPHONE":
+                                case "OUTTIME":
+                                    form.items[i].setdisabled(true);
+                                    break;
+                                default:
+                                    form.items[i].setdisabled(false);
+                                    break;
+                            }
+                        }
+                    }
+                    else if (a == "003") {
+                        for (var i in form.items) {
+                            switch (form.items[i].field) {
+                                case "SALEAREA":
+                                case "CHILENTNO":
+                                case "SALEUSER":
+                                case "CARPHONE":
+                                case "OUTTIME":
+                                    form.items[i].setdisabled(true);
+                                    break;
+                                default:
+                                    form.items[i].setdisabled(false);
+                                    break;
+                            }
+                        }
+                    }
+                    else if (a == "004") {
+                        for (var i in form.items) {
+                            switch (form.items[i].field) {
+                                case "SALEAREA":
+                                case "CHILENTNO":
+                                case "SALEUSER":
+                                case "CARPHONE":
+                                case "OUTTIME":
+                                    form.items[i].setdisabled(true);
+                                    break;
+                                default:
+                                    form.items[i].setdisabled(false);
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            p.init();
+        });
+
+    </script>
+<div id="t1"></div>

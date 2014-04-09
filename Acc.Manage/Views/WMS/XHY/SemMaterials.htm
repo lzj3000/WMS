@@ -1,0 +1,114 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.SemMaterialsController";
+            p.applyTo = "t1";
+            p.isgridcheck = true;
+            p.ishelp = false;
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("BATCH", "0");
+                    form.setform("SEQUENCECODE", "1");
+                    form.setform("STATUS", "0");
+                    form.setform("STOREAMOUNT", "1");
+                    form.setform("LOWESTSTOCK", "1");
+                }
+            }
+            p.onSaveing = function (command, item) {
+                if (command == "add") {
+                    
+                }
+            }
+            p.init();
+        });
+        function SetPrintModel(data) {
+            window.open("DesginManager/SetPrintModel.aspx?strController=" + data.sender.datasource.c, "_black", "width=300,height=200,left=200,top=200");
+        }
+        function SetDisable(data) {
+            window.MaterialCode = data.item.MATERIALCODE;
+            $("#t2").dialog({
+                title: "冻结" + data.item.MATERIALNAME + "",
+                width: 400,
+                height: 220,
+                maximizable: false,
+                cache: false,
+                shadow: true,
+                modal: true,
+                content:""+data.item.ID+""
+            });
+
+        }
+        function selectRequisition(data) {
+//            if (data.comm.oldname == null) {
+//                if (data.sender.datasource.grid) {
+//                    var grid = data.sender.datasource.grid;
+//                    var rows = grid.datasource.load(" ");
+//                    if (rows && rows.total > 0) {
+//                        grid.check = true;
+//                        grid.reinit();
+//                        grid.load(rows);
+//                        data.sender.setname(data.comm, "打印产品条码");
+//                    }
+//                    else {
+//                        data.comm.oldname = null;
+//                        $.messager.alert("消息", "请选择需要打印的产品条码！");
+//                    }
+//                }
+//            }
+//            else {
+                var rows = data.sender.datasource.grid.getcheckrows();
+                if (rows.length > 0) {
+                    var id = "";
+                    for (var r in rows) {
+                        if (id == "") {
+                            id = rows[r].CODE + "|" + rows[r].FNAME;
+                        }
+                        else
+                            id += ";" + rows[r].CODE + "|" + rows[r].FNAME;
+                    }
+                    window.open("DesginManager/PrintSet.aspx?strController=" + data.sender.datasource.c + "&selectPortsRows=" + id, "_black", "width=300,height=200,left=200,top=200");
+                }
+                else {
+                    $.messager.alert("错误", "错误，请选择需要打印的条码！");
+                }
+            //}
+            }
+
+            //多行选择禁用
+            function aa(data) {
+                var rows = data.sender.datasource.grid.getcheckrows();
+                if (rows.length > 0) {
+                    var ids = "";
+                    for (var r in rows) {
+                        if (ids == "") {
+                            ids = rows[r].ID;
+                        }
+                        else
+                            ids += ";" + rows[r].ID;
+                    }
+                    var data1 = new datasource();
+                    data1.c = "Acc.Business.WMS.XHY.Controllers.XHY_MaterialsController";
+                    data1.post("bb", "ids=" + ids);
+                }
+            }
+
+            //多行选择启用
+            function cc(data) {
+                var rows = data.sender.datasource.grid.getcheckrows();
+                if (rows.length > 0) {
+                    var ids = "";
+                    for (var r in rows) {
+                        if (ids == "") {
+                            ids = rows[r].ID;
+                        }
+                        else
+                            ids += ";" + rows[r].ID;
+                    }
+                    var data1 = new datasource();
+                    data1.c = "Acc.Business.WMS.XHY.Controllers.XHY_MaterialsController";
+                    data1.post("dd", "ids=" + ids);
+                }
+            }
+    </script>
+<div id="t1"></div>
+<div id="t2">

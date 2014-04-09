@@ -1,0 +1,423 @@
+8
+
+dir
+696
+http://192.168.10.54/svn/xhy/AcctrueTerminal
+http://192.168.10.54/svn
+
+
+
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+29633bbb-e479-554d-8647-aa457d913230
+
+DataDownload.resx
+file
+
+
+
+
+2013-11-16T06:19:30.218750Z
+d7386046c817e8176c5c6b3f25028809
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_Batch.Designer.cs
+file
+
+
+
+
+2013-11-16T06:19:30.218750Z
+313711c7eb30f42e698acbe93df0b093
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Common
+dir
+
+ManageTray
+dir
+
+MenuMain.resx
+file
+
+
+
+
+2013-11-16T06:19:30.234375Z
+1e6981b54bba9ed79d0174cc7af6dcc9
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Properties
+dir
+
+AcctrueTerminal.csproj.user
+file
+
+
+
+
+2013-11-16T06:19:30.234375Z
+b84bd5a7e300d70fbd5a61b8bd5f9821
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_BestStore.resx
+file
+
+
+
+
+2013-11-16T06:19:30.234375Z
+d7386046c817e8176c5c6b3f25028809
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+XmlFile
+dir
+
+DataDownload.cs
+file
+
+
+
+
+2013-11-16T06:19:30.250000Z
+cb3a429dd11ff08c56a3d76d4985fc6a
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_Batch.resx
+file
+
+
+
+
+2013-11-16T06:19:30.234375Z
+dcfd39590aa257f226dfeb3bca1bbcbf
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Config
+dir
+
+bin
+dir
+
+Login.designer.cs
+file
+
+
+
+
+2013-11-16T06:19:30.250000Z
+886987856bacd7bdbf980ed7dba7f3af
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+DLL
+dir
+
+MenuMain.designer.cs
+file
+
+
+
+
+2013-11-16T06:19:30.250000Z
+caec60f1fbd147d74999937525941cbf
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+MenuMain.cs
+file
+
+
+
+
+2013-11-16T06:19:30.250000Z
+79b3b62358b923ba5d46ac8c15b5ba45
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_Store.resx
+file
+
+
+
+
+2013-11-16T06:19:30.265625Z
+d7386046c817e8176c5c6b3f25028809
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+AcctrueTerminal.csproj
+file
+
+
+
+
+2013-11-16T06:19:30.265625Z
+f35b30e2bbd54886ad529bf17e6785e1
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_BestStore.Designer.cs
+file
+
+
+
+
+2013-11-16T06:19:30.265625Z
+0b45f82fc8a1ae33d0f1d05b6d96e0a2
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Image
+dir
+
+EarlyWarning.resx
+file
+
+
+
+
+2013-11-16T06:19:30.265625Z
+8721aaeb9f3901fb28315afc33b8d50a
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_BestStore.cs
+file
+
+
+
+
+2013-11-16T06:19:30.265625Z
+5643c8f7a11cb9906ea3a1d761d203d5
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Stock
+dir
+
+Frm_SerachOrder.resx
+file
+700
+
+
+
+2013-11-16T06:19:30.281250Z
+d7386046c817e8176c5c6b3f25028809
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Login.resx
+file
+
+
+
+
+2013-11-16T06:19:30.281250Z
+d97f1d10466ce6bb805aba1d4c545ed0
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_Batch.cs
+file
+
+
+
+
+2013-11-16T06:19:30.281250Z
+a98313253393301a3aaa2153cae6b092
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+TerminalUpdate.exe
+file
+
+
+
+
+2013-11-16T06:19:30.281250Z
+f90fb74d6c10636eb77da30b1c706394
+2013-11-16T05:54:53.709625Z
+696
+yjw
+has-props
+
+Model
+dir
+
+ManageBox
+dir
+
+Frm_Store.Designer.cs
+file
+
+
+
+
+2013-11-16T06:19:30.296875Z
+e8415c6078bcb0f38bb689845698a1d4
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+SQLite.Interop.066.DLL
+file
+
+
+
+
+2013-11-16T06:19:30.296875Z
+9dc3619d59101dd022e632dd8a6c1ef1
+2013-11-16T05:54:53.709625Z
+696
+yjw
+has-props
+
+Frm_Store.cs
+file
+
+
+
+
+2013-11-16T06:19:30.296875Z
+d8f807280cc657622a090a1d9b90c30a
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+DataDownload.Designer.cs
+file
+
+
+
+
+2013-11-16T06:19:30.312500Z
+53d9b9bd0c9ff6fafde12bde86af60d5
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Voice
+dir
+
+EarlyWarning.Designer.cs
+file
+
+
+
+
+2013-11-16T06:19:30.312500Z
+f26f0dfa3102df3f5629aa180ac0d2c0
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+EarlyWarning.cs
+file
+
+
+
+
+2013-11-16T06:19:30.312500Z
+9dd473cfa0a7b22bcc09d81da32550ad
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_SerachOrder.designer.cs
+file
+700
+
+
+
+2013-11-16T06:19:30.312500Z
+d43e5cdf311ff5aadc4467b179e64c8d
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Frm_SerachOrder.cs
+file
+700
+
+
+
+2013-11-16T13:41:09.015625Z
+ae0302d0195c39ff6d22249664e23530
+2013-11-16T11:52:47.944000Z
+699
+yjw
+
+obj
+dir
+
+StockIn
+dir
+
+StockOut
+dir
+
+Program.cs
+file
+
+
+
+
+2013-11-16T06:19:30.328125Z
+f07cc5b2652bf456303d14b1ecda006f
+2013-11-16T05:54:53.709625Z
+696
+yjw
+
+Login.cs
+file
+
+
+
+
+2013-11-16T06:19:30.328125Z
+a5ab1c1ee5dafe90674c025276b34933
+2013-11-16T05:54:53.709625Z
+696
+yjw
+

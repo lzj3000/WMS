@@ -1,0 +1,1759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{09CEAEBA-AD85-49F7-B30E-868DFA401064}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Acc.Manage</RootNamespace>
+    <AssemblyName>Acc.Manage</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabases>false</PublishDatabases>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabases>false</PublishDatabases>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Acc.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acc.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Acc.Code, Version=1.0.4821.42683, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acc.Code.dll</HintPath>
+    </Reference>
+    <Reference Include="Acc.Contract, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acc.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Acc.WebServer">
+      <HintPath>..\..\项目资源\Acc.WebServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Acctrue.Equipment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acctrue.Equipment.dll</HintPath>
+    </Reference>
+    <Reference Include="Acctrue.Equipment.Print, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acctrue.Equipment.Print.dll</HintPath>
+    </Reference>
+    <Reference Include="Acctrue.Equipment.Print.ActiveX, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acctrue.Equipment.Print.ActiveX.dll</HintPath>
+    </Reference>
+    <Reference Include="Acctrue.Equipment.Print.DesignManager, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acctrue.Equipment.Print.DesignManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Acctrue.Equipment.WebControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acctrue.Equipment.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Acctrue.Library.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d77bbd87a80780b6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Acctrue.Library.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Way.EAP.Cache">
+      <HintPath>..\..\项目资源\Way.EAP.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EAP.Configuration">
+      <HintPath>..\..\项目资源\Way.EAP.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EAP.DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4aa16393f6794fb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\项目资源\Way.EAP.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EAP.Logging">
+      <HintPath>..\..\项目资源\Way.EAP.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EventCenter">
+      <HintPath>..\..\项目资源\Way.EventCenter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="Controllers\UserLogin.dll" />
+    <Content Include="DesginManager\css\right.css" />
+    <Content Include="DesginManager\Default.aspx" />
+    <Content Include="DesginManager\DesignEditor.aspx" />
+    <Content Include="DesginManager\images\arrow_refresh_small.png" />
+    <Content Include="DesginManager\images\bgform_right.gif" />
+    <Content Include="DesginManager\images\bg_righttiao.gif" />
+    <Content Include="DesginManager\images\document-1-add.png" />
+    <Content Include="DesginManager\images\list_01.gif" />
+    <Content Include="DesginManager\images\list_02.gif" />
+    <Content Include="DesginManager\images\list_03.gif" />
+    <Content Include="DesginManager\images\list_04.gif" />
+    <Content Include="DesginManager\images\list_05.gif" />
+    <Content Include="DesginManager\images\list_06.gif" />
+    <Content Include="DesginManager\images\list_07.gif" />
+    <Content Include="DesginManager\images\list_08.gif" />
+    <Content Include="DesginManager\images\list_09.gif" />
+    <Content Include="DesginManager\images\pointRight.gif" />
+    <Content Include="DesginManager\images\rightbj_01.gif" />
+    <Content Include="DesginManager\images\rightbj_02.gif" />
+    <Content Include="DesginManager\images\rightbj_03.gif" />
+    <Content Include="DesginManager\images\rightbj_04.gif" />
+    <Content Include="DesginManager\images\rightbj_05.gif" />
+    <Content Include="DesginManager\images\rightbj_06.gif" />
+    <Content Include="DesginManager\images\rightbj_07.gif" />
+    <Content Include="DesginManager\images\right_01.gif" />
+    <Content Include="DesginManager\images\right_02.gif" />
+    <Content Include="DesginManager\images\right_03.gif" />
+    <Content Include="DesginManager\images\right_04.gif" />
+    <Content Include="DesginManager\images\right_06.gif" />
+    <Content Include="DesginManager\images\right_07.gif" />
+    <Content Include="DesginManager\images\right_08.gif" />
+    <Content Include="DesginManager\images\right_09.gif" />
+    <Content Include="DesginManager\images\right_big.gif" />
+    <Content Include="DesginManager\images\right_jiao.gif" />
+    <Content Include="DesginManager\images\tools.png" />
+    <Content Include="DesginManager\js\common.js" />
+    <Content Include="DesginManager\js\right.js" />
+    <Content Include="DesginManager\lib\Acctrue.Equipment.dll" />
+    <Content Include="DesginManager\lib\Acctrue.Equipment.Print.ActiveX.dll" />
+    <Content Include="DesginManager\lib\Acctrue.Equipment.Print.DesignManager.dll" />
+    <Content Include="DesginManager\lib\Acctrue.Equipment.Print.dll" />
+    <Content Include="DesginManager\lib\Acctrue.Equipment.WebControls.dll" />
+    <Content Include="DesginManager\lib\Acctrue.Library.Data.dll" />
+    <Content Include="DesginManager\lib\AcctrueWMS.Bll.dll" />
+    <Content Include="DesginManager\ParmManager.aspx" />
+    <Content Include="DesginManager\Print.aspx" />
+    <Content Include="DesginManager\PrintSet.aspx" />
+    <Content Include="DesginManager\SetPrintModel.aspx" />
+    <Content Include="DesginManager\TempHistory.aspx" />
+    <Content Include="Help\Admin\css\style.css" />
+    <Content Include="Help\Admin\images\ck-xt1-1.gif" />
+    <Content Include="Help\Admin\images\ck-xt1-2.gif" />
+    <Content Include="Help\Admin\images\ck-xt1-3.gif" />
+    <Content Include="Help\Admin\images\ck-xt1-4.gif" />
+    <Content Include="Help\Admin\images\ck-xt1-5.gif" />
+    <Content Include="Help\Admin\images\ck-xt2-1.gif" />
+    <Content Include="Help\Admin\images\ck-xt2-2.gif" />
+    <Content Include="Help\Admin\images\ck-xt2-3.gif" />
+    <Content Include="Help\Admin\images\ck-xt2-4.gif" />
+    <Content Include="Help\Admin\images\ck-xt3-1.gif" />
+    <Content Include="Help\Admin\images\ck-xt3-2.gif" />
+    <Content Include="Help\Admin\images\ck-xt3-3.gif" />
+    <Content Include="Help\Admin\images\ck-xt4-1.gif" />
+    <Content Include="Help\Admin\images\ck-xt5-1.gif" />
+    <Content Include="Help\Admin\images\image001.gif" />
+    <Content Include="Help\Admin\images\image002.gif" />
+    <Content Include="Help\Admin\images\login.gif" />
+    <Content Include="Help\Admin\images\y_10.gif" />
+    <Content Include="Help\Admin\js\js_treeview.js" />
+    <Content Include="Help\Admin\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\Admin\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\I.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\L.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\T.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\Admin\js\treeViewImages\treeview.css" />
+    <Content Include="Help\Admin\loginuser.html" />
+    <Content Include="Help\Admin\systemdirectory.html" />
+    <Content Include="Help\Admin\systemmodel.html" />
+    <Content Include="Help\Admin\systemroles.html" />
+    <Content Include="Help\Admin\systemwatcher.html" />
+    <Content Include="Help\CRM\activity.html" />
+    <Content Include="Help\CRM\basicdata.html" />
+    <Content Include="Help\CRM\commodity.html" />
+    <Content Include="Help\CRM\contact.html" />
+    <Content Include="Help\CRM\Contract.html" />
+    <Content Include="Help\CRM\ContractModify.html" />
+    <Content Include="Help\CRM\ContractPaymentRequest.html" />
+    <Content Include="Help\CRM\css\style.css" />
+    <Content Include="Help\CRM\customers.html" />
+    <Content Include="Help\CRM\dispatchnote.html" />
+    <Content Include="Help\CRM\employeeTransfer.html" />
+    <Content Include="Help\CRM\EvectionApply.html" />
+    <Content Include="Help\CRM\ExpenseApply.html" />
+    <Content Include="Help\CRM\ExpReimbursement.html" />
+    <Content Include="Help\CRM\images\ck-x1-1.gif" />
+    <Content Include="Help\CRM\images\ck-x1-2.gif" />
+    <Content Include="Help\CRM\images\ck-x1-3.gif" />
+    <Content Include="Help\CRM\images\ck-x10-1.gif" />
+    <Content Include="Help\CRM\images\ck-x10-2.gif" />
+    <Content Include="Help\CRM\images\ck-x10-3.gif" />
+    <Content Include="Help\CRM\images\ck-x10-4.gif" />
+    <Content Include="Help\CRM\images\ck-x10-5.gif" />
+    <Content Include="Help\CRM\images\ck-x11-1.gif" />
+    <Content Include="Help\CRM\images\ck-x11-3.gif" />
+    <Content Include="Help\CRM\images\ck-x12-1.gif" />
+    <Content Include="Help\CRM\images\ck-x12-2.gif" />
+    <Content Include="Help\CRM\images\ck-x12-3.gif" />
+    <Content Include="Help\CRM\images\ck-x13-1.gif" />
+    <Content Include="Help\CRM\images\ck-x13-2.gif" />
+    <Content Include="Help\CRM\images\ck-x13-3.gif" />
+    <Content Include="Help\CRM\images\ck-x14-1.gif" />
+    <Content Include="Help\CRM\images\ck-x14-2.gif" />
+    <Content Include="Help\CRM\images\ck-x14-3.gif" />
+    <Content Include="Help\CRM\images\ck-x15-1.gif" />
+    <Content Include="Help\CRM\images\ck-x15-2.gif" />
+    <Content Include="Help\CRM\images\ck-x15-3.gif" />
+    <Content Include="Help\CRM\images\ck-x15-4.gif" />
+    <Content Include="Help\CRM\images\ck-x15-5.gif" />
+    <Content Include="Help\CRM\images\ck-x15-6.gif" />
+    <Content Include="Help\CRM\images\ck-x16-1.gif" />
+    <Content Include="Help\CRM\images\ck-x16-2.gif" />
+    <Content Include="Help\CRM\images\ck-x16-3.gif" />
+    <Content Include="Help\CRM\images\ck-x17-1.gif" />
+    <Content Include="Help\CRM\images\ck-x17-2.gif" />
+    <Content Include="Help\CRM\images\ck-x17-3.gif" />
+    <Content Include="Help\CRM\images\ck-x17-4.gif" />
+    <Content Include="Help\CRM\images\ck-x18-1.gif" />
+    <Content Include="Help\CRM\images\ck-x18-2.gif" />
+    <Content Include="Help\CRM\images\ck-x18-3.gif" />
+    <Content Include="Help\CRM\images\ck-x2-1.gif" />
+    <Content Include="Help\CRM\images\ck-x2-2.gif" />
+    <Content Include="Help\CRM\images\ck-x2-3.gif" />
+    <Content Include="Help\CRM\images\ck-x3-1.gif" />
+    <Content Include="Help\CRM\images\ck-x3-2.gif" />
+    <Content Include="Help\CRM\images\ck-x3-3.gif" />
+    <Content Include="Help\CRM\images\ck-x5-1.gif" />
+    <Content Include="Help\CRM\images\ck-x5-2.gif" />
+    <Content Include="Help\CRM\images\ck-x5-3.gif" />
+    <Content Include="Help\CRM\images\ck-x6-1.gif" />
+    <Content Include="Help\CRM\images\ck-x6-2.gif" />
+    <Content Include="Help\CRM\images\ck-x6-3.gif" />
+    <Content Include="Help\CRM\images\ck-x6-4.gif" />
+    <Content Include="Help\CRM\images\ck-x7-1.gif" />
+    <Content Include="Help\CRM\images\ck-x7-2.gif" />
+    <Content Include="Help\CRM\images\ck-x8-1.gif" />
+    <Content Include="Help\CRM\images\ck-x8-2.gif" />
+    <Content Include="Help\CRM\images\ck-x8-3.gif" />
+    <Content Include="Help\CRM\images\ck-x9-1.gif" />
+    <Content Include="Help\CRM\images\ck-x9-2.gif" />
+    <Content Include="Help\CRM\images\ck-x9-3.gif" />
+    <Content Include="Help\CRM\images\ck-x9-4.gif" />
+    <Content Include="Help\CRM\images\image001.gif" />
+    <Content Include="Help\CRM\images\image002.gif" />
+    <Content Include="Help\CRM\images\login.gif" />
+    <Content Include="Help\CRM\images\shou.gif" />
+    <Content Include="Help\CRM\images\y_10.gif" />
+    <Content Include="Help\CRM\js\js_treeview.js" />
+    <Content Include="Help\CRM\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\CRM\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\I.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\L.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\T.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\CRM\js\treeViewImages\treeview.css" />
+    <Content Include="Help\CRM\Mapping.html" />
+    <Content Include="Help\CRM\Opportunity.html" />
+    <Content Include="Help\CRM\TravelExp.html" />
+    <Content Include="Help\CRM\unit.html" />
+    <Content Include="Help\css\style.css" />
+    <Content Include="Help\images\ck-cx1-1.gif" />
+    <Content Include="Help\images\ck-cx1-2.gif" />
+    <Content Include="Help\images\ck-cx1-3.gif" />
+    <Content Include="Help\images\ck-cx1-4.gif" />
+    <Content Include="Help\images\ck-dy-1.gif" />
+    <Content Include="Help\images\ck-dy-2.gif" />
+    <Content Include="Help\images\ck-fayun-bian.gif" />
+    <Content Include="Help\images\ck-fayun-zeng.gif" />
+    <Content Include="Help\images\ck-gjcx-1.gif" />
+    <Content Include="Help\images\ck-gjcx-2.gif" />
+    <Content Include="Help\images\ck-gjcx-3.gif" />
+    <Content Include="Help\images\ck-gjcx-4.gif" />
+    <Content Include="Help\images\ck-gjcx-5.gif" />
+    <Content Include="Help\images\ck-gjcx-6.gif" />
+    <Content Include="Help\images\ck-hsz-1.gif" />
+    <Content Include="Help\images\ck-hsz-2.gif" />
+    <Content Include="Help\images\ck-jt-1.gif" />
+    <Content Include="Help\images\ck-jt-2.gif" />
+    <Content Include="Help\images\ck-jt-3.gif" />
+    <Content Include="Help\images\ck-ss-1.gif" />
+    <Content Include="Help\images\ck-ss-2.gif" />
+    <Content Include="Help\images\ck-ss-3.gif" />
+    <Content Include="Help\images\ck-xt1-1.gif" />
+    <Content Include="Help\images\ck-xt1-2.gif" />
+    <Content Include="Help\images\ck-xt1-3.gif" />
+    <Content Include="Help\images\ck-xt1-4.gif" />
+    <Content Include="Help\images\ck-xt1-5.gif" />
+    <Content Include="Help\images\ck-xt2-1.gif" />
+    <Content Include="Help\images\ck-xt2-2.gif" />
+    <Content Include="Help\images\ck-xt2-3.gif" />
+    <Content Include="Help\images\ck-xt2-4.gif" />
+    <Content Include="Help\images\ck-xt3-1.gif" />
+    <Content Include="Help\images\ck-xt3-2.gif" />
+    <Content Include="Help\images\ck-xt3-3.gif" />
+    <Content Include="Help\images\ck-xt4-1.gif" />
+    <Content Include="Help\images\ck-xt5-1.gif" />
+    <Content Include="Help\images\image001.gif" />
+    <Content Include="Help\images\image002.gif" />
+    <Content Include="Help\images\login.gif" />
+    <Content Include="Help\images\y_10.gif" />
+    <Content Include="Help\img\help.gif" />
+    <Content Include="Help\img\tanhao.gif" />
+    <Content Include="Help\img\tanhao1.gif" />
+    <Content Include="Help\img\tanhao2.gif" />
+    <Content Include="Help\img\tanhao3.gif" />
+    <Content Include="Help\img\tanhao4.gif" />
+    <Content Include="Help\img\wenhao.gif" />
+    <Content Include="Help\img\wenhao1.gif" />
+    <Content Include="Help\img\wenhao2.gif" />
+    <Content Include="Help\img\wenhao3.gif" />
+    <Content Include="Help\img\wenhao4.gif" />
+    <Content Include="Help\index.html" />
+    <Content Include="Help\js\js_treeview.js" />
+    <Content Include="Help\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\js\treeViewImages\I.gif" />
+    <Content Include="Help\js\treeViewImages\L.gif" />
+    <Content Include="Help\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\js\treeViewImages\T.gif" />
+    <Content Include="Help\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\js\treeViewImages\treeview.css" />
+    <Content Include="Help\left.html" />
+    <Content Include="Help\manager\BillNumber.html" />
+    <Content Include="Help\manager\commodityclass.html" />
+    <Content Include="Help\manager\css\style.css" />
+    <Content Include="Help\manager\images\ck-sj3-1.gif" />
+    <Content Include="Help\manager\images\ck-sj3-2.gif" />
+    <Content Include="Help\manager\images\ck-sj3-3.gif" />
+    <Content Include="Help\manager\images\ck-sj3-4.gif" />
+    <Content Include="Help\manager\images\ck-sj4-1.gif" />
+    <Content Include="Help\manager\images\ck-sj4-2.gif" />
+    <Content Include="Help\manager\images\ck-sj4-3.gif" />
+    <Content Include="Help\manager\images\ck-sj4-4.gif" />
+    <Content Include="Help\manager\images\ck-sj5-1.gif" />
+    <Content Include="Help\manager\images\ck-sj5-2.gif" />
+    <Content Include="Help\manager\images\ck-sj5-3.gif" />
+    <Content Include="Help\manager\images\ck-sj5-4.gif" />
+    <Content Include="Help\manager\images\ck-sj6-1.gif" />
+    <Content Include="Help\manager\images\ck-sj6-2.gif" />
+    <Content Include="Help\manager\images\ck-sj6-3.gif" />
+    <Content Include="Help\manager\images\ck-sj7-1.gif" />
+    <Content Include="Help\manager\images\ck-sj7-2.gif" />
+    <Content Include="Help\manager\images\ck-sj7-3.gif" />
+    <Content Include="Help\manager\images\ck-sj7-4.gif" />
+    <Content Include="Help\manager\images\ck-sj8-1.gif" />
+    <Content Include="Help\manager\images\ck-sj8-2.gif" />
+    <Content Include="Help\manager\images\ck-sj8-3.gif" />
+    <Content Include="Help\manager\images\ck-x2-1.gif" />
+    <Content Include="Help\manager\images\ck-x2-2.gif" />
+    <Content Include="Help\manager\images\ck-x2-3.gif" />
+    <Content Include="Help\manager\images\ck-xt1-1.gif" />
+    <Content Include="Help\manager\images\ck-xt1-2.gif" />
+    <Content Include="Help\manager\images\ck-xt1-3.gif" />
+    <Content Include="Help\manager\images\ck-xt1-4.gif" />
+    <Content Include="Help\manager\images\ck-xt1-5.gif" />
+    <Content Include="Help\manager\images\ck-xt2-1.gif" />
+    <Content Include="Help\manager\images\ck-xt2-2.gif" />
+    <Content Include="Help\manager\images\ck-xt2-3.gif" />
+    <Content Include="Help\manager\images\ck-xt2-4.gif" />
+    <Content Include="Help\manager\images\image001.gif" />
+    <Content Include="Help\manager\images\image002.gif" />
+    <Content Include="Help\manager\images\login.gif" />
+    <Content Include="Help\manager\images\shou.gif" />
+    <Content Include="Help\manager\images\y_10.gif" />
+    <Content Include="Help\manager\js\js_treeview.js" />
+    <Content Include="Help\manager\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\manager\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\manager\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\manager\js\treeViewImages\I.gif" />
+    <Content Include="Help\manager\js\treeViewImages\L.gif" />
+    <Content Include="Help\manager\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\manager\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\manager\js\treeViewImages\T.gif" />
+    <Content Include="Help\manager\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\manager\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\manager\js\treeViewImages\treeview.css" />
+    <Content Include="Help\manager\officeworker.html" />
+    <Content Include="Help\manager\organization.html" />
+    <Content Include="Help\manager\region.html" />
+    <Content Include="Help\manager\role.html" />
+    <Content Include="Help\manager\systemdirectory.html" />
+    <Content Include="Help\manager\systemmodel.html" />
+    <Content Include="Help\Public\Advanced_query.html" />
+    <Content Include="Help\Public\css\style.css" />
+    <Content Include="Help\Public\images\ck-cx1-1.gif" />
+    <Content Include="Help\Public\images\ck-cx1-2.gif" />
+    <Content Include="Help\Public\images\ck-cx1-3.gif" />
+    <Content Include="Help\Public\images\ck-cx1-4.gif" />
+    <Content Include="Help\Public\images\ck-dy-1.gif" />
+    <Content Include="Help\Public\images\ck-dy-2.gif" />
+    <Content Include="Help\Public\images\ck-gjcx-1.gif" />
+    <Content Include="Help\Public\images\ck-gjcx-2.gif" />
+    <Content Include="Help\Public\images\ck-gjcx-3.gif" />
+    <Content Include="Help\Public\images\ck-gjcx-4.gif" />
+    <Content Include="Help\Public\images\ck-gjcx-5.gif" />
+    <Content Include="Help\Public\images\ck-gjcx-6.gif" />
+    <Content Include="Help\Public\images\ck-hsz-1.gif" />
+    <Content Include="Help\Public\images\ck-hsz-2.gif" />
+    <Content Include="Help\Public\images\ck-jt-1.gif" />
+    <Content Include="Help\Public\images\image001.gif" />
+    <Content Include="Help\Public\images\image002.gif" />
+    <Content Include="Help\Public\images\login.gif" />
+    <Content Include="Help\Public\images\shou.gif" />
+    <Content Include="Help\Public\images\y_10.gif" />
+    <Content Include="Help\Public\js\js_treeview.js" />
+    <Content Include="Help\Public\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\Public\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\Public\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\Public\js\treeViewImages\I.gif" />
+    <Content Include="Help\Public\js\treeViewImages\L.gif" />
+    <Content Include="Help\Public\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\Public\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\Public\js\treeViewImages\T.gif" />
+    <Content Include="Help\Public\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\Public\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\Public\js\treeViewImages\treeview.css" />
+    <Content Include="Help\Public\Print.html" />
+    <Content Include="Help\Public\Query.html" />
+    <Content Include="Help\Public\RecycleBin.html" />
+    <Content Include="Help\PUR\commodity.html" />
+    <Content Include="Help\PUR\css\style.css" />
+    <Content Include="Help\PUR\images\ck-cg1-1.gif" />
+    <Content Include="Help\PUR\images\ck-cg1-2.gif" />
+    <Content Include="Help\PUR\images\ck-cg1-3.gif" />
+    <Content Include="Help\PUR\images\ck-cg3-1.gif" />
+    <Content Include="Help\PUR\images\ck-cg3-2.gif" />
+    <Content Include="Help\PUR\images\ck-cg3-3.gif" />
+    <Content Include="Help\PUR\images\ck-cg3-4.gif" />
+    <Content Include="Help\PUR\images\ck-cg4-1.gif" />
+    <Content Include="Help\PUR\images\ck-cg4-2.gif" />
+    <Content Include="Help\PUR\images\ck-cg4-3.gif" />
+    <Content Include="Help\PUR\images\ck-cg4-4.gif" />
+    <Content Include="Help\PUR\images\ck-cg4-5.gif" />
+    <Content Include="Help\PUR\images\ck-cg4-6.gif" />
+    <Content Include="Help\PUR\images\ck-cg5-1.gif" />
+    <Content Include="Help\PUR\images\ck-cg5-2.gif" />
+    <Content Include="Help\PUR\images\ck-cg5-3.gif" />
+    <Content Include="Help\PUR\images\image001.gif" />
+    <Content Include="Help\PUR\images\image002.gif" />
+    <Content Include="Help\PUR\images\login.gif" />
+    <Content Include="Help\PUR\images\y_10.gif" />
+    <Content Include="Help\PUR\js\js_treeview.js" />
+    <Content Include="Help\PUR\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\PUR\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\I.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\L.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\T.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\PUR\js\treeViewImages\treeview.css" />
+    <Content Include="Help\PUR\purchasecontract.html" />
+    <Content Include="Help\PUR\purchaseorder.html" />
+    <Content Include="Help\PUR\purchaserequisition.html" />
+    <Content Include="Help\top.html" />
+    <Content Include="Help\WMS\Acctrue\AcctrueProduceOrder.html" />
+    <Content Include="Help\WMS\Acctrue\AcctrueProductionPlan.html" />
+    <Content Include="Help\WMS\Acctrue\AcctrueUnPurchaseOrder.html" />
+    <Content Include="Help\WMS\Acctrue\CrudeMaterials.html" />
+    <Content Include="Help\WMS\Acctrue\css\style.css" />
+    <Content Include="Help\WMS\Acctrue\FinishMaterials.html" />
+    <Content Include="Help\WMS\Acctrue\images\ck-10-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-10-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-10-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-12-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-12-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-12-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-12-4.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-12-5.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-17-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-17-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-17-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-6-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-6-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-6-4.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-7-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-7-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-7-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-8-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-8-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-8-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-8-4.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-9-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-9-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-9-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-9-4.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-9-5.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-lc-10.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-lc-11.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-lc-4.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-lc-5.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-lc-6.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-lc-7.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-lc-9.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-r8-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-r8-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-r8-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-r8-4.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-r8-5.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-r8-6.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-zx1-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-zx1-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-zx1-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-zx2-1.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-zx2-2.gif" />
+    <Content Include="Help\WMS\Acctrue\images\ck-zx2-3.gif" />
+    <Content Include="Help\WMS\Acctrue\images\image001.gif" />
+    <Content Include="Help\WMS\Acctrue\images\image002.gif" />
+    <Content Include="Help\WMS\Acctrue\images\login.gif" />
+    <Content Include="Help\WMS\Acctrue\images\y_10.gif" />
+    <Content Include="Help\WMS\Acctrue\js\js_treeview.js" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\I.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\L.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\T.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\WMS\Acctrue\js\treeViewImages\treeview.css" />
+    <Content Include="Help\WMS\Acctrue\OtherOrder.html" />
+    <Content Include="Help\WMS\Acctrue\SellStockOutOrder.html" />
+    <Content Include="Help\WMS\Acctrue\StockElseInOrder.html" />
+    <Content Include="Help\WMS\Acctrue\StockFinishInOrder.html" />
+    <Content Include="Help\WMS\Acctrue\StockPurchaseInOrder.html" />
+    <Content Include="Help\WMS\Acctrue\复件 StockElselnOrder.html" />
+    <Content Include="Help\WMS\Check\CheckOrder.html" />
+    <Content Include="Help\WMS\Check\css\style.css" />
+    <Content Include="Help\WMS\Check\images\ck-13-1.gif" />
+    <Content Include="Help\WMS\Check\images\ck-13-2.gif" />
+    <Content Include="Help\WMS\Check\images\ck-13-3.gif" />
+    <Content Include="Help\WMS\Check\images\ck-18-1.gif" />
+    <Content Include="Help\WMS\Check\images\ck-18-2.gif" />
+    <Content Include="Help\WMS\Check\images\ck-18-3.gif" />
+    <Content Include="Help\WMS\Check\images\ck-lc-co.gif" />
+    <Content Include="Help\WMS\Check\images\ck-lc-lo.gif" />
+    <Content Include="Help\WMS\Check\images\image001.gif" />
+    <Content Include="Help\WMS\Check\images\image002.gif" />
+    <Content Include="Help\WMS\Check\images\login.gif" />
+    <Content Include="Help\WMS\Check\images\y_10.gif" />
+    <Content Include="Help\WMS\Check\js\js_treeview.js" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\I.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\L.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\T.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\WMS\Check\js\treeViewImages\treeview.css" />
+    <Content Include="Help\WMS\Check\LoanOrder.html" />
+    <Content Include="Help\WMS\Materials\css\style.css" />
+    <Content Include="Help\WMS\Materials\images\ck-15-1.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-16-1.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-16-2.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-16-3.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-19-1.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-19-2.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-19-3.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-2-1.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-2-2.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-2-3.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-2-4.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-2-5.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-2-6.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-3-1.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-3-2.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-3-3.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-3-4.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-cg-3.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-lc-2.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-lc-3.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-lc-kc.gif" />
+    <Content Include="Help\WMS\Materials\images\ck-lc-mo.gif" />
+    <Content Include="Help\WMS\Materials\images\image001.gif" />
+    <Content Include="Help\WMS\Materials\images\image002.gif" />
+    <Content Include="Help\WMS\Materials\images\login.gif" />
+    <Content Include="Help\WMS\Materials\images\y_10.gif" />
+    <Content Include="Help\WMS\Materials\js\js_treeview.js" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\I.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\L.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\T.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\WMS\Materials\js\treeViewImages\treeview.css" />
+    <Content Include="Help\WMS\Materials\Materials.html" />
+    <Content Include="Help\WMS\Materials\MoveOrder.html" />
+    <Content Include="Help\WMS\Materials\PackUnit.html" />
+    <Content Include="Help\WMS\Materials\StockInfo_Materials.html" />
+    <Content Include="Help\WMS\Materials\Unit.html" />
+    <Content Include="Help\WMS\StockOutOrder\css\style.css" />
+    <Content Include="Help\WMS\StockOutOrder\images\ck-11-1.gif" />
+    <Content Include="Help\WMS\StockOutOrder\images\ck-11-2.gif" />
+    <Content Include="Help\WMS\StockOutOrder\images\ck-11-3.gif" />
+    <Content Include="Help\WMS\StockOutOrder\images\ck-lc-12.gif" />
+    <Content Include="Help\WMS\StockOutOrder\images\image001.gif" />
+    <Content Include="Help\WMS\StockOutOrder\images\image002.gif" />
+    <Content Include="Help\WMS\StockOutOrder\images\y_10.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\js_treeview.js" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\I.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\L.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\T.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\WMS\StockOutOrder\js\treeViewImages\treeview.css" />
+    <Content Include="Help\WMS\StockOutOrder\ShippingOrder.html" />
+    <Content Include="Help\WMS\WareHouse\css\style.css" />
+    <Content Include="Help\WMS\WareHouse\images\ck-14-1.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-14-2.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-14-3.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-14-4.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-14-5.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-5-1.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-5-2.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-5-3.gif" />
+    <Content Include="Help\WMS\WareHouse\images\ck-lc-wh.gif" />
+    <Content Include="Help\WMS\WareHouse\images\image001.gif" />
+    <Content Include="Help\WMS\WareHouse\images\image002.gif" />
+    <Content Include="Help\WMS\WareHouse\images\login.gif" />
+    <Content Include="Help\WMS\WareHouse\images\y_10.gif" />
+    <Content Include="Help\WMS\WareHouse\js\js_treeview.js" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\I.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\L.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\T.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\WMS\WareHouse\js\treeViewImages\treeview.css" />
+    <Content Include="Help\WMS\WareHouse\WareHouse.html" />
+    <Content Include="Help\WMS\WMSBasicInfo\css\style.css" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\ck-1-1.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\ck-1-2.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\ck-1-3.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\ck-1-4.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\ck-lc-1.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\image001.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\image002.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\login.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\images\y_10.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\js_treeview.js" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\BLANK.GIF" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\FolderClose.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\FolderOpen.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\I.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\L.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\Lminus.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\Lplus.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\T.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\Tminus.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\Tplus.gif" />
+    <Content Include="Help\WMS\WMSBasicInfo\js\treeViewImages\treeview.css" />
+    <Content Include="Help\WMS\WMSBasicInfo\LogisticsInfo.html" />
+    <Content Include="images\b.jpg" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\m.jpg" />
+    <Content Include="images\t.jpg" />
+    <Content Include="images\tb.jpg" />
+    <Content Include="images\wait.gif" />
+    <Content Include="Interface\K3\Mapping\Commodity.xml" />
+    <Content Include="Interface\K3\Mapping\CustomerClass.xml" />
+    <Content Include="Interface\K3\Mapping\CustomerDetail.xml" />
+    <Content Include="Interface\K3\Mapping\InNotice.xml" />
+    <Content Include="Interface\K3\Mapping\InNoticeMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\OfficeWorker.xml" />
+    <Content Include="Interface\K3\Mapping\Organization.xml" />
+    <Content Include="Interface\K3\Mapping\OutNotice.xml" />
+    <Content Include="Interface\K3\Mapping\OutNoticeMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\ROtherInStock.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Interface\K3\Mapping\ROtherInStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\ROtherOutStock.xml" />
+    <Content Include="Interface\K3\Mapping\ROtherOutStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\RPickOutStock.xml" />
+    <Content Include="Interface\K3\Mapping\RPickOutStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\RProduceInStock.xml" />
+    <Content Include="Interface\K3\Mapping\RProduceInStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\RPurchaseInStock.xml" />
+    <Content Include="Interface\K3\Mapping\RPurchaseInStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\RRedSellOutStock.xml" />
+    <Content Include="Interface\K3\Mapping\RRedSellOutStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\RSellOutStock.xml" />
+    <Content Include="Interface\K3\Mapping\RSellOutStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\RSemInStock.xml" />
+    <Content Include="Interface\K3\Mapping\RSemInStockMaterials.xml" />
+    <Content Include="Interface\K3\Mapping\Stock.xml" />
+    <Content Include="Interface\K3\Mapping\SupplierDetail.xml" />
+    <Content Include="Interface\K3\Mapping\Unit.xml" />
+    <Content Include="Interface\K3\Mapping\CommodityClass.xml" />
+    <Content Include="Interface\K3\Mapping\MappingInfo.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Interface\K3\Mapping\ZDCustomerDetail.xml" />
+    <Content Include="main2.htm" />
+    <Content Include="Print\liantu.png" />
+    <Content Include="Reports\Report_aspx\ReportCommon.aspx" />
+    <Content Include="Reports\Report_htm\ReportCommon.htm" />
+    <Content Include="Scripts\cryptojs\components\aes-min.js" />
+    <Content Include="Scripts\cryptojs\components\aes.js" />
+    <Content Include="Scripts\cryptojs\components\cipher-core-min.js" />
+    <Content Include="Scripts\cryptojs\components\cipher-core.js" />
+    <Content Include="Scripts\cryptojs\components\core-min.js" />
+    <Content Include="Scripts\cryptojs\components\core.js" />
+    <Content Include="Scripts\cryptojs\components\enc-base64-min.js" />
+    <Content Include="Scripts\cryptojs\components\enc-base64.js" />
+    <Content Include="Scripts\cryptojs\components\enc-utf16-min.js" />
+    <Content Include="Scripts\cryptojs\components\enc-utf16.js" />
+    <Content Include="Scripts\cryptojs\components\evpkdf-min.js" />
+    <Content Include="Scripts\cryptojs\components\evpkdf.js" />
+    <Content Include="Scripts\cryptojs\components\format-hex-min.js" />
+    <Content Include="Scripts\cryptojs\components\format-hex.js" />
+    <Content Include="Scripts\cryptojs\components\hmac-min.js" />
+    <Content Include="Scripts\cryptojs\components\hmac.js" />
+    <Content Include="Scripts\cryptojs\components\lib-typedarrays-min.js" />
+    <Content Include="Scripts\cryptojs\components\lib-typedarrays.js" />
+    <Content Include="Scripts\cryptojs\components\md5-min.js" />
+    <Content Include="Scripts\cryptojs\components\md5.js" />
+    <Content Include="Scripts\cryptojs\components\mode-cfb-min.js" />
+    <Content Include="Scripts\cryptojs\components\mode-cfb.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ctr-gladman-min.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ctr-gladman.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ctr-min.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ctr.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ecb-min.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ecb.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ofb-min.js" />
+    <Content Include="Scripts\cryptojs\components\mode-ofb.js" />
+    <Content Include="Scripts\cryptojs\components\pad-ansix923-min.js" />
+    <Content Include="Scripts\cryptojs\components\pad-ansix923.js" />
+    <Content Include="Scripts\cryptojs\components\pad-iso10126-min.js" />
+    <Content Include="Scripts\cryptojs\components\pad-iso10126.js" />
+    <Content Include="Scripts\cryptojs\components\pad-iso97971-min.js" />
+    <Content Include="Scripts\cryptojs\components\pad-iso97971.js" />
+    <Content Include="Scripts\cryptojs\components\pad-nopadding-min.js" />
+    <Content Include="Scripts\cryptojs\components\pad-nopadding.js" />
+    <Content Include="Scripts\cryptojs\components\pad-zeropadding-min.js" />
+    <Content Include="Scripts\cryptojs\components\pad-zeropadding.js" />
+    <Content Include="Scripts\cryptojs\components\pbkdf2-min.js" />
+    <Content Include="Scripts\cryptojs\components\pbkdf2.js" />
+    <Content Include="Scripts\cryptojs\components\rabbit-legacy-min.js" />
+    <Content Include="Scripts\cryptojs\components\rabbit-legacy.js" />
+    <Content Include="Scripts\cryptojs\components\rabbit-min.js" />
+    <Content Include="Scripts\cryptojs\components\rabbit.js" />
+    <Content Include="Scripts\cryptojs\components\rc4-min.js" />
+    <Content Include="Scripts\cryptojs\components\rc4.js" />
+    <Content Include="Scripts\cryptojs\components\ripemd160-min.js" />
+    <Content Include="Scripts\cryptojs\components\ripemd160.js" />
+    <Content Include="Scripts\cryptojs\components\sha1-min.js" />
+    <Content Include="Scripts\cryptojs\components\sha1.js" />
+    <Content Include="Scripts\cryptojs\components\sha224-min.js" />
+    <Content Include="Scripts\cryptojs\components\sha224.js" />
+    <Content Include="Scripts\cryptojs\components\sha256-min.js" />
+    <Content Include="Scripts\cryptojs\components\sha256.js" />
+    <Content Include="Scripts\cryptojs\components\sha3-min.js" />
+    <Content Include="Scripts\cryptojs\components\sha3.js" />
+    <Content Include="Scripts\cryptojs\components\sha384-min.js" />
+    <Content Include="Scripts\cryptojs\components\sha384.js" />
+    <Content Include="Scripts\cryptojs\components\sha512-min.js" />
+    <Content Include="Scripts\cryptojs\components\sha512.js" />
+    <Content Include="Scripts\cryptojs\components\tripledes-min.js" />
+    <Content Include="Scripts\cryptojs\components\tripledes.js" />
+    <Content Include="Scripts\cryptojs\components\x64-core-min.js" />
+    <Content Include="Scripts\cryptojs\components\x64-core.js" />
+    <Content Include="Scripts\cryptojs\rollups\aes.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-md5.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-ripemd160.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-sha1.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-sha224.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-sha256.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-sha3.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-sha384.js" />
+    <Content Include="Scripts\cryptojs\rollups\hmac-sha512.js" />
+    <Content Include="Scripts\cryptojs\rollups\md5.js" />
+    <Content Include="Scripts\cryptojs\rollups\pbkdf2.js" />
+    <Content Include="Scripts\cryptojs\rollups\rabbit-legacy.js" />
+    <Content Include="Scripts\cryptojs\rollups\rabbit.js" />
+    <Content Include="Scripts\cryptojs\rollups\rc4.js" />
+    <Content Include="Scripts\cryptojs\rollups\ripemd160.js" />
+    <Content Include="Scripts\cryptojs\rollups\sha1.js" />
+    <Content Include="Scripts\cryptojs\rollups\sha224.js" />
+    <Content Include="Scripts\cryptojs\rollups\sha256.js" />
+    <Content Include="Scripts\cryptojs\rollups\sha3.js" />
+    <Content Include="Scripts\cryptojs\rollups\sha384.js" />
+    <Content Include="Scripts\cryptojs\rollups\sha512.js" />
+    <Content Include="Scripts\cryptojs\rollups\tripledes.js" />
+    <Content Include="Scripts\jquery-1.3\changelog.txt" />
+    <Content Include="Scripts\jquery-1.3\demo\accordion.html" />
+    <Content Include="Scripts\jquery-1.3\demo\calendar.html" />
+    <Content Include="Scripts\jquery-1.3\demo\combo.html" />
+    <Content Include="Scripts\jquery-1.3\demo\combobox.html" />
+    <Content Include="Scripts\jquery-1.3\demo\combogrid.html" />
+    <Content Include="Scripts\jquery-1.3\demo\combotree.html" />
+    <Content Include="Scripts\jquery-1.3\demo\datagrid.html" />
+    <Content Include="Scripts\jquery-1.3\demo\datagrid2.html" />
+    <Content Include="Scripts\jquery-1.3\demo\datagrid3.html" />
+    <Content Include="Scripts\jquery-1.3\demo\datagrid4.html" />
+    <Content Include="Scripts\jquery-1.3\demo\datagrid5.html" />
+    <Content Include="Scripts\jquery-1.3\demo\datebox.html" />
+    <Content Include="Scripts\jquery-1.3\demo\datetimebox.html" />
+    <Content Include="Scripts\jquery-1.3\demo\demo.css" />
+    <Content Include="Scripts\jquery-1.3\demo\dialog.html" />
+    <Content Include="Scripts\jquery-1.3\demo\draggable.html" />
+    <Content Include="Scripts\jquery-1.3\demo\droppable.html" />
+    <Content Include="Scripts\jquery-1.3\demo\droppable1.html" />
+    <Content Include="Scripts\jquery-1.3\demo\droppable2.html" />
+    <Content Include="Scripts\jquery-1.3\demo\easyloader.html" />
+    <Content Include="Scripts\jquery-1.3\demo\form.html" />
+    <Content Include="Scripts\jquery-1.3\demo\layout.html" />
+    <Content Include="Scripts\jquery-1.3\demo\layout1.html" />
+    <Content Include="Scripts\jquery-1.3\demo\layout2.html" />
+    <Content Include="Scripts\jquery-1.3\demo\linkbutton.html" />
+    <Content Include="Scripts\jquery-1.3\demo\menu.html" />
+    <Content Include="Scripts\jquery-1.3\demo\menubutton.html" />
+    <Content Include="Scripts\jquery-1.3\demo\messager.html" />
+    <Content Include="Scripts\jquery-1.3\demo\numberbox.html" />
+    <Content Include="Scripts\jquery-1.3\demo\numberbox2.html" />
+    <Content Include="Scripts\jquery-1.3\demo\numberspinner.html" />
+    <Content Include="Scripts\jquery-1.3\demo\pagination.html" />
+    <Content Include="Scripts\jquery-1.3\demo\panel.html" />
+    <Content Include="Scripts\jquery-1.3\demo\panel2.html" />
+    <Content Include="Scripts\jquery-1.3\demo\progressbar.html" />
+    <Content Include="Scripts\jquery-1.3\demo\propertygrid.html" />
+    <Content Include="Scripts\jquery-1.3\demo\resizable.html" />
+    <Content Include="Scripts\jquery-1.3\demo\searchbox.html" />
+    <Content Include="Scripts\jquery-1.3\demo\slider.html" />
+    <Content Include="Scripts\jquery-1.3\demo\splitbutton.html" />
+    <Content Include="Scripts\jquery-1.3\demo\tabs.html" />
+    <Content Include="Scripts\jquery-1.3\demo\tabs_href_test.html" />
+    <Content Include="Scripts\jquery-1.3\demo\timespinner.html" />
+    <Content Include="Scripts\jquery-1.3\demo\tree.html" />
+    <Content Include="Scripts\jquery-1.3\demo\tree2.html" />
+    <Content Include="Scripts\jquery-1.3\demo\treegrid.html" />
+    <Content Include="Scripts\jquery-1.3\demo\treegrid2.html" />
+    <Content Include="Scripts\jquery-1.3\demo\treegrid3.html" />
+    <Content Include="Scripts\jquery-1.3\demo\validatebox.html" />
+    <Content Include="Scripts\jquery-1.3\demo\window.html" />
+    <Content Include="Scripts\jquery-1.3\easyloader.js" />
+    <Content Include="Scripts\jquery-1.3\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\jquery-1.3\jquery.easyui.min.js" />
+    <Content Include="Scripts\jquery-1.3\licence_gpl.txt" />
+    <Content Include="Scripts\jquery-1.3\license_commercial.txt" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-af.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-bg.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-ca.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-cs.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-cz.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-da.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-de.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-en.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-es.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-fr.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-nl.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-pt_BR.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-ru.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-tr.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-zh_CN.js" />
+    <Content Include="Scripts\jquery-1.3\locale\easyui-lang-zh_TW.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.accordion.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.calendar.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.combo.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.combobox.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.combogrid.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.combotree.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.datagrid.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.datebox.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.datetimebox.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.dialog.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.draggable.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.droppable.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.form.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.layout.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.linkbutton.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.menu.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.menubutton.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.messager.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.numberbox.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.numberspinner.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.pagination.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.panel.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.parser.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.progressbar.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.propertygrid.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.resizable.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.searchbox.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.slider.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.spinner.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.splitbutton.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.tabs.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.timespinner.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.tree.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.treegrid.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.validatebox.js" />
+    <Content Include="Scripts\jquery-1.3\plugins\jquery.window.js" />
+    <Content Include="Scripts\jquery-1.3\readme.txt" />
+    <Content Include="Scripts\jquery-1.3\themes\black\accordion.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\calendar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\combo.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\combobox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\datagrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\datebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\dialog.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\easyui.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\accordion_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\blank.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\calendar_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\combo_arrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\datagrid_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\datebox_arrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\layout_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\linkbutton_bg.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\menu_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\messager_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\pagination_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\panel_tools.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\searchbox_button.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\slider_handle.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\spinner_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\tabs_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\tree_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\validatebox_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\images\validatebox_warning.png" />
+    <Content Include="Scripts\jquery-1.3\themes\black\layout.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\linkbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\menu.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\menubutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\messager.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\pagination.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\panel.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\progressbar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\propertygrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\searchbox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\slider.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\spinner.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\splitbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\tabs.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\tree.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\validatebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\black\window.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\accordion.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\calendar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\combo.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\combobox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\datagrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\datebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\dialog.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\easyui.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\accordion_collapse.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\accordion_expand.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\blank.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\button_a_bg.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\button_plain_hover.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\button_span_bg.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\calendar_nextmonth.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\calendar_nextyear.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\calendar_prevmonth.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\calendar_prevyear.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\combo_arrow.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\datagrid_header_bg.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\datagrid_row_collapse.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\datagrid_row_expand.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\datagrid_sort_asc.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\datagrid_sort_desc.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\datagrid_title_bg.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\datebox_arrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\layout_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\menu.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\menu_downarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\menu_rightarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\menu_sep.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\menu_split_downarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\messager_error.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\messager_info.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\messager_question.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\messager_warning.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\pagination_first.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\pagination_last.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\pagination_load.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\pagination_loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\pagination_next.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\pagination_prev.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\panel_loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\panel_title.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\panel_tools.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\panel_tool_collapse.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\panel_tool_expand.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\searchbox_button.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\slider_handle.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\spinner_arrow_down.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\spinner_arrow_up.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tabs_active.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tabs_close.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tabs_enabled.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tabs_leftarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tabs_rightarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_arrows.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_checkbox_0.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_checkbox_1.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_checkbox_2.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_dnd_no.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_dnd_yes.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_elbow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_file.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_folder.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_folder_open.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\tree_loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\validatebox_pointer.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\default\images\validatebox_warning.png" />
+    <Content Include="Scripts\jquery-1.3\themes\default\layout.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\linkbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\menu.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\menubutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\messager.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\pagination.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\panel.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\progressbar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\propertygrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\searchbox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\slider.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\spinner.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\splitbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\tabs.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\tree.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\validatebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\default\window.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\accordion.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\calendar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\combo.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\combobox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\datagrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\datebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\dialog.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\easyui.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\accordion_collapse.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\accordion_expand.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\blank.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\button_a_bg.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\button_plain_hover.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\button_span_bg.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\calendar_nextmonth.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\calendar_nextyear.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\calendar_prevmonth.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\calendar_prevyear.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\combo_arrow.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\datagrid_header_bg.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\datagrid_row_collapse.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\datagrid_row_expand.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\datagrid_sort_asc.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\datagrid_sort_desc.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\datagrid_title_bg.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\datebox_arrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\layout_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\menu.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\menu_downarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\menu_rightarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\menu_sep.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\menu_split_downarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\messager_error.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\messager_info.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\messager_question.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\messager_warning.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\pagination_first.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\pagination_last.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\pagination_load.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\pagination_loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\pagination_next.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\pagination_prev.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\panel_loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\panel_title.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\panel_tools.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\panel_tool_collapse.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\panel_tool_expand.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\searchbox_button.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\slider_handle.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\spinner_arrow_down.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\spinner_arrow_up.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tabs_close.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tabs_enabled.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tabs_leftarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tabs_rightarrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_arrows.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_checkbox_0.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_checkbox_1.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_checkbox_2.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_dnd_no.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_dnd_yes.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_elbow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_file.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_folder.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_folder_open.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\tree_loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\validatebox_pointer.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\images\validatebox_warning.png" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\layout.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\linkbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\menu.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\menubutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\messager.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\pagination.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\panel.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\progressbar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\propertygrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\searchbox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\slider.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\spinner.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\splitbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\tabs.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\tree.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\validatebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\gray\window.css" />
+    <Content Include="Scripts\jquery-1.3\themes\icon.css" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\back.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\blank.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\cancel.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\cut.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\down.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\edit_add.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\edit_remove.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\filesave.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\finish.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\garbage.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\help.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\lock.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\mini_add.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\mini_edit.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\mini_refresh.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\no.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\ok.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\outHouse.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\pencil.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\print.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\pushedDown.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\redo.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\reload.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\search.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\sum.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\tip.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\top.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\undo.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\unlock.png" />
+    <Content Include="Scripts\jquery-1.3\themes\icons\works.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\accordion.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\calendar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\combo.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\combobox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\datagrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\datebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\dialog.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\easyui.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\accordion_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\blank.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\calendar_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\combo_arrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\datagrid_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\datebox_arrow.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\layout_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\linkbutton_bg.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\loading.gif" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\menu_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\messager_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\pagination_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\panel_tools.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\searchbox_button.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\slider_handle.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\spinner_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\tabs_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\tree_icons.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\validatebox_arrows.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\images\validatebox_warning.png" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\layout.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\linkbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\menu.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\menubutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\messager.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\pagination.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\panel.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\progressbar.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\propertygrid.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\searchbox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\slider.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\spinner.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\splitbutton.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\tabs.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\tree.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\validatebox.css" />
+    <Content Include="Scripts\jquery-1.3\themes\metro\window.css" />
+    <Content Include="Scripts\jsbase.js" />
+    <Content Include="Scripts\store\store.js" />
+    <Content Include="Scripts\store\test.html" />
+    <Content Include="Scripts\upload\demo.html" />
+    <Content Include="Scripts\upload\jquery.upload.js" />
+    <Content Include="Scripts\webcam\codeScan.js" />
+    <Content Include="Scripts\webcam\framework_4.0.0.14159.swf" />
+    <Content Include="Scripts\webcam\history\history.css" />
+    <Content Include="Scripts\webcam\history\history.js" />
+    <Content Include="Scripts\webcam\history\historyFrame.html" />
+    <Content Include="Scripts\webcam\osmf_flex.4.0.0.13495.swf" />
+    <Content Include="Scripts\webcam\playerProductInstall.swf" />
+    <Content Include="Scripts\webcam\rpc_4.0.0.14159.swf" />
+    <Content Include="Scripts\webcam\sparkskins_4.0.0.14159.swf" />
+    <Content Include="Scripts\webcam\spark_4.0.0.14159.swf" />
+    <Content Include="Scripts\webcam\textLayout_1.0.0.595.swf" />
+    <Content Include="Scripts\webcam\webscan.js" />
+    <Content Include="Scripts\webcam\zxing_client.html" />
+    <Content Include="Scripts\webcam\zxing_client.swf" />
+    <Content Include="Scripts\webcontrols\AdvancedSearch.js" />
+    <Content Include="Scripts\webcontrols\datagrid.js" />
+    <Content Include="Scripts\webcontrols\datasource.js" />
+    <Content Include="Scripts\webcontrols\demo.css" />
+    <Content Include="Scripts\webcontrols\detailview.js" />
+    <Content Include="Scripts\webcontrols\form.js" />
+    <Content Include="Scripts\webcontrols\gridedit.js" />
+    <Content Include="Scripts\webcontrols\jquery.datagrid.detailview.js" />
+    <Content Include="Scripts\webcontrols\jquery.datagrid.editors.js" />
+    <Content Include="Scripts\webcontrols\jquery.searchbox.js" />
+    <Content Include="Scripts\webcontrols\jquery.spinnerbox.js" />
+    <Content Include="Scripts\webcontrols\page\singlepage.js" />
+    <Content Include="Scripts\webcontrols\page\treepage.js" />
+    <Content Include="Scripts\webcontrols\reportview.js" />
+    <Content Include="Scripts\webcontrols\report\showpdf.js" />
+    <Content Include="Scripts\webcontrols\searchform.js" />
+    <Content Include="Scripts\webcontrols\textbox.js" />
+    <Content Include="Scripts\webcontrols\tree.js" />
+    <Content Include="Scripts\webcontrols\webcontrol.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\webcontrols\toolstrip.js" />
+    <Content Include="Scripts\webcontrols\childform.js" />
+    <Content Include="SysFiles\Rules\rules.xml" />
+    <Content Include="SysFiles\Startup\Alias.xml" />
+    <Content Include="SysFiles\Startup\Cache.xml" />
+    <Content Include="SysFiles\Startup\Config.xml" />
+    <Content Include="SysFiles\Startup\Modules.xml" />
+    <Content Include="SysFiles\Startup\Session.xml" />
+    <Content Include="Test\1.htm" />
+    <Content Include="Test\2.htm" />
+    <Content Include="Test\4.htm" />
+    <Content Include="Test\datagrid.htm" />
+    <Content Include="Test\datasource.htm" />
+    <Content Include="Test\form.htm" />
+    <Content Include="Test\textbox.htm" />
+    <Content Include="Test\toolstrip.htm" />
+    <Content Include="Test\task.htm" />
+    <Content Include="Test\processstate.htm" />
+    <Content Include="Test\3.htm" />
+    <Content Include="Test\5.htm" />
+    <Content Include="Test\tree.htm" />
+    <Content Include="Views\CRM\activity.htm" />
+    <Content Include="Views\CRM\basicdata.htm" />
+    <Content Include="Views\CRM\commodity.htm" />
+    <Content Include="Views\CRM\Contract.htm" />
+    <Content Include="Views\CRM\ContractModify.htm" />
+    <Content Include="Views\CRM\ContractPaymentRequest.htm" />
+    <Content Include="Views\CRM\customers.htm" />
+    <Content Include="Views\CRM\dispatchnote.htm" />
+    <Content Include="Views\CRM\EvectionApply.htm" />
+    <Content Include="Views\CRM\EvectionApplyPending.htm" />
+    <Content Include="Views\CRM\ExpenseApply.htm" />
+    <Content Include="Views\CRM\ExpenseApplyPending.htm" />
+    <Content Include="Views\CRM\ExpReimbursement.htm" />
+    <Content Include="Views\CRM\ExpReimbursementPending.htm" />
+    <Content Include="Views\CRM\SentNotice.htm" />
+    <Content Include="Views\CRM\TravelExp.htm" />
+    <Content Include="Views\CRM\contact.htm" />
+    <Content Include="Views\CRM\Opportunity.htm" />
+    <Content Include="Views\CRM\TravelExpPending.htm" />
+    <Content Include="Views\K3\DataTransform.htm" />
+    <Content Include="Views\K3\InterfaceLogs.htm" />
+    <Content Include="Views\K3\MappingInfo.htm" />
+    <Content Include="Views\manager\BillNumber.htm" />
+    <Content Include="Views\manager\commodityclass.htm" />
+    <Content Include="Views\manager\DataBackup.htm" />
+    <Content Include="Views\manager\DataInitialize.htm" />
+    <Content Include="Views\manager\Exceldr.htm" />
+    <Content Include="Views\manager\InterfaceTemplate.htm" />
+    <Content Include="Views\manager\MappingInfo.htm" />
+    <Content Include="Views\manager\MobileSet.htm" />
+    <Content Include="Views\manager\observermanage.htm" />
+    <Content Include="Views\manager\organization.htm" />
+    <Content Include="Views\manager\PrintTemplate.htm" />
+    <Content Include="Views\manager\PrintTemplateParm.htm" />
+    <Content Include="Views\manager\region.htm" />
+    <Content Include="Views\manager\officeworker.htm" />
+    <Content Include="Views\manager\role.htm" />
+    <Content Include="Views\manager\systemdirectory.htm" />
+    <Content Include="Views\manager\systemeconfigitems.htm" />
+    <Content Include="Views\manager\systememail.htm" />
+    <Content Include="Views\manager\systemmodel.htm" />
+    <Content Include="Views\CRM\unit.htm" />
+    <Content Include="Views\manager\systemmanager.htm" />
+    <Content Include="Views\manager\systeminfo.htm" />
+    <Content Include="Views\manager\timetask.htm" />
+    <Content Include="Views\manager\InterfaceLog.htm" />
+    <Content Include="Views\WMS\Acctrue\CrudeMaterials.htm" />
+    <Content Include="Views\WMS\Acctrue\FinishMaterials.htm" />
+    <Content Include="Views\WMS\Acctrue\SellStockOutOrder.htm" />
+    <Content Include="Views\WMS\Acctrue\AcctrueUnPurchaseOrder.htm" />
+    <Content Include="Views\WMS\Acctrue\StockElseInOrder.htm" />
+    <Content Include="Views\WMS\Acctrue\StockPurchaseInOrder.htm" />
+    <Content Include="Views\WMS\Acctrue\StockReturnInOrder.htm" />
+    <Content Include="Views\WMS\Acctrue\StockFinishInOrder.htm" />
+    <Content Include="Views\WMS\Acctrue\ProductionPlan.htm" />
+    <Content Include="Views\WMS\Acctrue\OtherOrder.htm" />
+    <Content Include="Views\WMS\Check\CheckOrder.htm" />
+    <Content Include="Views\WMS\Check\LoanOrder.htm" />
+    <Content Include="Views\WMS\Check\Difference.htm" />
+    <Content Include="Views\WMS\Materials\Material_Categories.htm" />
+    <Content Include="Views\WMS\Materials\Materials.htm" />
+    <Content Include="Views\WMS\Materials\MoveOrder.htm" />
+    <Content Include="Views\WMS\Materials\PackUnitRecord.htm" />
+    <Content Include="Views\WMS\Materials\PackUnitMaterials.htm" />
+    <Content Include="Views\WMS\Materials\StockInfoMaterials.htm" />
+    <Content Include="Views\WMS\Materials\Unit.htm" />
+    <Content Include="Views\WMS\Materials\BatchChange.htm" />
+    <Content Include="Views\WMS\Ports\GroupTray.htm" />
+    <Content Include="Views\WMS\Ports\Ports.htm" />
+    <Content Include="Views\WMS\Ports\SetPortRecord.htm" />
+    <Content Include="Views\WMS\Ports\InOutList.htm" />
+    <Content Include="Views\WMS\StockInOrder\StockInOrder.htm" />
+    <Content Include="Views\WMS\StockInOrder\StockInNotice.htm" />
+    <Content Include="Views\WMS\StockInOrder\Sequence.htm" />
+    <Content Include="Views\CRM\StockReturnInOrder.htm" />
+    <Content Include="Views\CRM\StockServiceInOrder.htm" />
+    <Content Include="Views\CRM\StockPurchaseInOrder.htm" />
+    <Content Include="Views\WMS\StockOutOrder\StockOutNotice.htm" />
+    <Content Include="Views\WMS\StockOutOrder\StockOutOrder.htm" />
+    <Content Include="Views\WMS\StockOutOrder\ShippingOrder.htm" />
+    <Content Include="Views\WMS\WareHouse\AutoNextWareHouse.htm" />
+    <Content Include="Views\WMS\WareHouse\InitWHRule.htm" />
+    <Content Include="Views\WMS\WareHouse\test.htm" />
+    <Content Include="Views\WMS\WareHouse\WareHouse.htm" />
+    <Content Include="Views\WMS\WareHouse\WareHouseView.htm" />
+    <Content Include="Views\WMS\WareHouse\XHY_WareHouse.htm" />
+    <Content Include="Views\WMS\WareHouse\AutoCreateMCODE.htm" />
+    <Content Include="Views\WMS\Ports\AutoPorts.htm" />
+    <Content Include="Views\WMS\WMSBasicInfo\CompareSaleArea.htm" />
+    <Content Include="Views\WMS\WMSBasicInfo\LogisticsInfo.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesginManager\BaseDao.cs" />
+    <Compile Include="DesginManager\Print.aspx.cs">
+      <DependentUpon>Print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesginManager\Print.aspx.designer.cs">
+      <DependentUpon>Print.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesginManager\PrintSet.aspx.cs">
+      <DependentUpon>PrintSet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesginManager\PrintSet.aspx.designer.cs">
+      <DependentUpon>PrintSet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesginManager\PrintTemplate.cs" />
+    <Compile Include="DesginManager\PrintTemplateDao.cs" />
+    <Compile Include="DesginManager\SetPrintModel.aspx.cs">
+      <DependentUpon>SetPrintModel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DesginManager\SetPrintModel.aspx.designer.cs">
+      <DependentUpon>SetPrintModel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DesginManager\SqlHelper.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\Report_aspx\ReportCommon.aspx.cs">
+      <DependentUpon>ReportCommon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Report_aspx\ReportCommon.aspx.designer.cs">
+      <DependentUpon>ReportCommon.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DesginManager\ActiveX\.svn\props\" />
+    <Folder Include="DesginManager\ActiveX\.svn\tmp\prop-base\" />
+    <Folder Include="DesginManager\ActiveX\.svn\tmp\props\" />
+    <Folder Include="DesginManager\ActiveX\.svn\tmp\text-base\" />
+    <Folder Include="DesginManager\css\.svn\prop-base\" />
+    <Folder Include="DesginManager\css\.svn\props\" />
+    <Folder Include="DesginManager\css\.svn\tmp\prop-base\" />
+    <Folder Include="DesginManager\css\.svn\tmp\props\" />
+    <Folder Include="DesginManager\css\.svn\tmp\text-base\" />
+    <Folder Include="DesginManager\images\.svn\props\" />
+    <Folder Include="DesginManager\images\.svn\tmp\prop-base\" />
+    <Folder Include="DesginManager\images\.svn\tmp\props\" />
+    <Folder Include="DesginManager\images\.svn\tmp\text-base\" />
+    <Folder Include="DesginManager\js\.svn\prop-base\" />
+    <Folder Include="DesginManager\js\.svn\props\" />
+    <Folder Include="DesginManager\js\.svn\tmp\prop-base\" />
+    <Folder Include="DesginManager\js\.svn\tmp\props\" />
+    <Folder Include="DesginManager\js\.svn\tmp\text-base\" />
+    <Folder Include="DesginManager\tmpFiles\.svn\prop-base\" />
+    <Folder Include="DesginManager\tmpFiles\.svn\props\" />
+    <Folder Include="DesginManager\tmpFiles\.svn\text-base\" />
+    <Folder Include="DesginManager\tmpFiles\.svn\tmp\prop-base\" />
+    <Folder Include="DesginManager\tmpFiles\.svn\tmp\props\" />
+    <Folder Include="DesginManager\tmpFiles\.svn\tmp\text-base\" />
+    <Folder Include="Interface\K3\BackUp\" />
+    <Folder Include="Models\" />
+    <Folder Include="Print\App_Data\" />
+    <Folder Include="SysFiles\Models\" />
+    <Folder Include="SysFiles\PrintTemplate\" />
+    <Folder Include="SysFiles\Templates\" />
+    <Folder Include="Views\WMS\Acctrue\T6\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DesginManager\ActiveX\.svn\entries" />
+    <None Include="DesginManager\ActiveX\.svn\prop-base\Acctrue.Equipment.Print.ActiveXSetup.zip.svn-base" />
+    <None Include="DesginManager\ActiveX\.svn\text-base\Acctrue.Equipment.Print.ActiveXSetup.zip.svn-base" />
+    <Content Include="DesginManager\ActiveX\Acctrue.Equipment.Print.ActiveXSetup.zip" />
+    <None Include="DesginManager\css\.svn\entries" />
+    <None Include="DesginManager\css\.svn\text-base\right.css.svn-base" />
+    <None Include="DesginManager\images\.svn\entries" />
+    <None Include="DesginManager\images\.svn\prop-base\arrow_refresh_small.png.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\bgform_right.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\bg_righttiao.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\document-1-add.png.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_01.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_02.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_03.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_04.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_05.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_06.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_07.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_08.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\list_09.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\pointRight.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\rightbj_01.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\rightbj_02.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\rightbj_03.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\rightbj_04.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\rightbj_05.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\rightbj_06.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\rightbj_07.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_01.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_02.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_03.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_04.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_06.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_07.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_08.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_09.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_big.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\right_jiao.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\prop-base\tools.png.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\arrow_refresh_small.png.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\bgform_right.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\bg_righttiao.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\document-1-add.png.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_01.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_02.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_03.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_04.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_05.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_06.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_07.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_08.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\list_09.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\pointRight.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\rightbj_01.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\rightbj_02.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\rightbj_03.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\rightbj_04.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\rightbj_05.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\rightbj_06.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\rightbj_07.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_01.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_02.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_03.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_04.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_06.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_07.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_08.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_09.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_big.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\right_jiao.gif.svn-base" />
+    <None Include="DesginManager\images\.svn\text-base\tools.png.svn-base" />
+    <None Include="DesginManager\js\.svn\entries" />
+    <None Include="DesginManager\js\.svn\text-base\common.js.svn-base" />
+    <None Include="DesginManager\js\.svn\text-base\right.js.svn-base" />
+    <None Include="DesginManager\tmpFiles\.svn\entries" />
+    <None Include="Help\Admin\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\Admin\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\Admin\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\Admin\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\Admin\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\Admin\js\treeViewImages\CVS\Root" />
+    <None Include="Help\CRM\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\CRM\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\CRM\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\CRM\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\CRM\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\CRM\js\treeViewImages\CVS\Root" />
+    <None Include="Help\manager\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\manager\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\manager\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\manager\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\manager\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\manager\js\treeViewImages\CVS\Root" />
+    <None Include="Help\Public\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\Public\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\Public\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\Public\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\Public\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\Public\js\treeViewImages\CVS\Root" />
+    <None Include="Help\PUR\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\PUR\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\PUR\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\PUR\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\PUR\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\PUR\js\treeViewImages\CVS\Root" />
+    <None Include="Help\WMS\Acctrue\AcctrueProduceOrder.html.bak" />
+    <None Include="Help\WMS\Acctrue\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\WMS\Acctrue\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\WMS\Acctrue\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\WMS\Acctrue\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\WMS\Acctrue\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\WMS\Acctrue\js\treeViewImages\CVS\Root" />
+    <None Include="Help\WMS\Acctrue\SellStockOutOrder.html.bak" />
+    <None Include="Help\WMS\Acctrue\StockElseInOrder.html.bak" />
+    <None Include="Help\WMS\Acctrue\StockFinishInOrder.html.bak" />
+    <None Include="Help\WMS\Acctrue\StockPurchaseInOrder.html.bak" />
+    <None Include="Help\WMS\Check\CheckOrder.html.bak" />
+    <None Include="Help\WMS\Check\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\WMS\Check\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\WMS\Check\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\WMS\Check\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\WMS\Check\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\WMS\Check\js\treeViewImages\CVS\Root" />
+    <None Include="Help\WMS\Check\LoanOrder.html.bak" />
+    <None Include="Help\WMS\Materials\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\WMS\Materials\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\WMS\Materials\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\WMS\Materials\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\WMS\Materials\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\WMS\Materials\js\treeViewImages\CVS\Root" />
+    <None Include="Help\WMS\Materials\Materials.html.bak" />
+    <None Include="Help\WMS\Materials\MoveOrder.html.bak" />
+    <None Include="Help\WMS\Materials\StockInfo_Materials.html.bak" />
+    <None Include="Help\WMS\Materials\Unit.html.bak" />
+    <None Include="Help\WMS\StockOutOrder\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\WMS\StockOutOrder\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\WMS\StockOutOrder\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\WMS\StockOutOrder\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\WMS\StockOutOrder\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\WMS\StockOutOrder\js\treeViewImages\CVS\Root" />
+    <None Include="Help\WMS\StockOutOrder\ShippingOrder.html.bak" />
+    <None Include="Help\WMS\WareHouse\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\WMS\WareHouse\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\WMS\WareHouse\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\WMS\WareHouse\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\WMS\WareHouse\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\WMS\WareHouse\js\treeViewImages\CVS\Root" />
+    <None Include="Help\WMS\WareHouse\WareHouse.html.bak" />
+    <None Include="Help\WMS\WareHouse\WareHouse.html.bak.bak" />
+    <None Include="Help\WMS\WareHouse\WareHouse.html.bak.bak.bak" />
+    <None Include="Help\WMS\WMSBasicInfo\js\treeViewImages\CVS\Entries" />
+    <None Include="Help\WMS\WMSBasicInfo\js\treeViewImages\CVS\Entries.Extra" />
+    <None Include="Help\WMS\WMSBasicInfo\js\treeViewImages\CVS\Entries.Extra.Old" />
+    <None Include="Help\WMS\WMSBasicInfo\js\treeViewImages\CVS\Entries.Old" />
+    <None Include="Help\WMS\WMSBasicInfo\js\treeViewImages\CVS\Repository" />
+    <None Include="Help\WMS\WMSBasicInfo\js\treeViewImages\CVS\Root" />
+    <None Include="Help\WMS\WMSBasicInfo\LogisticsInfo.html.bak" />
+    <None Include="Help\WMS\WMSBasicInfo\LogisticsInfo.html.bak.bak" />
+    <None Include="Properties\PublishProfiles\fubu.pubxml" />
+    <None Include="Scripts\jquery-1.3\demo\combobox_data.json" />
+    <None Include="Scripts\jquery-1.3\demo\datagrid_data.json" />
+    <None Include="Scripts\jquery-1.3\demo\datagrid_data2.json" />
+    <None Include="Scripts\jquery-1.3\demo\datagrid_data3.json" />
+    <None Include="Scripts\jquery-1.3\demo\form_data.json" />
+    <None Include="Scripts\jquery-1.3\demo\propertygrid_data.json" />
+    <None Include="Scripts\jquery-1.3\demo\treegrid_data.json" />
+    <None Include="Scripts\jquery-1.3\demo\treegrid_data2.json" />
+    <None Include="Scripts\jquery-1.3\demo\treegrid_data3.json" />
+    <None Include="Scripts\jquery-1.3\demo\treegrid_subdata.json" />
+    <None Include="Scripts\jquery-1.3\demo\tree_data.json" />
+    <None Include="Scripts\jquery-1.3\themes\black\images\Thumbs.db" />
+    <None Include="Scripts\jquery-1.3\themes\default\images\Thumbs.db" />
+    <None Include="Scripts\jquery-1.3\themes\gray\images\Thumbs.db" />
+    <None Include="Scripts\jquery-1.3\themes\metro\images\Thumbs.db" />
+    <None Include="Scripts\store\LICENSE" />
+    <None Include="Scripts\store\README.md" />
+    <None Include="Scripts\upload\README.md" />
+    <Content Include="Views\WMS\Acctrue\AcctrueProduceOrder.htm" />
+    <Content Include="Views\WMS\XHY\CrudeMaterials.htm" />
+    <Content Include="Views\WMS\XHY\EndowedInNoticeOrder.htm" />
+    <Content Include="Views\WMS\XHY\FinishMaterials.htm" />
+    <Content Include="Views\WMS\XHY\InNoticeOrder.htm" />
+    <Content Include="Views\WMS\XHY\OutOrderNotice.htm" />
+    <Content Include="Views\WMS\XHY\PurCheck.htm" />
+    <Content Include="Views\WMS\XHY\ProduceInNoticeOrder.htm" />
+    <Content Include="Views\WMS\XHY\ProduceOutOrderNotice.htm" />
+    <Content Include="Views\WMS\XHY\ProductionPlan.htm" />
+    <Content Include="Views\WMS\XHY\PurchaseInNoticeOrder.htm" />
+    <Content Include="Views\WMS\XHY\PurchaseInOrder.htm" />
+    <Content Include="Views\WMS\XHY\ProduceInOrder.htm" />
+    <Content Include="Views\WMS\XHY\OtherInOrder.htm" />
+    <Content Include="Views\WMS\XHY\ReturnInNoticeOrder.htm" />
+    <Content Include="Views\WMS\XHY\ReturnInOrder.htm" />
+    <Content Include="Views\WMS\XHY\SellOutOrder.htm" />
+    <Content Include="Views\WMS\XHY\OtherOutOrder.htm" />
+    <Content Include="Views\WMS\XHY\PickOutOrder.htm" />
+    <Content Include="Views\WMS\XHY\SamplingOutOrder.htm" />
+    <Content Include="Views\WMS\XHY\DistributionOutOrder.htm" />
+    <Content Include="Views\WMS\XHY\SellOutOrderNotice.htm" />
+    <Content Include="Views\WMS\XHY\SemMaterials.htm" />
+    <Content Include="Views\WMS\XHY\SemInOrder.htm" />
+    <Content Include="Views\WMS\XHY\ProductCheck.htm" />
+    <Content Include="Views\WMS\XHY\PrintFMCODE.htm" />
+    <Content Include="Views\WMS\XHY\XHY_StockInfoMaterials.htm" />
+    <Content Include="Views\WMS\XHY\ReCheck.htm" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Print\test.rdlc" />
+    <EmbeddedResource Include="Print\StockInNotice.rdlc" />
+    <EmbeddedResource Include="Reports\Report_rdlc\ReportInOrderDetail.rdlc" />
+    <EmbeddedResource Include="Reports\Report_rdlc\ReportInOutOrderDetail.rdlc" />
+    <EmbeddedResource Include="Reports\Report_rdlc\ReportInOutOrderTotal.rdlc" />
+    <EmbeddedResource Include="Reports\Report_rdlc\ReportOutOrderDetail.rdlc" />
+    <EmbeddedResource Include="Test\Report1.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test\InOutOrderList.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Acc.Business.WMS.XHY\Acc.Business.WMS.XHY.csproj">
+      <Project>{6B6A570E-C138-4859-AFFF-9294E5F8FBD3}</Project>
+      <Name>Acc.Business.WMS.XHY</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acc.Business.WMS\Acc.Business.WMS.csproj">
+      <Project>{62EE8722-B05E-4613-AC59-3586A988C815}</Project>
+      <Name>Acc.Business.WMS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>8024</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

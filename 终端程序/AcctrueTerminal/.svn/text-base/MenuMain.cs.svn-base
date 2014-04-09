@@ -1,0 +1,130 @@
+﻿using System;
+
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using AcctrueTerminal.Common;
+
+namespace AcctrueTerminal
+{
+    public partial class MenuMain : Form
+    {
+        private List<LCatalog> Catalog;
+        private List<LModule> Module;
+
+        public MenuMain(List<LCatalog> catalog, List<LModule> module)
+        {
+            InitializeComponent();
+            this.Catalog = catalog;
+            this.Module = module;
+        }
+     
+        private void MenuMain_Load(object sender, EventArgs e)
+        {
+            try
+            {           
+                lv_Catalog.Items.Clear();
+                ListViewItem lvi;
+                for (int i = 0; i < Catalog.Count; i++)
+                {
+                    lvi = new ListViewItem();
+                    lvi.ImageIndex = Catalog[i].ImageIndex;
+                    lvi.Text = Catalog[i].CatalogName;
+                    lv_Catalog.Items.Add(lvi);
+                }
+                if (Catalog.Count > 0)
+                    AssignModule(Catalog[0].ID);
+               
+            }
+            catch (Exception m)
+            {
+                UIHelper.ErrorMsg(m.Message);
+            }
+        }
+
+        private void lv_Module_ItemActivate(object sender, EventArgs e)
+        {
+            try
+            {
+                string ModuleName = lv_Module.FocusedItem.Text;               
+                LModule m = Module.Find(item => item.ModuleName.Equals(ModuleName));
+                string ClassFullName = m.ClassFullName;
+                Type t = null;
+                t = Type.GetType(ClassFullName);
+                Form b = (Form)Activator.CreateInstance(t);
+                b.Owner = this;
+                b.Owner.Text =m.ModuleName;              
+                b.ShowDialog();
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    UIHelper.ErrorMsg(ex.InnerException.Message);
+
+                }
+                UIHelper.ErrorMsg(ex.StackTrace);
+                return;
+            }
+        }
+
+        private void lv_Catalog_ItemActivate(object sender, EventArgs e)
+        {
+            try
+            {
+                string CatalogName = lv_Catalog.FocusedItem.Text;
+                if (CatalogName == "系统退出")
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {                   
+                    int ID =Catalog.Find(delegate(LCatalog task) 
+                    { 
+                        return task.CatalogName.Equals(CatalogName);
+                    }).ID;
+                    AssignModule(ID);
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 填充模块
+        /// </summary>
+        /// <param name="ID">关联ID</param>
+        private void AssignModule(int ID)
+        {
+            lv_Module.Items.Clear();
+
+            ListViewItem lvi;
+            for (int i = 0; i < Module.Count; i++)
+            {
+                if (Module[i].ID == ID)
+                {
+                    lvi = new ListViewItem();
+                    lvi.ImageIndex = Module[i].ImageIndex;
+                    lvi.Text =Module[i].ModuleName;
+                    lv_Module.Items.Add(lvi);
+                }
+            }
+        }    
+        
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            if (UIHelper.QuestionMsg("是否退出主界面?", false))
+            {
+                this.Close();
+            }            
+        }        
+    }
+}

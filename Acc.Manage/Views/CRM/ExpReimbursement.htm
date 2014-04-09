@@ -1,0 +1,31 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.CRM.Controllers.ExpReimbursementController";
+            p.applyTo = "t1";
+
+            p.onAfterEdit = function (index, item, changes) {
+                item.APPROVEDAMOUNT = item.APPLYAMOUNT;
+                item.COST = item.APPROVEDAMOUNT;
+            }
+
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("EXCHANGERATE", 1); //汇率
+                    form.setform("APPLYID", webjs.username); //申请人 
+                    form.setform("CREATEDBY", webjs.username); //创建人
+                    var myDate = new Date();
+                    var d = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    form.setform("CREATIONDATE", d); //创建时间
+                    form.setform("APPLYDATE", d); //申请时间
+                }
+                if (command == "edit") {
+                    if (item.ISSUBMITED == true || item.ISDISABLE == true) {//判断是否已经提交或者禁用
+                        form.setdisabled(true); //提交或禁用后所有控件不可编辑
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

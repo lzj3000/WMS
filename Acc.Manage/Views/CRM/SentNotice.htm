@@ -1,0 +1,57 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.CRM.Controllers.SentNoticeController";
+            p.applyTo = "t1";
+//            p.onAfterEdit = function (index, item, changes) {
+//                item.FTOTAL = item.FQTY * item.FPRICE;
+//            }
+
+//            p.onFormSelect = function (form, box, item) {
+//                //销售阶段--成功概率
+//                if (box.field == "FSALESSTAGEID") {
+//                    form.setform("FSUCCESSSTAGE", box.val());
+//                }
+//                //币别--汇率
+//                if (box.field == "FCURRENCYID") {
+//                    form.setform("FEXCHANGERATE", box.val());
+//                }
+//            }
+            p.onCommandClick = function (command, form, item) {
+
+                if (command == "add") {
+                    //设置默认值
+                    form.setform("创建人", webjs.username); //或创建人
+                    //                    var myDate = new Date();
+                    //                    var d = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    //                    form.setform("创建日期", d);
+//                    form.setform("FISCLOSED", "0"); //关闭状态
+//                    form.setform("FSTATUS", "0"); //商机状态
+//                    form.setform("FPROJECTTYPEID", "01"); //项目类型
+//                    form.setform("FINDUSTRYID", "01"); //行业
+
+                }
+
+                if (command == "edit") {
+                    //编辑状态置否--字段
+//                    if (item.FSTATUS == 2) {
+//                        //                        from.FSALESSTAGEID.setdisabled(true);
+//                        for (var i in form.items) {
+//                            if (form.items[i].field == 'FSALESSTAGEID') {
+//                                form.items[i].setdisabled(true);
+//                            }
+//                        }
+//                    }
+
+
+                    //编辑状态置否--单据
+//                    if (item.FISCLOSED == 1) {
+//                        form.setdisabled(true);
+//                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>
+

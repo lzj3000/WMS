@@ -1,0 +1,19 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        var p = new singlepage();
+        p.c = "Acc.Business.CRM.Controllers.TravelExpPendingController";
+        p.applyTo = "t1";
+
+        p.onCommandClick = function (command, form, item) {
+            if (command == "edit") {
+                if (item.ISSUBMITED == true || item.ISDISABLE == true) {//判断是否已经提交或者禁用
+                    form.setdisabled(true); //提交或禁用后所有控件不可编辑
+                }
+            }
+        }
+        p.init();
+    });
+   
+</script>
+<div id="t1">
+</div>

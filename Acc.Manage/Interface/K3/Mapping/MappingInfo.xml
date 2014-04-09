@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<table>
+
+  <!--************基础数据转换************************-->
+  
+  <!--部门-->
+  <DataTransform>
+    <MappingInfoName>部门</MappingInfoName>
+    <XmlName>Organization.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Item</SourceTable>
+    <TargetTable>Acc_Bus_Organization</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>部门转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  
+  <!--职员-->
+  <DataTransform>
+    <MappingInfoName>职员</MappingInfoName>
+    <XmlName>OfficeWorker.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Emp</SourceTable>
+    <TargetTable>Acc_Bus_OfficeWorker</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>职员转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+
+  <!--计量单位-->
+  <DataTransform>
+    <MappingInfoName>计量单位</MappingInfoName>
+    <XmlName>Unit.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Item</SourceTable>
+    <TargetTable>Acc_Bus_Unit</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>计量单位转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+
+  <!--仓库-->
+  <DataTransform>
+    <MappingInfoName>仓库</MappingInfoName>
+    <XmlName>Stock.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Item</SourceTable>
+    <TargetTable>Acc_WMS_WareHouse</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>仓库转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+
+  <!--商品大类（目录）-->
+  <DataTransform>
+    <MappingInfoName>商品大类</MappingInfoName>
+    <XmlName>CommodityClass.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Item</SourceTable>
+    <TargetTable>Acc_Bus_CommodityClass</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>商品大类转换</Remark>
+    <IsVisible>1</IsVisible>
+    
+  </DataTransform>
+  <!--商品（实用）-->
+  <DataTransform>
+    <MappingInfoName>商品</MappingInfoName>
+    <XmlName>Commodity.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_ICItem</SourceTable>
+    <TargetTable>Acc_Bus_BusinessCommodity</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>商品转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  
+  <!--往来单位（目录）-->
+  <DataTransform>
+    <MappingInfoName>往来单位</MappingInfoName>
+    <XmlName>CustomerClass.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Item</SourceTable>
+    <TargetTable>Acc_Bus_BusinessCustomer</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>客户转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  <!--客户（实用）-->
+  <DataTransform>
+    <MappingInfoName>客户</MappingInfoName>
+    <XmlName>CustomerDetail.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Organization</SourceTable>
+    <TargetTable>Acc_Bus_BusinessCustomer</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>客户转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  <!--终端客户（实用）-->
+  <DataTransform>
+    <MappingInfoName>终端客户</MappingInfoName>
+    <XmlName>ZDCustomerDetail.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Item_3006</SourceTable>
+    <TargetTable>Acc_Bus_BusinessCustomer</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>终端客户转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  <!--供应商（实用）-->
+  <DataTransform>
+    <MappingInfoName>供应商</MappingInfoName>
+    <XmlName>SupplierDetail.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>t_Supplier</SourceTable>
+    <TargetTable>Acc_Bus_BusinessCustomer</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>供应商转换</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  
+
+
+  
+  
+  
+  
+  <!--************业务单据转换************************-->
+  
+  <!--采购入库通知-->
+  <DataTransform>
+    <MappingInfoName>采购入库通知</MappingInfoName>
+    <XmlName>InNotice.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>POInstock</SourceTable>
+    <TargetTable>Acc_WMS_InNotice</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>采购入库通知单（收料通知）</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>采购入库通知明细</MappingInfoName>
+    <XmlName>InNoticeMaterials.xml</XmlName>
+    <ParentXmlName>InNotice.xml</ParentXmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>POInStockEntry</SourceTable>
+    <TargetTable>Acc_WMS_InNoticeMaterials</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>采购入库通知明细（收料通知）</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  <!--销售出库通知-->
+  <DataTransform>
+    <MappingInfoName>销售出库通知</MappingInfoName>
+    <XmlName>OutNotice.xml</XmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>SEOutStock</SourceTable>
+    <TargetTable>Acc_WMS_OutNotice</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>出库通知转换(发货通知)</Remark>
+    <IsVisible>1</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>销售出库通知明细</MappingInfoName>
+    <XmlName>OutNoticeMaterials.xml</XmlName>
+    <ParentXmlName>OutNotice.xml</ParentXmlName>
+    <SourceSystem>K3</SourceSystem>
+    <TargetSystem>WMS</TargetSystem>
+    <SourceTable>SEOutStockEntry</SourceTable>
+    <TargetTable>Acc_WMS_OutNoticeMaterials</TargetTable>
+    <maxTimestamp>0</maxTimestamp>
+    <Remark>销售出库通知明细（发货通知）</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+
+  
+  
+  <!--************业务单据反向转换************************-->
+  
+  <!--外购入库单-->
+  <DataTransform>
+    <MappingInfoName>外购入库单</MappingInfoName>
+    <XmlName>RPurchaseInStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>外购入库单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>外购入库单明细</MappingInfoName>
+    <XmlName>RPurchaseInStockMaterials.xml</XmlName>
+    <ParentXmlName>RPurchaseInStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>外购入库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  <!--半成品入库单-->
+  <DataTransform>
+    <MappingInfoName>半成品入库单</MappingInfoName>
+    <XmlName>RSemInStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>半成品入库单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>半成品入库单明细</MappingInfoName>
+    <XmlName>RSemInStockMaterials.xml</XmlName>
+    <ParentXmlName>RSemInStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>半成品入库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  <!--成品入库单-->
+  <DataTransform>
+    <MappingInfoName>成品入库单</MappingInfoName>
+    <XmlName>RProduceInStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>成品入库单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>成品入库单明细</MappingInfoName>
+    <XmlName>RProduceInStockMaterials.xml</XmlName>
+    <ParentXmlName>RProduceInStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>成品入库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  <!--其他入库单-->
+  <DataTransform>
+    <MappingInfoName>其他入库单</MappingInfoName>
+    <XmlName>ROtherInStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>其他入库单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>其他入库单明细</MappingInfoName>
+    <XmlName>ROtherInStockMaterials.xml</XmlName>
+    <ParentXmlName>ROtherInStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>其他入库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  <!--红字销售出库单-->
+  <DataTransform>
+    <MappingInfoName>红字销售出库单</MappingInfoName>
+    <XmlName>RRedSellOutStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>红字销售出库单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>红字销售出库单明细</MappingInfoName>
+    <XmlName>RRedSellOutStockMaterials.xml</XmlName>
+    <ParentXmlName>RRedSellOutStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_InOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>红字销售出库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  
+  
+  <!--销售出库单-->
+  <DataTransform>
+    <MappingInfoName>销售出库单</MappingInfoName>
+    <XmlName>RSellOutStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_OutOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>销售出库单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>销售出库单明细</MappingInfoName>
+    <XmlName>RSellOutStockMaterials.xml</XmlName>
+    <ParentXmlName>RSellOutStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_OutOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>销售出库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  <!--生产出库单-->
+  <DataTransform>
+    <MappingInfoName>生产出库单</MappingInfoName>
+    <XmlName>RPickOutStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_OutOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>生产出库单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>生产出库单明细</MappingInfoName>
+    <XmlName>RPickOutStockMaterials.xml</XmlName>
+    <ParentXmlName>RPickOutStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_OutOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>生产出库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+
+  <!--其他出库单-->
+  <DataTransform>
+    <MappingInfoName>其他出库单</MappingInfoName>
+    <XmlName>ROtherOutStock.xml</XmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_OutOrder</SourceTable>
+    <TargetTable>ICStockBill</TargetTable>
+    <Remark>其他出库单单转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransform>
+  <DataTransformChild>
+    <MappingInfoName>其他出库单明细</MappingInfoName>
+    <XmlName>ROtherOutStockMaterials.xml</XmlName>
+    <ParentXmlName>ROtherOutStock.xml</ParentXmlName>
+    <SourceSystem>WMS</SourceSystem>
+    <TargetSystem>K3</TargetSystem>
+    <SourceTable>Acc_WMS_OutOrderMaterials</SourceTable>
+    <TargetTable>ICStockBillEntry</TargetTable>
+    <Remark>其他出库单明细转换</Remark>
+    <IsVisible>0</IsVisible>
+  </DataTransformChild>
+  
+  
+  
+
+</table>

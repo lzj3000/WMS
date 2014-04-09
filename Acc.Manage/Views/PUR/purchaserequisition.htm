@@ -1,0 +1,74 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.PUR.Controllers.PurchaseRequisitionController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.init();
+            p.onForeigned = function (sender, fdata, rows) {
+                //alert(rows.CommodityType.toString());
+                if (fdata.tablename == "Acc_Bus_BusinessCommodity" && sender.field == "COMMODITYID" && rows.COMMODITYTYPE == 2) {
+                    var rr = p.datasource.post("GetBom", "commodityid=" + rows.ID);
+                    if (rr) {
+                        sender.parent.removeRow(sender.parent.selectIndex);
+                        sender.parent.insertRow(rr);
+                    }
+                }
+            }
+        });
+        function selectRequisition(data) {
+            if (data.comm.oldname == null) {
+                if (data.sender.datasource.grid) {
+                    var grid = data.sender.datasource.grid;
+                    var rows = grid.datasource.load("ExecutionState<2 and IsReviewed=1");
+                    if (rows && rows.total > 0) {
+                        grid.check = true;
+                        grid.reinit();
+                        grid.load(rows);
+                        data.sender.setname(data.comm, "生成采购合同");
+                    }
+                    else {
+                        data.comm.oldname = null;
+                        $.messager.alert("消息", "无可生成合同申请，请确认采购申请已审核！");
+                    }
+                }
+            }
+            else {
+                var rows = data.sender.datasource.grid.getcheckrows();
+                if (rows.length > 0) {
+                    var id = "";
+                    for (var r in rows) {
+                        if (id == "")
+                            id = rows[r].ID;
+                        else
+                            id += "," + rows[r].ID;
+                    }
+                    var sd = "selectRows=" + id + "&Tag=" + data.comm.Tag;
+                    data.sender.datasource.submit("pushdown", sd, function (e) {
+                        if (e && e.error) {
+                            $.messager.alert("错误",e.errormsg);
+                        }
+                        else {
+                            var s = data.sender.datasource;
+                            if (s.onSubmited) {
+                                var res = s.onSubmited("pushdown", data, e);
+                                if (res === false)
+                                    return;
+                            }
+                        }
+                    });
+                }
+                else {
+                    $.messager.alert("错误", "错误，生成采购合同最少需要选择一个采购申请！");
+                }
+            }
+        }
+      </script>
+<div id="t1"></div>
+

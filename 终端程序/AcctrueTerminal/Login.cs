@@ -1,0 +1,473 @@
+﻿using System;
+
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using AcctrueTerminal.Config;
+using System.Reflection;
+using System.Xml;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Collections;
+using AcctrueTerminal.Common;
+using System.Data.SQLite;
+using System.IO;
+namespace AcctrueTerminal
+{
+    public partial class Login : Form
+    {        
+        public Login()
+        {
+            InitializeComponent();
+            //UIHelper.controlShow_Hide(0);隐藏状态栏
+        }        
+        
+        List<LCatalog> Catalog = new List<LCatalog>();
+        List<LModule> Module = new List<LModule>();
+
+        #region 注释代码(初始化属性)
+        //string SPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+        //private string ServerVersion = string.Empty;
+        //private string ClientVersion = string.Empty;       
+        //private string VersionName = "Version.xml";
+        //private string ConfigName = "Config.xml";
+        //private string ConfigKey = "AccPdaServer";
+        //private string VersionKey = "Version";
+        //private string UpdateName = "TerminalUpdate.exe";
+        //private string url = string.Empty;
+        //private string VersionUrl = string.Empty;
+
+        //public string AssemblyVersion
+        //{
+        //    get
+        //    {
+        //        return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        //    }
+        //}
+        #endregion
+
+        private void Login_Load(object sender, EventArgs e)
+        {           
+            txt_UserName.Focus();
+            txt_UserName.SelectAll();
+            Cursor.Current = Cursors.Default;
+
+            #region 获取SN号
+            //lab_SN.Text = DeviceIntermecClass.DeviceIntermecClass.GetSerialNumber();
+            //if (string.IsNullOrEmpty(lab_SN.Text.Trim()))
+            //{
+            //    lab_SN.Visible = false;
+            //    lab_SNlab.Visible = false;
+            //}
+            //else
+            //{
+            //    lab_SN.Visible = true;
+            //    lab_SNlab.Visible = true;
+            //}
+            #endregion
+
+            #region 注释代码
+            //string Version = null;
+            ////判断终端文件是否存在      
+            //if (!System.IO.File.Exists(SPath + "\\Version.xml"))
+            //{
+            //    Version = "3.1.1.1";
+            //}
+            //else
+            //{
+            //    XmlDocument XmlDocConfig = new XmlDocument();
+            //    XmlDocConfig.Load(SPath + "\\Version.xml");
+            //    Version = Config.GetVersionConfig("LdmVersion");
+            //}    
+            #endregion
+
+            #region 版本号
+            PDASet.ClientVersion = Config.Config.GetVersionConfig(PDASet.VersionKey, PDASet.VersionName);
+            if (string.IsNullOrEmpty(PDASet.ClientVersion))
+            {
+                this.lab_Version.Text = String.Format("当前版本号： {0}", PDASet.AssemblyVersion);
+            }
+            else if (!PDASet.ClientVersion.Equals(PDASet.AssemblyVersion))
+            {
+                this.lab_Version.Text = String.Format("当前版本号： {0}",PDASet.ClientVersion);
+            }
+            else
+            {
+                this.lab_Version.Text = String.Format("当前版本号： {0}", PDASet.AssemblyVersion);
+            }
+
+            Btn_Set_Click(null,null);
+            #endregion
+        }
+
+        #region 数据验证
+        public bool DataValidation()
+        {
+            if (string.IsNullOrEmpty(txt_UserName.Text.Trim()))
+            {
+                this.txt_UserName.ForeColor = Color.Red;
+                this.txt_UserName.Focus();
+                this.lab_ErrorInfo.Text = InfoMessage.InputUserName;
+                return false;
+            }
+            if (string.IsNullOrEmpty(txt_UserPass.Text.Trim()))
+            {
+                this.txt_UserPass.ForeColor = Color.Red;
+                this.txt_UserPass.Focus();
+                this.lab_ErrorInfo.Text = InfoMessage.InputUserPass;
+                return false;
+            }
+            //if (string.IsNullOrEmpty(txt_Ip.Text.Trim()))
+            //{
+            //    this.txt_Ip.ForeColor = Color.Red;
+            //    this.txt_Ip.Focus();
+            //    this.lab_ErrorInfo.Text = InfoMessage.InputIp;
+            //    return false;
+            //}
+            return true;
+        }
+        #endregion
+
+        #region 检查连接
+        private void Btn_Set_Click(object sender, EventArgs e)
+        {
+            string[] arrIp = null;
+            string AccWebKey = null;
+            string wsUrl = Config.Config.GetConfig(PDASet.AcctruePdaServerAddress,PDASet.sPath);
+            if (wsUrl.Equals(InfoMessage.NoSetFile))
+            {
+                this.lab_ErrorInfo.Text = InfoMessage.NoSetFile;
+            }
+            if (!string.IsNullOrEmpty(wsUrl))
+            {
+                AccWebKey = Config.Config.GetConfig(PDASet.AcctrueWebBusAddress, PDASet.sPath);
+                arrIp = AccWebKey.Split('/');
+                arrIp = arrIp[2].Split(':');
+                this.txt_Ip.Text = arrIp[0];
+                this.txt_Port.Text = arrIp[1];
+            }
+            else
+            {
+                this.txt_Ip.Text = "127.0.0.1";
+                this.txt_Port.Text = "8080";
+            }
+        }
+        #endregion 
+
+        #region 用户登录
+        private void Btn_Login_Click(object sender, EventArgs e)
+        {
+            if (DataValidation())
+            {
+                if (checkUpdate.Checked && cbIsVisible.Checked)
+                {
+                    checkUpdate.Checked = false;
+                    cbIsVisible.Checked = false;
+                    UIHelper.PromptMsg("两者只能选其一,不能同时选择！");
+                    return;
+                }
+                if (checkUpdate.Checked)
+                {
+                    PDASet.CheckUpdate();
+                    this.Dispose();
+                    this.Close();
+                }
+
+                if (cbIsVisible.Checked)
+                {
+                    string strSQL = "select * from acc_user where usercode='" + txt_UserName.Text.Trim() + "' and userpass='" + txt_UserPass.Text.Trim() + "'";
+                    DataTable dt = SqliteHelper.ExecuteDataTable(DataBaseConnection.GetSQLiteConn(), CommandType.Text, strSQL);
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        PDASet.IsOff = true;
+                        InitUserMenusOff(Catalog, Module);
+                        MenuMain m = new MenuMain(Catalog, Module);
+                        m.ShowDialog();
+                    }
+                }
+                else
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    UrlTypeData ud = new UrlTypeData();
+                    ud.Type = (int)CheckEnum.Login;
+                    ud.m = BaseCommon.Login;
+                    ud.LoadItem = "name=" + this.txt_UserName.Text + "&pass=" + this.txt_UserPass.Text + "&type=phone";
+                    ud.FDtata = "";
+                    DataTable dt = ToJson.getData(ud);
+                    if (dt.TableName != "Error")
+                    {
+                        PDASet.IsOff = false;
+                        DisPlayMenu();
+                    }
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
+        #endregion         
+
+        #region 配置连接
+        private void Btn_Ok_Click(object sender, EventArgs e)
+        {
+            bool Flag = false;
+            if (!string.IsNullOrEmpty(txt_Ip.Text.Trim()) && !string.IsNullOrEmpty(txt_Port.Text.Trim()))
+            {                
+                Flag = Config.Config.setConfig(PDASet.AcctruePdaServerAddress,PDASet.AcctrueWebBusAddress,PDASet.AcctrueWebLoginAddress,txt_Ip.Text.Trim(), txt_Port.Text.Trim());
+                if (Flag)
+                {
+                    this.lab_ErrorInfo.Text = InfoMessage.SaveSuccess;
+                    this.menuItemLogin.Enabled = true;                    
+                }
+                else
+                {
+                    this.lab_ErrorInfo.Text = InfoMessage.SaveFailed;
+                }               
+            }
+            else
+            {
+                this.lab_ErrorInfo.Text = InfoMessage.InputIp;
+            }
+            tabControlSet.SelectedIndex = 0;
+            txt_UserName.Focus();
+        }
+        #endregion 
+
+        #region 配置菜单
+        private void DisPlayMenu()
+        {
+            UIHelper.SetCursorDefault();           
+            ConfigModules(Catalog, Module);          
+            MenuMain m = new MenuMain(Catalog, Module);
+            m.ShowDialog();           
+        }
+        #endregion 
+
+        #region 配置功能
+        private void ConfigModules(List<LCatalog> LCatalog, List<LModule> LModule)
+        {
+            UIHelper.SetCursorWaiting();
+            InitUserMenus(LCatalog, LModule);
+            UIHelper.SetCursorDefault();
+        }
+        #endregion 
+
+        #region 功能菜单列表
+        private void InitUserMenus(List<LCatalog> LCatalog, List<LModule> LModule)
+        {
+              string fdata = string.Empty;
+              LCatalog.Clear();
+              LModule.Clear();
+
+              LCatalog.Add(new LCatalog { CatalogName = "包装管理", ID = 0, ImageIndex = 0 });
+              LCatalog.Add(new LCatalog { CatalogName = "入库管理", ID = 1, ImageIndex = 1 });
+              LCatalog.Add(new LCatalog { CatalogName = "出库管理", ID = 2, ImageIndex = 2 });           
+              LCatalog.Add(new LCatalog { CatalogName = "库内管理", ID = 3, ImageIndex = 3 });
+              //LCatalog.Add(new LCatalog { CatalogName = "数据管理", ID = 4, ImageIndex = 0 });
+              LCatalog.Sort();
+
+              #region 注释代码
+              //fd = new ForeignData();
+              //fd.isfkey = true;
+              //fd.objectname = "Acc.Business.Model.MobileSetModel";
+              //fd.filedname = "PROJECTID";
+              //fd.foreignfiled = "ID";
+              //fd.foreignobject = "Acc.Business.Model.MobileSetProject";
+              //fd.displayname = "F1";
+              //fd.displayfield = "CODE";
+              //fd.tablename = "Acc_WMS_MobileSetProject";
+              //fd.parenttablename = "Acc_WMS_MobileSetModel";
+              //fd.isassociate = true;
+              //fd.eventrow = "{}";
+
+              //fdata = UIHelper.FDataConversion(fd);
+
+              //ud = new UrlTypeData();
+              //ud.Type = (Int16)CheckEnum.Foreignkey;
+              //ud.c = "Acc.Business.Controllers.MobileSetController";
+              //ud.m = BaseCommon.Foreignkey;
+
+              //sw = new SQLWhere();
+              //sw.ColumnName = "Acc_WMS_MobileSetModel.IsVisible";
+              //sw.Type = "";
+              //sw.Value = "1";
+              //sw.Symbol = "=";
+
+              //li = new LoadItem();
+              //li.selecttype = "Acc.Business.Model.MobileSetModel";
+              //li.page = "1";
+              //li.rows = "10";
+              //lis = new List<SQLWhere>();
+              //lis.Add(sw);
+              //li.whereList = lis.ToArray();
+              //li.columns = new string[] { "MODELNAME" };
+              //ud.LoadItem = UIHelper.LoadItemConversion(li);
+              //ud.FDtata = fdata;
+              //DataTable dt = ToJson.getData(ud);
+              #endregion
+              DataTable dt = BaseCommon.GetMobileSetInfo(null);
+              if (dt != null && dt.Rows.Count > 0)
+              {                  
+                  for (int i = 0; i < dt.Rows.Count; i++)
+                  {
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "组盘")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.ManageTray.Frm_GroupTray", ID = 0, ImageIndex = 1, Module_ClassParams = "1", ModuleName = "组盘" });
+                      }              
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "上架")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_Added", ID = 1, ImageIndex = 1, Module_ClassParams = "1", ModuleName = "上架" });
+                      }
+                      //if (dt.Rows[i]["MODELNAME"].ToString() == "入库")
+                      //{
+                      //    LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_ProductsIn", ID = 1, ImageIndex = 2, Module_ClassParams = "2", ModuleName = "入库" });
+                      //}
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "外购入库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_ProductsIn", ID = 1, ImageIndex = 2, Module_ClassParams = "2", ModuleName = "外购入库" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "半成品入库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_ProductsIn", ID = 1, ImageIndex = 4, Module_ClassParams = "2", ModuleName = "半成品入库" });
+                      } 
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "成品入库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_ProductsIn", ID = 1, ImageIndex = 5, Module_ClassParams = "2", ModuleName = "成品入库" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "其他入库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_ProductsIn", ID = 1, ImageIndex = 3, Module_ClassParams = "2", ModuleName = "其他入库" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "下架")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockOut.Frm_OffShelf", ID = 2, ImageIndex = 3, Module_ClassParams = "3", ModuleName = "下架" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "出库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockOut.Frm_ProductsOut", ID = 2, ImageIndex = 4, Module_ClassParams = "4", ModuleName = "出库" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "生产出库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockOut.Frm_ProductsOut", ID = 2, ImageIndex = 3, Module_ClassParams = "2", ModuleName = "生产出库" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "销售出库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockOut.Frm_ProductsOut", ID = 2, ImageIndex = 3, Module_ClassParams = "2", ModuleName = "销售出库" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "其他出库")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockOut.Frm_ProductsOut", ID = 2, ImageIndex = 3, Module_ClassParams = "2", ModuleName = "其他出库" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "货位转移")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.Frm_MoveBin", ID = 3, ImageIndex = 5, Module_ClassParams = "5", ModuleName = "货位转移" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "托盘转移")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.Frm_MoveTray", ID = 3, ImageIndex = 1, Module_ClassParams = "6", ModuleName = "托盘转移" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "盘点")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.WarehouseInventory", ID = 3, ImageIndex = 3, Module_ClassParams = "7", ModuleName = "盘点" });
+                      }
+                      if (dt.Rows[i]["MODELNAME"].ToString() == "库存查询")
+                      {
+                          LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.StockSearch", ID = 3, ImageIndex = 2, Module_ClassParams = "8", ModuleName = "库存查询" });
+                      }                     
+                  }
+                  LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.DataDownload", ID = 4, ImageIndex = 1, Module_ClassParams = "1", ModuleName = "数据下载" });
+                  LModule.Sort();
+              }
+        }
+        #endregion         
+
+        #region 离线功能菜单列表
+        /// <summary>
+        /// 离线功能菜单列表
+        /// </summary>
+        /// <param name="LCatalog"></param>
+        /// <param name="LModule"></param>
+        private void InitUserMenusOff(List<LCatalog> LCatalog, List<LModule> LModule)
+        {
+            LCatalog.Clear();
+            LModule.Clear();
+            LCatalog.Add(new LCatalog { CatalogName = "包装管理", ID = 0, ImageIndex = 0 });            
+            LCatalog.Add(new LCatalog { CatalogName = "入库管理", ID = 1, ImageIndex = 1 });
+            LCatalog.Add(new LCatalog { CatalogName = "出库管理", ID = 2, ImageIndex = 2 });
+            //LCatalog.Add(new LCatalog { CatalogName = "库内管理", ID = 3, ImageIndex = 3 });
+            LCatalog.Add(new LCatalog { CatalogName = "数据管理", ID = 4, ImageIndex = 0 });
+            LCatalog.Sort();
+
+              LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.ManageTray.Frm_GroupTray", ID = 0, ImageIndex = 1, Module_ClassParams = "1", ModuleName = "组盘" });     
+              LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_Added", ID = 1, ImageIndex = 1, Module_ClassParams = "1", ModuleName = "上架" });        
+              LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockIn.Frm_ProductsIn", ID = 1, ImageIndex = 2, Module_ClassParams = "2", ModuleName = "入库" });        
+              LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockOut.Frm_OffShelf", ID = 2, ImageIndex = 3, Module_ClassParams = "3", ModuleName = "下架" });         
+              LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.StockOut.Frm_ProductsOut", ID = 2, ImageIndex = 4, Module_ClassParams = "4", ModuleName = "出库" });         
+              //LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.Frm_MoveBin", ID = 3, ImageIndex = 5, Module_ClassParams = "5", ModuleName = "货位转移" });         
+              //LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.Frm_MoveTray", ID = 3, ImageIndex = 1, Module_ClassParams = "6", ModuleName = "托盘转移" });        
+              //LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.WarehouseInventory", ID = 3, ImageIndex = 3, Module_ClassParams = "7", ModuleName = "盘点" });        
+              //LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.Stock.StockSearch", ID = 3, ImageIndex = 2, Module_ClassParams = "8", ModuleName = "库存查询" });
+              LModule.Add(new LModule { ClassFullName = "AcctrueTerminal.DataDownload", ID = 4, ImageIndex = 1, Module_ClassParams = "1", ModuleName = "数据下载" });   
+              LModule.Sort();
+        }
+        #endregion
+
+        #region KeyPress事件
+        private void Btn_Close_Click(object sender, EventArgs e)
+        {
+            DialogResult result;
+            result = UIHelper.QuestionMsg("确认退出系统？");
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void txt_UserName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (string.IsNullOrEmpty(txt_UserName.Text.Trim()))
+                {
+                    this.txt_UserName.ForeColor = Color.Red;
+                    this.txt_UserName.Focus();
+                    this.lab_ErrorInfo.Text = InfoMessage.InputUserName;
+                    return;
+                }
+                txt_UserPass.Focus();
+                txt_UserPass.SelectAll();  
+            } 
+        }
+
+        private void txt_UserPass_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (string.IsNullOrEmpty(txt_UserPass.Text.Trim()))
+                {
+                    this.txt_UserPass.ForeColor = Color.Red;
+                    this.txt_UserPass.Focus();
+                    this.lab_ErrorInfo.Text = InfoMessage.InputUserPass;
+                    return;
+                }
+                //menuItemLogin.Focus();
+                
+            }
+        }
+        #endregion
+
+        //创建进程
+        [DllImport("coredll.Dll", EntryPoint = "CreateProcess", SetLastError = true)]
+        extern static int CreateProcess(string strImageName, string strCmdLine, IntPtr pProcessAttributes, IntPtr pThreadAttributes,
+            int bInheritsHandle, int dwCreationFlags, IntPtr pEnvironment, IntPtr pCurrentDir, IntPtr bArray, ProcessInfo oProc);
+
+        public class ProcessInfo
+        {
+            public Int32 hProcess;
+            public Int32 hThread;
+            public Int32 ProcessID;
+            public Int32 ThreadID;
+        }      
+    }
+}

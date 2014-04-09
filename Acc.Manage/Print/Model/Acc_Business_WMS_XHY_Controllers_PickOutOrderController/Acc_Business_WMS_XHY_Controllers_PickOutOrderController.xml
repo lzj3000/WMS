@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EntityListOfPrintData>
+  <ArrayOfAcc_PrintData Count="1">
+    <Acc_PrintData StateBase="0">
+      <RowIndex>1</RowIndex>
+      <PageWidth>21</PageWidth>
+      <PageHeight>29.7</PageHeight>
+      <MarginTop>2.54</MarginTop>
+      <MarginLeft>3.17</MarginLeft>
+      <MarginRight>3.17</MarginRight>
+      <MarginBottom>2.54</MarginBottom>
+      <FilePath>D:\Users\lxc\Documents\爱创项目\wms\WMS.XHY_New\Acc.Manage\Print\Model\Acc_Business_WMS_XHY_Controllers_PickOutOrderController\fsdfsdf.rdlc</FilePath>
+      <IsDefault>False</IsDefault>
+      <ModelName>fsdfsdf</ModelName>
+    </Acc_PrintData>
+  </ArrayOfAcc_PrintData>
+</EntityListOfPrintData>

@@ -1,0 +1,26 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.ReturnInNoticeOrderCotroller";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            p.onForeigned = function (sender, fdata, rows) {
+                if (fdata.tablename.toString() == "Acc_WMS_OutOrder" && sender.field.toString() == "SOURCECODE") {
+                    //                    var tt = p.datasource.post("VoliGetUnit", "MaterialsId=" + rows.ID + "");
+                    //                    if (tt != "") {
+                    //                        var eb = sender.parent.geteditor("MATERIALPACKID");
+                    //                        eb.actions.setValue(eb.target, tt, row);
+                    //                    }
+                    var ttt = p.datasource.post("GetNoticeStayGrid", "NoticeId=" + fdata.filedvalue + "");
+                    if (ttt != "[]") {
+                        var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockInNoticeMaterials"];
+                        grid.clear();
+                        grid.insertRow(ttt);
+                    }
+                }
+
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

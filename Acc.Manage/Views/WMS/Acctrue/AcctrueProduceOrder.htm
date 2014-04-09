@@ -1,0 +1,48 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.AcctrueProduceOrderController";
+            p.applyTo = "t1";
+            //                        var code = webjs.post(p.c, GetCode, "");
+
+            p.onCommandClick = function (command, form, item) {
+                //                alert(123);
+                //                webjs.post(p.c, "GetCode", data);
+                if (command == "add") {
+                    //                    var tt = p.datasource.post("GetStockOutOrder", null);
+                    //                    form.setform("CODE", tt);
+                    form.setform("创建人", webjs.username); //或创建人
+                    var myDate = new Date();
+                    var d = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    form.setform("创建日期", d);
+                    //                    var date = myDate.toLocaleString();
+                    form.setform("登记日期", d);
+                    form.setform("登记人", webjs.username);
+                    //item.CREATEDBY = webjs.username;
+
+                    //                    var tt = p.datasource.post("OnOutOrder", null);
+                    //                    form.setform("ORDERNO", tt);
+
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+
+            p.onForeigned = function (sender, fdata, rows) {
+                if (fdata.tablename.toString() == "Acc_Bus_BusinessCommodity" && sender.field.toString() == "MATERIALCODE") {
+                    var rr = p.datasource.post("GetGrid", "MaterialsId=" + rows.ID + "");
+                    if (rr != "[]") {
+                        sender.parent.removeRow(sender.parent.selectIndex);
+                        sender.parent.insertRow(rr);
+                    }
+                }
+            }
+
+            p.init();
+        });
+
+    </script>
+<div id="t1"></div>

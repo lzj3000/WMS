@@ -1,0 +1,16 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.Controllers.StockOutNoticeController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    var tt = p.datasource.post("GetStockOutNoticeOrder", null);
+                    form.setform("TZORDERNO", tt);
+                    //form.setform("ORDERTYPE","1");
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

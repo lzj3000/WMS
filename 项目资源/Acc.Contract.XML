@@ -1,0 +1,806 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Acc.Contract</name>
+    </assembly>
+    <members>
+        <member name="T:Acc.Contract.MVC.IView">
+            <summary>
+            显示视图接口
+            作者：李晓超
+            创建时间：2012-03-14
+            说明：视图标识
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.MVC.ControllerBase">
+            <summary>
+            控制器基础类
+            作者：李晓超
+            创建时间：2012-03-14
+            说明：
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.MVC.IController">
+            <summary>
+            控制器接口
+            作者：李晓超
+            创建时间：2012-03-14
+            说明：控制器标识
+            </summary>
+        </member>
+        <member name="M:Acc.Contract.MVC.IController.ControllerName">
+            <summary>
+            控制器名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Acc.Contract.MVC.IController.ControllerDescription">
+            <summary>
+            控制器说明
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Acc.Contract.MVC.IController.Author">
+            <summary>
+            作者
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Acc.Contract.MVC.IController.ControllerPath">
+            <summary>
+            控制器路径
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Acc.Contract.MVC.IController.IsSubmit">
+            <summary>
+            启用提交
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.IController.IsReviewedState">
+            <summary>
+            启用审核
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.IController.IsClearAway">
+            <summary>
+            启用回收站
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.IController.IsSystemController">
+            <summary>
+            是否系统受管控制器
+            </summary>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OutSearchData(Acc.Contract.Data.ControllerData.loadItem)">
+            <summary>
+            外部查询
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OnForeignIniting(Acc.Contract.MVC.IModel,Acc.Contract.Data.InitData)">
+            <summary>
+            外键调用初始
+            </summary>
+            <param name="model">外键对象</param>
+            <param name="data">已获取的外键初始对象</param>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OnForeignLoading(Acc.Contract.MVC.IModel,Acc.Contract.Data.ControllerData.loadItem)">
+            <summary>
+            外键读取开始前
+            </summary>
+            <param name="model">外键对象</param>
+            <param name="item">查询读取参数</param>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OnForeignLoaded(Acc.Contract.MVC.IModel,Acc.Contract.Data.ControllerData.ReadTable)">
+            <summary>
+            外键读取获取数据完成
+            </summary>
+            <param name="model">外键对象</param>
+            <param name="table">获取到的数据表</param>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.registerObserver">
+            <summary>
+            注册观察
+            </summary>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.InceptNotify(Acc.Contract.Center.EventBase)">
+            <summary>
+            开始通报
+            </summary>
+            <param name="item">通报成员</param>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OnControllerName">
+            <summary>
+            获取控制器名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OnGetControllerDescription">
+            <summary>
+            获取控制器说明
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OnGetAuthor">
+            <summary>
+            获取作者名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Acc.Contract.MVC.ControllerBase.OnGetPath">
+            <summary>
+            获取控制器Url路径
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Acc.Contract.MVC.ControllerBase.fdata">
+            <summary>
+            外键参数
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.ControllerBase.IsSubmit">
+            <summary>
+            启用提交
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.ControllerBase.IsReviewedState">
+            <summary>
+            启用审核
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.ControllerBase.IsClearAway">
+            <summary>
+            启用回收站
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.ControllerBase.SaveEvent.Item">
+            <summary>
+            保存成员
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.ControllerBase.SaveEvent.Breakoff">
+            <summary>
+            是否中断方法执行
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.ControllerBase.PrintEvent.controller">
+            <summary>
+            打印控制器
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.MVC.ModelBase">
+            <summary>
+            数据模型基础类
+            作者：李晓超
+            创建时间：2012-03-14
+            说明：
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.MVC.IModel">
+            <summary>
+            数据模型接口
+            作者：李晓超
+            创建时间：2012-03-14
+            说明：数据模型标识
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.ModelBase.SortIndex">
+            <summary>
+            默认排序字段
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.PageWidth">
+            <summary>
+            页宽度
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.PageHeight">
+            <summary>
+            页高度
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.MarginTop">
+            <summary>
+            上边距
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.MarginLeft">
+            <summary>
+            左边距
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.MarginRight">
+            <summary>
+            右边距
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.MarginBottom">
+            <summary>
+            下边距
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.FilePath">
+            <summary>
+            模板文件路径
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.IsDefault">
+            <summary>
+            是否默认模板
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.PrintData.ModelName">
+            <summary>
+            模板名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.visible">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.disabled">
+            <summary>
+            禁止编辑
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.isadd">
+            <summary>
+            是否启用新增
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.isedit">
+            <summary>
+            是否启用编辑
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.isremove">
+            <summary>
+            是否启用删除
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.isselect">
+            <summary>
+            指定子模型编辑时开启选择功能（注：此属性为true时必须同时指定c参数，c参数为选择时打开的控制器）
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.c">
+            <summary>
+            查询控制器 注：连接到该控制器时默认调用OutSearchData方法
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.HierarchicalEntityControl.isparent">
+            <summary>
+            是否为父类子集
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.InitData.modeldata">
+            <summary>
+            模型数据
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.foreignData.rowdisplay">
+            <summary>
+            外键对象于选择对像对应关系，keys中外键对象属性名称、Values中为主对象属性名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.index">
+            <summary>
+            命令显示索引
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.command">
+            <summary>
+            命令
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.name">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.title">
+            <summary>
+            描述说明
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.disabled">
+            <summary>
+            是否冻结
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.visible">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.onclick">
+            <summary>
+            脚本名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.url">
+            <summary>
+            url
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.isalert">
+            <summary>
+            是否警报
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.issplit">
+            <summary>
+            是否附加按钮
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.splitname">
+            <summary>
+            附加到的按钮名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.isselectrow">
+            <summary>
+            是否必须选择行
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.editshow">
+            <summary>
+            是否在编辑界面显示
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ActionCommand.Tag">
+            <summary>
+            按钮扩展数据
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.AcctrueUser">
+            <summary>
+            爱创用户
+            作者：李晓超
+            创建时间：2012-03-14
+            说明：记录当前登陆用户信息,只能通过静态Login方法创建实例
+            </summary>
+        </member>
+        <member name="M:Acc.Contract.AcctrueUser.IsReadController(System.String)">
+            <summary>
+            是否可访问指定控制器
+            </summary>
+            <param name="c">指定控制器</param>
+            <returns></returns>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.tempid">
+            <summary>
+            临时ID，用于登陆后，前台传递识别用户
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.LoginName">
+            <summary>
+            登录名
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.name">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.Email">
+            <summary>
+            邮件地址
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.PhoneCode">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.ManagerID">
+            <summary>
+            上级经理ID
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.ManagerName">
+            <summary>
+            上级经理名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.OrganizationID">
+            <summary>
+            所在部门ID
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.OrganizationName">
+            <summary>
+            所在部门名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.IsAdministrator">
+            <summary>
+            是否系统管理员
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.UpdateActionTime">
+            <summary>
+            最后活动时间
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.AcctrueUser.IsLogin">
+            <summary>
+            登陆是否成功
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.SenderID">
+            <summary>
+            发送人ID
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.SenderName">
+            <summary>
+            发送人名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.RecipientID">
+            <summary>
+            接收人ID
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.RecipientName">
+            <summary>
+            接收人名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.MsgDesc">
+            <summary>
+            消息简介
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.c">
+            <summary>
+            控制器
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.ID">
+            <summary>
+            关联ID
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.MsgID">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.MsgTitle">
+            <summary>
+            消息标题
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.IsTask">
+            <summary>
+            是否任务
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.TaskName">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.UserMessgae.NodeID">
+            <summary>
+            流程Id
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.index">
+            <summary>
+            参数顺序
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.name">
+            <summary>
+            参数名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.display">
+            <summary>
+            参数显示名
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.title">
+            <summary>
+            参数说明
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.type">
+            <summary>
+            参数类型
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.visible">
+            <summary>
+            是否显示在界面
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.wType">
+            <summary>
+            条件类型
+            </summary>
+        </member>
+        <!-- 对于成员“P:Acc.Contract.Data.ControllerData.WhereParameter.defultvalue”忽略有格式错误的 XML 注释 -->
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.am">
+            <summary>
+            关联方法
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.WhereParameter.aid">
+            <summary>
+            关联ID
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Data.ControllerData.WhereParameter.WhereType.String">
+            <summary>
+            字符类型（默认）
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Data.ControllerData.WhereParameter.WhereType.Bool">
+            <summary>
+            是否类型
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Data.ControllerData.WhereParameter.WhereType.Int">
+            <summary>
+            数字类型
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Data.ControllerData.WhereParameter.WhereType.Date">
+            <summary>
+            日期类型
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Data.ControllerData.WhereParameter.WhereType.DateTime">
+            <summary>
+            日期时间类型
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Data.ControllerData.WhereParameter.WhereType.ComBox">
+            <summary>
+            多值类型
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.user">
+            <summary>
+            当前用户
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.controller">
+            <summary>
+            控制器
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.system">
+            <summary>
+            当前应用系统名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.cname">
+            <summary>
+            当前控制器名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.mname">
+            <summary>
+            当前模块名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.cmd">
+            <summary>
+            命令名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.process">
+            <summary>
+            命令是否完成
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.results">
+            <summary>
+            处理结果
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ControllerData.submitItem.error">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.MVC.PrintController.pringDicName">
+            <summary>
+            打印模板目录
+            </summary>
+        </member>
+        <member name="M:Acc.Contract.MVC.PrintController.print(Way.EAP.DataAccess.Entity.EntityBase,System.Int32)">
+            <summary>
+            打印
+            </summary>
+            <param name="info">待打印数据</param>
+            <param name="model">模板ID,为0则使用默认模板</param>
+            <returns></returns>
+        </member>
+        <member name="P:Acc.Contract.MVC.PrintController.ControllerName">
+            <summary>
+            待打印控制器名
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.PrintController.PrintModel">
+            <summary>
+            打印模板名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.MVC.PrintController.xmlDataFile">
+            <summary>
+            打印模板数据文件
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.name">
+            <summary>
+            数据模型名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.title">
+            <summary>
+            数据模型显示名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.isadd">
+            <summary>
+            是否启用子模型新增
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.isedit">
+            <summary>
+            是否启用子模型编辑
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.isremove">
+            <summary>
+            是否启用子模型删除
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.isselect">
+            <summary>
+            是否启用子模型选择
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.isclear">
+            <summary>
+            启用回收站
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.parent">
+            <summary>
+            父模型
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.childitem">
+            <summary>
+            属性成员
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Data.ModelData.childmodel">
+            <summary>
+            子模型集合
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.Center.CommandEventCenter">
+            <summary>
+            命令事件中心
+            </summary>
+        </member>
+        <member name="M:Acc.Contract.Center.CommandEventCenter.Notify(Acc.Contract.MVC.ControllerBase,System.String,Acc.Contract.Center.CustomeEventType)">
+            <summary>
+            通报
+            </summary>
+            <param name="sender">控制器</param>
+            <param name="methodName">方法名称</param>
+        </member>
+        <member name="M:Acc.Contract.Center.CommandEventCenter.RegisterObserver(Acc.Contract.Center.ObserverClient)">
+            <summary>
+            注册观察者
+            </summary>
+        </member>
+        <member name="M:Acc.Contract.Center.CommandEventCenter.UnRegisterObserver(Acc.Contract.Center.ObserverClient)">
+            <summary>
+            注销观察者
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.Center.ObserverClient">
+            <summary>
+            观察者客户
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.ObserverClient.SourceController">
+            <summary>
+            源控制器
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.ObserverClient.ControllerName">
+            <summary>
+            客户要观察的控制器名称,必须设置
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.ObserverClient.MethodName">
+            <summary>
+            客户要观察的控制器中方法名称，如为空则观察控制器内所有公开方法
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.ObserverClient.ObserverType">
+            <summary>
+            观察类型
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.ObserverClient.IsErrorStop">
+            <summary>
+            是否异常中断（该属性为True并且通报方法执行异常则中断原方法执行）
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.ObserverClient.InceptNotify">
+            <summary>
+            接收通报
+            </summary>
+        </member>
+        <member name="T:Acc.Contract.Center.EventBase">
+            <summary>
+            事件基础
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.EventBase.EventType">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.EventBase.MethodName">
+            <summary>
+            方法名称
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.EventBase.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.EventBase.StopTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.EventBase.CustomeData">
+            <summary>
+            客户数据
+            </summary>
+        </member>
+        <member name="P:Acc.Contract.Center.EventBase.CustomeException">
+            <summary>
+            客户方法异常
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Center.CustomeEventType.Start">
+            <summary>
+            开始
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Center.CustomeEventType.Complete">
+            <summary>
+            完成
+            </summary>
+        </member>
+        <member name="F:Acc.Contract.Center.CustomeEventType.All">
+            <summary>
+            全部
+            </summary>
+        </member>
+    </members>
+</doc>

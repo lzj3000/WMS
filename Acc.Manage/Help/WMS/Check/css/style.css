@@ -1,0 +1,119 @@
+/*定义全局*/
+* {margin:0;padding:0;border:0;
+     scrollbar-face-color:#eeeeee;
+      scrollbar-highlight-color:#5593d9;
+      scrollbar-3dlight-color:#ffffff;
+      scrollbar-darkshadow-color:#ffffff;
+      scrollbar-shadow-color:#5593d9;
+      scrollbar-arrow-color:#5593d9;
+      scrollbar-track-color:#eeeeee;}
+	  
+body {font-family:arial, 宋体, serif;
+      font-size:12px;
+	  color:#000;
+      text-align:center;
+      background-color:#fff;
+	 }
+	   
+	   
+/*定义顶部*/
+.header {
+	width:100%;
+	height:90px;
+	line-height:90px;
+	background-image: url(../images/y_03.gif);
+	background-repeat: repeat-x;
+}
+
+.header .left {float:left;width:272px;}
+	
+.header .right {float:right;}
+
+
+/*定义顶部下面的颜色条*/
+.color {
+	width:100%;
+	height:27px;
+	line-height:27px;
+	margin:0px;
+	padding:0px;
+	background-image: url(../images/y_05.gif);
+	background-repeat: repeat-x;
+}
+
+.color .left01 {float:left;width:107px;height:27px;padding:0px;background-image: url(../images/y_06.gif);}
+
+.color .right01 {float:right;width:365px;height:27px;padding:0px;background-image: url(../images/y_07.gif);}
+
+
+
+/*左边部分*/
+.menu {
+float:left;
+	width:295px;
+	margin:0px;
+	padding:0px;
+	background-color: f6f6f6;
+	text-align:center;
+}	
+   
+.menu .mbg {float:left;
+	padding-top:16px;width:195px;} 
+
+
+/*右边部分*/
+.scontent{
+   text-align:left;width:95%;
+}
+
+.scontent p {clear:both;margin-left:40px;margin-top:10px;text-align:left;line-height:20px;text-indent:2em;}
+.indent {clear:both;margin:5px 0 -15px 40px;text-align:left;line-height:20px;text-indent:2em;}
+.scontent .img02 {float:right;padding-top:15px;padding-right:4px;}
+.scontent h3 {float:left;width:100%;margin-top:15px;}
+.scontent ul {padding:10px 0 0 40px;line-height:20px;}
+.scontent li {}
+.scontent table {
+    background:#424242;
+    width:90%;
+    margin:10px;
+}
+.scontent table tr td {
+    background:#fff;text-align:left;padding:4px;
+}
+.scontent table tr .tdcenter {
+    text-align:center;
+}
+.scontent table thead  tr td {
+    background:#E6E7E7;text-align:center;font-weight:bold;
+}
+.rightbody {width:95%;}
+.screen {text-align:center;margin:10px;margin-left:100px;margin-right:100px;width:100%;color:#448ccb;}
+
+
+/*版权*/
+.copyright {
+    width:100%;
+    text-align:right;
+    height:28px;
+	line-height:28px;
+	margin-top:15px;
+}
+.copyright .img{padding:8px 5px 0 0;vertical-align:middle;display:hidden;}
+.copyright a:hover{
+	color:#111;font-weight:bold;
+	text-decoration:none;
+}
+
+/*超链接*/
+a:link {
+	color: #3f90d2; text-decoration: none
+}
+a:visited {
+	color: #3f90d2; text-decoration: none
+}
+a:hover {
+	color: #3f90d2; text-decoration: underline
+}
+a:active {
+	color: #3f90d2; text-decoration: none
+}

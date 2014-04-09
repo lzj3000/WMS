@@ -1,0 +1,410 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.Controllers.RoleController";
+            p.applyTo = "t2";
+            p.ischildgrid = false;
+            p.ischildform = false;
+            p.ischildfooter = false;
+            p.init();
+            rolepageinit(p);
+            p.ishelp = false;
+        });
+
+        function rolepageinit(p) {
+            var source = new datasource();
+            source.c = "Acc.Business.Controllers.SystemDirectoryController";
+            source.init();
+            var t = inittree(source);
+            var f = initform(source);
+            var usertree = initusertree();
+            p.t = t;
+            p.f = f;
+            p.usertree = usertree;
+            p.onSelect = function (item) {
+                t.uncheck();
+                p.usertree.uncheck();
+                var source = this.datasource;
+                var pppp = source.page;
+                source.page = "-1";
+                var mdata = source.loadforeign(0, item);
+                var rm = source.getcmsource(0);
+                var name = rm.modeldata.name;
+                if (mdata.total > 0) {
+                    item[name] = mdata.rows;
+                    var models = item[name];
+                    var id;
+                    for (var i in models) {
+                        id = models[i].MODELID;
+                        t.check(id, true);
+//                        loadforeign(rm, 0, models[i]);
+//                        loadforeign(rm, 1, models[i]);
+//                        showcommand(t, models[i]);
+                    }
+                    // t.expandAll();
+                  // t.select(id);选模块先不要。
+                }
+                var udata = source.loadforeign(1, item);
+                source.page = pppp;
+                var ru = source.getcmsource(1);
+                name = ru.modeldata.name;
+                if (udata.total > 0) {
+                    item[name] = udata.rows;
+                    for (var i in udata.rows) {
+                        this.usertree.check(udata.rows[i].USERID, true);
+                    }
+                }
+            }
+            t.onSelect = function (node) {
+                if (!node.attributes || node.attributes.COMMAND)
+                    node = t.getparent(node);
+//                if (t.oldnode)
+//                    setroleitem(p.datasource, t.oldnode, f);
+                var ndata = "Acc.Business.Model.SystemModelData";
+                var ncmd = "Acc.Business.Model.ModelCommand"
+                f.childload(ndata, node.attributes, "visible=1");
+                if (node.checked) {
+                    t.oldnode = node;
+                    if (p.datasource && p.datasource.selectItem) {
+                        var source = p.datasource.getcmsource(0);
+                        var models = p.datasource.selectItem[source.modeldata.name];
+                        var dim = null;
+                        for (var i in models) {
+                            if (models[i].MODELID == node.id) {
+                                dim = models[i];
+                                break;
+                            }
+                        }
+                        showmodeldata(f, dim);
+                    }
+                }
+
+            }
+        }
+        function getTreeRow(dic, source) {
+            var nodes = [];
+            //有子目录
+            if (dic.childs && dic.childs.length > 0) {
+                var c;
+                for (var i in dic.childs) {
+                    c = dic.childs[i];
+                    var n = {};
+                    n.id = "div-" + c.ID;
+                    n.text = c.Name;
+                    n.attributes = c;
+                    n.children = getTreeRow(c, source);
+                    nodes.push(n);
+                }
+            }
+            //有子模块
+            if (dic.menus && dic.menus.length > 0) {
+                var m;
+                for (var i in dic.menus) {
+                    m = dic.menus[i];
+                    var n = {};
+                    n.id = m.id;
+                    n.text = m.name;
+                    n.attributes = m.mmm;
+                    var cmds = getchildren(source, n, 1, "PARENTID", "NAME");
+                    var cv = { id: -100, text: "查询" };
+                    cmds.unshift(cv);
+                    n.children = cmds;
+                    nodes.push(n);
+                }
+            }
+            return nodes;
+        }
+        function treedata(source) {
+            var menu = webjs.obj.menu;
+            var cs = source.getcmsource(0);
+            var ms = [];
+            for (var i in menu) {
+                var m = menu[i];
+                if (m.ID > 0) {
+                    var o = {};
+                    o.id = "div-" + m.ID;
+                    o.text = m.Name;
+                    o.attributes = m;
+                    o.children = getTreeRow(m, cs);
+                    ms.push(o);
+                }
+            }
+            return ms;
+        }
+        //创建功能树
+        function inittree(source) {
+            var t = new tree();
+            t.isload = false;
+            t.checkbox = true;
+            t.cascadeCheck = true;
+            t.applyTo = "t1";
+            t.datasource = source;
+            t.onExpand = function (node) {
+                return false;
+            }
+            t.init();
+            var data = treedata(source);
+            t.loaddata(data);
+            return t;
+        }
+        function initform(source) {
+            var f = new childform();
+            var model = {};
+            f.childfooter = false;
+            model.modeldata = source.modeldata.childmodel[0];
+            model.modeldata.childmodel[0].visible = false;//临时设置
+            model.modeldata.childmodel[1].visible = false;
+            model.name = source.c;
+            var s1 = new datasource();
+            s1.onAfterEdit = function (index, item, changes) {
+                if (changes) {
+                    var grid = f.griditems["Acc.Business.Model.SystemModelData"];
+                    grid.checked(true, index);
+                }
+            }
+            s1.setmodel(model);
+            f.parent = s1;
+            f.editobj.add = false;
+            f.editobj.remove = false;
+            f.childedit = true;
+            f.childcheck = true;
+            f.tabs($("#role-tabs"));
+            return f;
+        }
+        //创建职员树
+        function initusertree() {
+            var source = new datasource();
+            source.c = "Acc.Business.Controllers.OfficeWorkerController";
+            source.init();
+            var id = undefined;
+            if (!webjs.obj.IsAdministrator) {
+                id = webjs.obj.ManagerID;
+            }
+            var t = new tree();
+            t.isload = false;
+            t.checkbox = true;
+            t.cascadeCheck = false;
+            t.onExpand = function (node) {
+                return false;
+            }
+            t.applyTo = "t6";
+            t.datasource = source;
+            t.init();
+            t.loadAll(id, "IsLoginUser=1");
+            t.expandAll();
+            return t;
+        }
+        //处理选择模块中修改过的数据成员
+        function showcommand(t, dim) {
+            var cname = "Acc.Business.Model.RoleCommand";
+            var crows = dim[cname];
+            var child = t.getchild(dim.MODELID);
+            for (var i in crows) {
+                var c = crows[i];
+                for (var cc in child) {
+                    var cmd = child[cc];
+                    if (cmd.attributes && c.COMMAND == cmd.attributes.COMMAND) {
+                        t.check(cmd.id, false);
+                        break;
+                    }
+                }
+            }
+        }
+        //处理选择模块中修改过的数据成员
+        function showmodeldata(f,dim) {
+            var cname = "Acc.Business.Model.RoleModelData";
+            var srows = dim[cname];
+            if (srows && srows.length > 0) {
+                var grid = f.griditems["Acc.Business.Model.SystemModelData"];
+                var rows = grid.getrows();
+                for (var n in rows) {
+                    var b = false;
+                    var robj = rows[n];
+                    for (var s in srows) {
+                        var ssobj = srows[s];
+                        if (robj.FIELD && robj.FIELD == ssobj.FIELD) {
+                            b = true;
+                        }
+                        if (b) {
+                            for (var c in robj) {
+                                robj[c] = ssobj[c];
+                            }
+                            break;
+                        }
+                    }
+                    if (b) {
+                        grid.checked(true, n);
+                    }
+                }
+            }
+        }
+        function setroleitem(datasource, t, f) {
+            if (datasource && datasource.selectItem && t && f) {
+                var item = datasource.selectItem;
+                var source = datasource.getcmsource(0);
+                var models = datasource.selectItem[source.modeldata.name];
+                var dim = t.attributes;
+                if (dim == null) {
+                    for (var i in models) {
+                        if (models[i].MODELID == t.id) {
+                            dim = models[i];
+                            break;
+                        }
+                    }
+                }
+                if (dim != null) {
+                    var fitem = f.val();
+                    for (var i in fitem) {
+                        dim[i] = fitem[i];
+                        for (var n in dim[i]) {
+                            dim[i][n].ROLEMODELID = dim.ID;
+                            dim[i][n].StateBase = 0;
+                            dim[i][n].GetOldObject = undefined
+                        }
+                    }
+                    t.attributes = dim;
+                }
+            }
+        }
+        function loadforeign(source, index, item) {
+            var mdata = source.loadforeign(index, item);//, 'visible=1'
+            var fs = source.getcmsource(index);
+            var name = fs.modeldata.name;
+            if (mdata.total > 0) {
+                item[name] = mdata.rows;
+            }
+            return item[name];
+        }
+        function getchildren(source,row,index,cs,tx) {
+            var re = source.loadforeign(index, row.attributes, 'visible=1');
+            var items = [];
+            for (var i in re.rows) {
+                var r = re.rows[i];
+                var node = { id: "cmd_" + r.ID, text: r[tx], attributes: r };
+                items.push(node);
+            }
+            return items;
+        }
+        function saverole(data) {
+            if (data.item != null) {
+                var t = data.sender.datasource.p.t;
+                var f = data.sender.datasource.p.f;
+                var p = data.sender.datasource.p;
+                if (t != null) {
+                    //setroleitem(data.sender.datasource, t.oldnode, f);
+                    var fs = data.sender.datasource.getcmsource(0);
+                    var name = fs.modeldata.name;
+                    var nts = t.getchecked();
+                    var models = [];
+                    var cmds = [];
+                    for (var i in nts) {
+                        var m = nts[i];
+                        if (m.attributes && m.attributes.MODELNAME) {
+                            models.push(m);
+                        }
+                        if ((m.attributes && m.attributes.COMMAND) || m.id == -100) {
+                            if (m.id != -100)
+                                cmds.push(m);
+                            var parent = t.getparent(m);
+                            var bp = true;
+                            for (var i in models) {
+                                if (models[i].id == parent.id) {
+                                    bp = false;
+                                    break;
+                                }
+                            }
+                            if (bp) {
+                                models.push(parent);
+                            }
+                        }
+                    }
+                    var nodes = [];
+                    for (var i in models) {
+                        var m = models[i];
+                        if (m.attributes.ModelName) {
+                            var childs = t.getchild(m);
+                            var ccs = [];
+                            for (var ccc in childs) {
+                                var c = childs[ccc];
+                                if (c.attributes) {
+                                    var bb = true;
+                                    for (var sc in cmds) {
+                                        if (cmds[sc].id == c.id) {
+                                            bb = false;
+                                            break;
+                                        }
+                                    }
+                                    if (bb) {
+                                        c.attributes.StateBase = 0;
+                                        ccs.push(c.attributes);
+                                    }
+                                }
+                            }
+                            m.attributes["Acc.Business.Model.RoleCommand"] = ccs;
+                            nodes.push(m);
+                        }
+                    }
+                    data.item[name] = savedata(nodes);
+                    var ru = data.sender.datasource.getcmsource(1);
+                    name = ru.modeldata.name;
+                    var udata = p.usertree.getchecked();
+                    var uuu = [];
+                    if (udata) {
+                        for (var i in udata) {
+                            var ur = {};
+                            ur.USERID = udata[i].id;
+                            ur.ROLEID = data.item.ID;
+                            ur.StateBase = 0;
+                            uuu.push(ur);
+                        }
+                    }
+                    data.item[name] = uuu;
+                }
+                return true;
+            }
+            else {
+                $.messager.alert("异常","没有选择角色成员。");
+            }
+
+            function savedata(nodes) {
+                var list = [];
+                for (var i in nodes) {
+                    var obj = {};
+                    obj.ROLEID = data.item.ID;
+                    obj.MODELID = nodes[i].id;
+                    obj.StateBase = 0;
+                    if (nodes[i].attributes["Acc.Business.Model.RoleModelData"]) {
+                        obj["Acc.Business.Model.RoleModelData"] = nodes[i].attributes["Acc.Business.Model.RoleModelData"];
+                    }
+                    if (nodes[i].attributes["Acc.Business.Model.RoleCommand"]) {
+                        obj["Acc.Business.Model.RoleCommand"] = nodes[i].attributes["Acc.Business.Model.RoleCommand"];
+                    }
+                    list.push(obj);
+                }
+                return list;
+            }
+
+            function isNodes(id, nodes,name) {
+                for (var i in nodes) {
+                    if (id == nodes[i][name])
+                        return nodes[i];
+                }
+                return false;
+            }
+        }
+      </script>
+<div class="easyui-layout" fit="true">
+<div region="west" split="true" style="height:auto;width:200px" title="角色人员"><div id="t6"></div></div>
+<div region="east" split="true" style="height:auto;width:200px" title="角色功能"><div id="t1"></div></div>
+<div region="center" style="height:auto;width:auto;">
+<div class="easyui-layout" fit="true">
+<div region="center" style="height:auto;width:auto;">
+<div id="t2"></div>
+</div>
+<!--<div region="south" split="true" style="height:250px;">
+<div class="easyui-tabs" fit="true" id="role-tabs"/>
+</div>-->
+</div>
+</div>
+</div>
+

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData
+END
+BasicInfo.cs
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/BasicInfo.cs
+END
+Material.cs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/Material.cs
+END
+OrderStayMaterials.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/OrderStayMaterials.cs
+END
+MobileSetModelList.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/MobileSetModelList.cs
+END
+WmsOrder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/WmsOrder.cs
+END
+MobileSetModel.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/MobileSetModel.cs
+END
+WmsOrderMaterials.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/WmsOrderMaterials.cs
+END
+MobileSetProject.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BaseData/MobileSetProject.cs
+END

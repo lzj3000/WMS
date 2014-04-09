@@ -1,0 +1,32 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.Controllers.PrintTemplateController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("STATUS", "0");
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.init();
+        });
+        function addMb(data) {
+            window.open("../../DesginManager/DesignEditor.aspx");
+        } 
+        function whdata(data) {
+            window.open("../../DesginManager/ParmManager.aspx");
+        }
+
+        function xiugaidata(data) {
+            window.open("../../DesginManager/DesignEditor.aspx?id=" + data.item.ID);
+        }
+        function historydata(data) {
+            window.open("../../DesginManager/TempHistory.aspx?id=" + data.item.ID);
+        }
+      </script>
+<div id="t1"></div>

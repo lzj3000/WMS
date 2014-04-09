@@ -1,0 +1,54 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.PickOutOrderController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            p.onForeigned = function (sender, fdata, rows) {
+                if (fdata.tablename.toString() == "Acc_Bus_BusinessCommodity" && sender.field.toString() == "MATERIALCODE") {
+                    var tt = p.datasource.post("VoliGetUnit", "MaterialsId=" + rows.ID + "");
+                    if (tt != "") {
+                        var row = sender.parent.selectrow();
+                        var eb = sender.parent.geteditor("MATERIALPACKID");
+                        eb.actions.setValue(eb.target, tt, row);
+                    }
+                    //grid.load({ total: tt.length, rows: tt });
+                }
+                if (fdata.tablename.toString() == "Acc_WMS_OutNotice" && sender.field.toString() == "SOURCECODE") {
+                    var tt = p.datasource.post("GetNoticeStayGrid", "NoticeId=" + fdata.filedvalue + "");
+                    if (tt != "[]") {
+                        var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockOutNoticeMaterials"];
+                        grid.insertRow(tt);
+                    }
+                }
+                if (fdata.tablename == "Acc_WMS_WareHouse" && sender.field == "DEPOTWBS") {
+                    var eb = sender.parent.geteditor("PORTNAME");
+                    rows[eb.target.foreign.displayname] = rows["TPCODE"]
+                    rows[eb.target.field] = rows["TPID"];
+                    eb.actions.setValue(eb.target, "", rows);
+                    var eb2 = sender.parent.geteditor("BATCHNO");
+                    var pici = eb2.actions.getValue(eb2.target);
+                    if (pici == "") {
+                        eb2.actions.setValue(eb2.target, rows["BATCHNO"]);
+                    }
+                    var eb1 = sender.parent.geteditor("NUM");
+                    eb1.actions.setValue(eb1.target, rows["NUM"], rows[eb1.field]);
+                }
+                if (fdata.tablename == "Acc_WMS_Ports" && sender.field == "PORTNAME") {
+                    var eb = sender.parent.geteditor("DEPOTWBS");
+                    rows[eb.target.foreign.displayname] = rows["HWCODE"]
+                    rows[eb.target.field] = rows["HWID"];
+                    eb.actions.setValue(eb.target, "", rows);
+                    var eb2 = sender.parent.geteditor("BATCHNO");
+                    var pici = eb2.actions.getValue(eb2.target);
+                    if (pici == "") {
+                        eb2.actions.setValue(eb2.target, rows["BATCHNO"]);
+                    }
+                    var eb1 = sender.parent.geteditor("NUM");
+                    eb1.actions.setValue(eb1.target, rows["NUM"], rows[eb1.field]);
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

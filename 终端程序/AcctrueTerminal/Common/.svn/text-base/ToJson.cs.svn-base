@@ -1,0 +1,370 @@
+﻿using System;
+
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+using System.Net;
+using System.IO;
+using System.Globalization;
+using System.Text.RegularExpressions;
+namespace AcctrueTerminal.Common
+{
+    /// <summary>
+    /// 描述：终端项目配置
+    /// 作者：张朝阳
+    /// 创建日期:2013-08-02
+    /// </summary>
+   public class ToJson
+   {
+       #region Json处理传输数据
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fanshi"></param>1登陆 2查询  3审核
+        /// <param name="m"></param>
+        /// <param name="c"></param>
+        /// <param name="LoadItem"></param>
+        /// <returns></returns>
+       public static DataTable getData(UrlTypeData ud)
+       {
+           string url = "";
+           string paramurl = "";
+
+           //1是登录
+           if (ud.Type == 1)
+           {
+               url =BaseCommon.LoginUrl + "m=" + ud.m;
+               paramurl = ud.LoadItem;
+               string str1 = HttpRequestFromPost(url, paramurl);
+               if (str1.Length < 100)
+               {
+                   if (str1=="")
+                   {
+                       UIHelper.ErrorMsg("网络连接异常，请检查网络！");
+                       return new DataTable("Error");
+                   }
+                   UIHelper.ErrorMsg(str1);
+                   return new DataTable("Error");
+               }
+               string str2 = str1.Remove(0, str1.IndexOf('d', 0, str1.Length) + 4);
+               str1 = str2.Substring(0, str2.IndexOf("\""));
+               BaseCommon.uuid = str1;
+               return new DataTable();
+           }
+           //2是查询
+           else if (ud.Type == 2)
+           {
+               url = BaseCommon.BusUrl + "c=" + ud.c + "&m=" + ud.m;
+               paramurl = "LoadItem=" + ud.LoadItem + "&guid=" + BaseCommon.uuid;
+           }
+           //3编辑，添加，审核等方法时
+           else if (ud.Type == 3)
+           {
+               //url = BusUrl + "c=" + ud.c + "&m=" + ud.m;
+               //paramurl = "ActionItem=" + ud.LoadItem + "&guid=" + BaseCommon.uuid;
+               //ExecuteMethod(ud);
+           }
+           //调用子集
+           else if (ud.Type == 4)
+           {
+               url = BaseCommon.BusUrl + "c=" + ud.c + "&m=" + ud.m;
+               paramurl = "LoadItem=" + ud.LoadItem;
+               paramurl = paramurl + "&fdata=" + ud.FDtata + "&guid=" + BaseCommon.uuid;
+           }
+           string str = HttpRequestFromPost(url, paramurl);
+
+           if (str == "" || str == "{\"results\":\"Y\"}")
+           {
+               if (str == "")
+                   UIHelper.ErrorMsg("数据库连接异常，请退出或重新操作");
+               return new DataTable();
+           }
+
+           if (str.Trim() == "用户未登录，或超时，请重新登录系统！")
+           {
+               UIHelper.ErrorMsg(str);
+               return new DataTable();
+           }
+
+           if (str.Substring(0, 10) == "查询数据库操作异常!")
+           {
+               UIHelper.ErrorMsg("查询数据库操作异常!请于管理员联系!");
+               return new DataTable();
+           }
+
+          return  JsonToDataTable(str);
+          
+       }
+      
+       private static string HttpRequestFromPost(string maiurl, string paramurl)
+        {
+            string strHtmlContent = "";
+            HttpWebRequest request;
+            try
+            {
+                Encoding encoding = Encoding.GetEncoding("UTF-8");
+
+                //声明一个HttpWebRequest请求
+                request = (HttpWebRequest)WebRequest.Create(maiurl);
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.AllowAutoRedirect = true;
+                byte[] Postbyte = Encoding.UTF8.GetBytes(paramurl);
+                request.ContentLength = Postbyte.Length;
+
+                Stream newStream = request.GetRequestStream();
+                newStream.Write(Postbyte, 0, Postbyte.Length);//把参数用流对象写入request对象中   
+                newStream.Close();
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();//获得服务器响应对象  
+                Stream resStream = response.GetResponseStream();//转成流对象   
+                StreamReader sr = new StreamReader(resStream, encoding);
+                strHtmlContent = sr.ReadToEnd();
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                request = null;
+            }
+            if (strHtmlContent == null)
+                strHtmlContent = "";
+            return strHtmlContent;
+        }
+        
+
+       /// <summary>
+       /// 执行方法（返回"N"或"Y"）
+       /// </summary>
+       /// <param name="m"></param>
+       /// <param name="c"></param>
+       /// <param name="LoadItem"></param>
+       /// <returns></returns>
+       public static string ExecuteMethod(UrlTypeData ud)
+       {
+           string url = "";
+           string paramurl = "";
+           url = BaseCommon.BusUrl + "c=" + ud.c + "&m=" + ud.m;
+           paramurl = "ActionItem=" + ud.LoadItem + "&guid=" + BaseCommon.uuid;
+           string str = HttpRequestFromPost(url, paramurl);
+           if (str.Trim().Length < 60 && str.Trim() != "{\"results\":\"Y\"}")
+           {
+               if (str.Trim() != "ok")
+               {
+                   UIHelper.ErrorMsg(str);
+                   return str;
+               }
+           }
+           return "Y";
+       }
+       /// <summary>
+       /// 单件入库执行方法
+       /// </summary>
+       /// <param name="m"></param>
+       /// <param name="c"></param>
+       /// <param name="LoadItem"></param>
+       /// <returns></returns>
+       public static string OnOrderInExecuteMethod(UrlTypeData ud)
+       {
+           string url = "";
+           string paramurl = "";
+           url = BaseCommon.BusUrl + "c=" + ud.c + "&m=" + ud.m;
+           paramurl = "ActionItem=" + ud.LoadItem + "&guid=" + BaseCommon.uuid;
+           string str = HttpRequestFromPost(url, paramurl);
+           if (str.Trim().Length < 100 && str.Trim() != "{\"results\":\"Y\"}")
+           {
+               UIHelper.ErrorMsg(str);
+               return str;
+           }
+           int si = str.LastIndexOf("\"ID\":")+5;
+           int i = str.IndexOf(",", si);
+           string aa = str.Substring(si, i - si);
+           return aa;
+       }
+       /// <summary>
+       /// 三级表入库执行方法
+       /// </summary>
+       /// <param name="m"></param>
+       /// <param name="c"></param>
+       /// <param name="LoadItem"></param>
+       /// <returns></returns>
+       public static string InSequenceInExecuteMethod(UrlTypeData ud)
+       {
+           string url = "";
+           string paramurl = "";
+           url = BaseCommon.BusUrl + "c=" + ud.c + "&m=" + ud.m;
+           paramurl = "InSequences=" + ud.LoadItem + "&guid=" + BaseCommon.uuid;
+           string str = HttpRequestFromPost(url, paramurl);
+           if (str.Trim() != "Y")
+           {
+               UIHelper.ErrorMsg(str);
+               return str;
+           }
+           return str;
+       }
+
+       /// <summary>
+       /// 执行方法（返回字符串字段大于50）
+       /// </summary>
+       /// <param name="ud"></param>
+       /// <returns></returns>
+       public static string ExecuteMethodStr(UrlTypeData ud)
+       {
+           string url = "";
+           string paramurl = "";
+           url = BaseCommon.BusUrl + "c=" + ud.c + "&m=" + ud.m;
+           paramurl = "ActionItem=" + ud.LoadItem + "&guid=" + BaseCommon.uuid;
+           string str = HttpRequestFromPost(url, paramurl);
+           if (str.Trim().Length < 50 && str.Trim() != "{\"results\":\"Y\"}")
+           {
+               UIHelper.ErrorMsg(str);
+               return str;
+           }
+           return str;
+       }
+       /// <summary>
+       /// 获取服务器时间
+       /// </summary>
+       /// <param name="ud"></param>
+       /// <returns></returns>
+       public static string GetServerData(UrlTypeData ud)
+       {
+           string url = "";
+           string paramurl = "";
+           url = BaseCommon.BusUrl + "c=" + ud.c + "&m=" + ud.m;
+           paramurl ="&guid=" + BaseCommon.uuid;
+           string str = HttpRequestFromPost(url, paramurl);
+           return str;
+       }
+       #endregion
+
+       #region 将JSON解析成DataTable
+       public static Dictionary<string, string> row(string str)
+       {
+           if (str.StartsWith("{") && str.EndsWith("}"))
+           {
+               Dictionary<string, string> list = new Dictionary<string, string>();
+               str = str.Replace("{", "");
+               str = str.Replace("}", "");
+               string[] cs = str.Split(',');
+               foreach (string s in cs)
+               {
+                   string[] rs = s.Split(':');
+                   string k = rs[0].Replace("\\", "");
+                   string v = rs[1].Replace("\\", "");
+                   k = k.Replace("\"", "");
+                   v = v.Replace("\"", "");
+                   list.Add(k, v);
+               }
+               return list;
+           }
+           return null;
+       }
+       public static DataTable JsonToDataTable(string str)
+       {
+           if (str == "{\"results\":\"[]\"}")
+               return new DataTable();
+           char[] strs = { '}' };
+           char[] strs1 = { ':'};
+           str = str.Remove(0, str.IndexOf('['));
+           str = str.TrimStart(strs1);
+           str = str.TrimEnd(strs);
+           if (str.StartsWith("[") && str.EndsWith("]"))
+           {
+               str = str.Replace("[", "");
+               str = str.Replace("]", "");
+               //string[] ccc = new string[1];
+               //ccc[0] = "},";             
+               string[] cs = str.Split('}');
+               DataTable tab = new DataTable();
+               Dictionary<string, string> list;
+               foreach (string s in cs)
+               {
+                   string ssss = s;
+                   if (ssss == "")
+                       break;
+                   if (!ssss.EndsWith("}"))
+                       ssss += "}";
+                   if (ssss.StartsWith(","))
+                   {
+                       ssss = ssss.Remove(0, 1);
+                   }
+                   list = row(ssss);
+                   if (tab.Columns.Count == 0)
+                   {
+                       foreach (string c in list.Keys)
+                           tab.Columns.Add(c);
+                   }
+                   DataRow r = tab.NewRow();
+                   foreach (DataColumn dc in tab.Columns)
+                   {
+                       r[dc.ColumnName] = list[dc.ColumnName];
+                   }
+                   tab.Rows.Add(r);
+               }
+               return tab;
+           }
+           else
+           {
+               UIHelper.ErrorMsg(InfoMessage.NotJsonStr);
+           }
+           return null;
+       }
+       #endregion
+
+       #region 将JSON解析成DataTable
+        /// <summary>
+        /// 将WEB返回的Json字符串转化成DataTable
+        /// 例如：Json＝{"code":"001","name":"Name 1"};
+        /// </summary>
+        /// <param name="json">Json字符传</param>
+        /// <returns>DataTable</returns>
+       public static Dictionary<string, string> StrRow(string str)
+       {
+           Dictionary<string, string> list = new Dictionary<string, string>();
+           str = str.Replace("{", "");
+           str = str.Replace("}", "");
+           string[] cs = str.Split(',');
+           foreach (string s in cs)
+           {
+               string[] rs = s.Split(':');
+               string k = rs[0];
+               string v = rs[1];
+               k = k.Replace("\"", "");
+               v = v.Replace("\"", "");
+               list.Add(k, v);
+           }
+           return list;
+       }
+
+       public static DataTable StrJsonToDataTable(string str)
+       {
+           if (str.StartsWith("{") && str.EndsWith("}"))
+           {
+               DataTable tab = new DataTable();
+               Dictionary<string, string> list;
+
+               list = StrRow(str);
+               if (tab.Columns.Count == 0)
+               {
+                   foreach (string c in list.Keys)
+                       tab.Columns.Add(c);
+               }
+               DataRow r = tab.NewRow();
+               foreach (DataColumn dc in tab.Columns)
+               {
+                   r[dc.ColumnName] = list[dc.ColumnName];
+               }
+               tab.Rows.Add(r);
+
+               return tab;
+           }
+           return null;
+       }
+       
+       #endregion       
+    }   
+}

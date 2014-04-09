@@ -1,0 +1,106 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.Controllers.PortsController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            p.isgridcheck = true;
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("STATUS", "0");
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.init();
+        });
+        function selectMb(data) {
+            window.open("DesginManager/Default.aspx");
+            //window.open("Views/WebForm1.aspx");
+        }
+
+        function SetPrintModel(data) {
+            window.open("DesginManager/SetPrintModel.aspx?strController=" + data.sender.datasource.c, "_black", "width=300,height=200,left=200,top=200");
+        }
+        function selectRequisition(data) {
+            var rows = data.sender.datasource.grid.getcheckrows();
+            if (rows.length > 0) {
+                var id = "";
+                for (var r in rows) {
+                    if (id == "")
+                        id = rows[r].PORTNO + "|" + rows[r].PORTNAME;
+                    else
+                        id += ";" + rows[r].PORTNO + "|" + rows[r].PORTNAME;
+                }
+                window.open("DesginManager/PrintSet.aspx?strController=" + data.sender.datasource.c + "&selectPortsRows=" + id, "_black", "width=300,height=200,left=200,top=200");
+            }
+            else {
+                $.messager.alert("错误", "错误，请选择需要打印的条码！");
+            }
+        }
+
+        function openAutoNextPort(data) {
+            var id=webjs.newid();
+            var str = '<div id="' + id + '">'
+                    +'<table>'
+                       + '<tr><td>前缀</td><td><input type="text" name="qz" value="9"/></td><td>编码的前缀</td></tr>'
+                       + '<tr><td>流水位数</td><td><input class="easyui-numberspinner" type="text" name="ws" value="6"/></td><td>编码的长度</td></tr>'
+                       + '<tr><td>生成数量</td><td><input class="easyui-numberspinner" type="text" name="sc" value=""/></td><td>本次生成数量</td></tr>'
+                       + '<tr><td>开始数</td><td><input class="easyui-numberspinner" type="text" name="ks" value="1"/><td>从几开始生成</td></td></tr>'
+                    +'</table>'
+                    + '</div>';
+            $(str).appendTo("body");
+            $("#" + id + " .easyui-numberspinner").numberspinner();
+            $("#" + id).dialog({
+                title: "生成托盘",
+                width: 300,
+                height: 200,
+                maximizable: false,
+                cache: false,
+                buttons: [{
+                    text: '生成',
+                    handler: function () {
+                        try {
+                            var ddd = {};
+                            $('#' + id + " input").each(function () {
+                                if (this.name != "") {
+                                    if (this.name == "ws" && this.value == "")
+                                        throw "流水位数不能为空！";
+                                    if (this.name == "sc") {
+                                        if (this.value == "")
+                                            throw "生成数量不能为空！";
+                                        else
+                                            if (this.value > 1000)
+                                                throw "一次的生成数量不能大于1000！";
+                                    }
+                                    if (this.name == "ks" && this.value == "")
+                                        throw "开始数不能为空！";
+                                    ddd[this.name] = this.value;
+                                }
+                            });
+                            var e = data.sender.datasource.post("AutoNext", "anv=" + webjs.jsonval(ddd));
+                            if (e && e.error) {
+                                $.messager.alert('异常', e.errormsg, 'error');
+                            }
+                            else {
+                                data.sender.datasource.reload();
+                                $("#" + id).dialog('close');
+                                $.messager.show({ title: '消息', msg: "生成托盘完成。", showType: 'show' });
+                            }
+                        }
+                        catch (e) {
+                            $.messager.alert('异常', e, 'error');
+                        }
+                    }
+                }],
+                onClose: function () {
+                    $("#" + id).remove();
+                }
+            });
+        }
+      </script>
+<div id="t1"></div>
+

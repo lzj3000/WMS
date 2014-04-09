@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<table>
+  <TableProperty>
+    <name>Acc_Bus_Organization</name>
+    <Kname>t_Item</Kname>
+    <note>组织机构表</note>
+    <Knote>基础信息表</Knote>
+  </TableProperty>
+  <ColProperty>
+    <name>Code</name>
+    <Kname>Fnumber</Kname>
+    <note>代码</note>
+    <Knote>部门代码</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>OrganizationName</name>
+    <Kname>FName</Kname>
+    <note>名称</note>
+    <Knote>部门名称</Knote>
+  </ColProperty>
+  <!--<Property>
+    <name>OfficeWorkerID</name>
+    <Kname>FManager</Kname>
+    <note>负责人</note>
+    <Knote>负责人</Knote>
+  </Property>-->
+  <ColProperty>
+    <name>ParentID</name>
+    <Kname>FParentID</Kname>
+    <note>上级机构</note>
+    <Knote>上级部门内码</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>IsDisable</name>
+    <Kname>FDeleted</Kname>
+    <note>是否禁用</note>
+    <Knote>是否禁用</Knote>
+  </ColProperty>
+  <!--<Property>
+    <name>Remark</name>
+    <Kname>FNote</Kname>
+    <note>备注</note>
+    <Knote>备注</Knote>
+  </Property>-->
+</table>
+

@@ -1,0 +1,262 @@
+*
+{
+	font:12px "宋体";
+	margin:0px;
+    padding:0px;
+}
+body,html
+{
+    height:100%;
+    width:100%;
+    text-align:center;
+}
+body
+{
+    background:#2279c6 url(../images/indexbj.jpg) repeat-x left top;
+    font:12px Arial, Helvetica, sans-serif;
+    color:#696969;
+    text-align:center;
+}
+a
+{
+	text-decoration:none;
+	color:#000000;
+}
+a:hover
+{
+	text-decoration:underline;
+}
+span
+{
+	color:#000000;
+}
+table
+{
+	height:100%;
+	width:100%;
+	margin:0px auto;
+}
+.tblOuter
+{
+	width:99%;
+	background:#ffffff;
+}
+
+/*编辑table样式--------------*/
+
+.imgSearch
+{
+	cursor:pointer;
+	float:right;
+	margin-top:3px;
+}
+.tblSearchParent
+{
+  background:#d5eaf7 url(../images/searchbj.gif) repeat-x left top;
+}
+.tblEdit,tblSearch{
+	margin-top:10px;
+	margin-left:8px;
+}
+.tblSearch
+{
+	float:left;
+	width:auto;
+}
+.tblEdit{
+    height:auto;
+    width:auto;
+    margin:0px auto;
+}
+.tblEdit td,.tblSearch td
+{
+	text-align:right;
+	white-space:nowrap;
+	padding:8px 0px 0px 5px;
+}
+.tblEdit input,select,.tblSearch input,select,lable
+{
+	color:#333;
+	text-align:left;
+	float:left;
+	margin-left:3px;
+	line-height:19px;
+	text-indent:5px;
+	border:1px solid #b7b9b8;
+}
+
+/*按钮样式--------------*/
+.setReadOnly
+{
+	background:#f3f3f3;
+}
+input.buttonRight,input.buttonCenter
+{
+    width:auto;
+    height:22px;
+    background:url(../images/searchbutton1.gif) repeat-x left center;
+    font:12px "宋体";
+    font-weight:bold;
+    color:#fff;
+    line-height:22px;
+    text-align:center;
+    border:none;
+    padding:0px 3px;
+    cursor:pointer;
+}
+input.buttonRight
+{
+	float:right;
+	margin-left:5px;
+}
+input.buttonCenter
+{
+	margin:0px auto;
+	float:none;
+	padding:0px 4px 0px 2px;
+}
+.buttonRow
+{
+	height:32px;
+	width:100%;
+	text-align:center;
+}
+
+/*列表样式--------------*/
+
+.searchTitle,.listTitle
+{
+	background:url(../images/searchTitle.gif) no-repeat 25px center;
+	height:24px;
+	padding-left:49px;
+	padding-top:6px;
+	text-align:left;
+	font-weight:600;
+	color:#05090f;
+}
+.listTitle
+{
+	padding-left:45px;
+	background:url(../images/listTitle.gif) no-repeat 20px center;
+}
+.tblListParent
+{
+	background:#C6E5F7 url(../images/list_05.gif) repeat-x left top;
+}
+.tblList{
+width:100%;
+height:auto;
+border-collapse:collapse;
+border:1px solid #cbd0d4;
+clear:both;
+}
+.tblList th
+{
+	height:27px;
+    font:12px "宋体";
+    font-weight:bold;
+    color:#056ea4;
+    text-align:center;
+    border-left:1px solid #cad3da;
+    white-space:nowrap;
+}
+.tblList td
+{
+	height:32px;
+    border:1px solid #cad3da;
+	text-align:center;
+	background:#ffffff;
+	word-break:break-all;
+}
+.tblList a,.linkButton
+{
+    font:12px "宋体";
+    color:#ff6600;
+}
+
+.tblList input
+{
+	border:solid 1px #b7b9b8; 
+}
+
+.tableNone{
+width:100%;
+height:auto;
+border-collapse:collapse;
+border:0px solid #cbd0d4;
+margin-top:10px;
+clear:both;
+}
+.tableNone td
+{
+    height:32px;
+border:0px solid #cad3da;
+    }
+
+/*按钮行样式--------------*/
+
+.widthFull
+{
+	width:100%;
+	text-align:center;
+}
+.bothFull
+{
+	width:100%;
+	height:100%;
+	text-align:center;
+	vertical-align:top;
+}
+.pageBar
+{
+	float:right;
+	width:450px;
+	text-align:right;
+}
+
+/*表单样式--------------*/
+
+.requiredField
+{
+	color:#FC7300;	
+}
+.remark
+{
+    margin-left:3px;
+    width:99%;
+    float:left;
+    left:0px;
+    height:50px;
+    word-break:break-all;
+}
+input.getItem
+{
+	position:relative;
+	text-decoration:underline;
+	border:none;
+	width:auto;
+	cursor:pointer;
+	background:none;	
+	padding:0px;
+	top:5px;
+	left:0px;
+	float:left;
+	margin:0px;
+}
+.setReadOnly
+{
+	background:#f3f3f3;
+}
+.Checkbox input
+{
+	width:auto; 
+	background:none;
+	border:none;
+}
+input.SelectTextBoxWidth
+{
+	width:110px;	
+}
+
+/*------隐藏-----*/
+.hidden { display:none;}

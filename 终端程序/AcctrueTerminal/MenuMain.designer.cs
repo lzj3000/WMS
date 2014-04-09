@@ -1,0 +1,109 @@
+﻿namespace AcctrueTerminal
+{
+    partial class MenuMain
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuMain));
+            this.lv_Module = new System.Windows.Forms.ListView();
+            this.imgl_Modul = new System.Windows.Forms.ImageList();
+            this.lv_Catalog = new System.Windows.Forms.ListView();
+            this.imgl_Catalog = new System.Windows.Forms.ImageList();
+            this.SuspendLayout();
+            // 
+            // lv_Module
+            // 
+            this.lv_Module.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.lv_Module.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.lv_Module.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lv_Module.LargeImageList = this.imgl_Modul;
+            this.lv_Module.Location = new System.Drawing.Point(80, 0);
+            this.lv_Module.Name = "lv_Module";
+            this.lv_Module.Size = new System.Drawing.Size(160, 294);
+            this.lv_Module.TabIndex = 13;
+            this.lv_Module.ItemActivate += new System.EventHandler(this.lv_Module_ItemActivate);
+            // 
+            // imgl_Modul
+            // 
+            this.imgl_Modul.ImageSize = new System.Drawing.Size(32, 32);
+            this.imgl_Modul.Images.Clear();
+            this.imgl_Modul.Images.Add(((System.Drawing.Image)(resources.GetObject("resource"))));
+            this.imgl_Modul.Images.Add(((System.Drawing.Image)(resources.GetObject("resource1"))));
+            this.imgl_Modul.Images.Add(((System.Drawing.Image)(resources.GetObject("resource2"))));
+            this.imgl_Modul.Images.Add(((System.Drawing.Image)(resources.GetObject("resource3"))));
+            this.imgl_Modul.Images.Add(((System.Drawing.Image)(resources.GetObject("resource4"))));
+            this.imgl_Modul.Images.Add(((System.Drawing.Image)(resources.GetObject("resource5"))));
+            // 
+            // lv_Catalog
+            // 
+            this.lv_Catalog.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.lv_Catalog.BackColor = System.Drawing.SystemColors.Info;
+            this.lv_Catalog.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.lv_Catalog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lv_Catalog.LargeImageList = this.imgl_Catalog;
+            this.lv_Catalog.Location = new System.Drawing.Point(0, 0);
+            this.lv_Catalog.Name = "lv_Catalog";
+            this.lv_Catalog.Size = new System.Drawing.Size(81, 294);
+            this.lv_Catalog.TabIndex = 12;
+            this.lv_Catalog.ItemActivate += new System.EventHandler(this.lv_Catalog_ItemActivate);
+            // 
+            // imgl_Catalog
+            // 
+            this.imgl_Catalog.ImageSize = new System.Drawing.Size(24, 24);
+            this.imgl_Catalog.Images.Clear();
+            this.imgl_Catalog.Images.Add(((System.Drawing.Icon)(resources.GetObject("resource6"))));
+            this.imgl_Catalog.Images.Add(((System.Drawing.Icon)(resources.GetObject("resource7"))));
+            this.imgl_Catalog.Images.Add(((System.Drawing.Icon)(resources.GetObject("resource8"))));
+            this.imgl_Catalog.Images.Add(((System.Drawing.Icon)(resources.GetObject("resource9"))));
+            // 
+            // MenuMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(240, 294);
+            this.Controls.Add(this.lv_Module);
+            this.Controls.Add(this.lv_Catalog);
+            this.KeyPreview = true;
+            this.Name = "MenuMain";
+            this.Text = "主菜单界面";
+            this.Load += new System.EventHandler(this.MenuMain_Load);
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.MenuMain_Closing);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.ListView lv_Module;
+        private System.Windows.Forms.ImageList imgl_Catalog;
+        private System.Windows.Forms.ListView lv_Catalog;
+        private System.Windows.Forms.ImageList imgl_Modul;
+
+    }
+}

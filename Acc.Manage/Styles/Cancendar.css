@@ -1,0 +1,342 @@
+﻿/*时间日历*/
+
+/*---------------------------Header------------------------------*/
+.tb-header
+{
+    padding:0px;
+    table-layout:fixed;
+    }
+
+.tb-header-left {
+	width: 25%;
+	text-align: left;
+	}
+	
+.tb-header-center {
+	text-align: center;
+	}
+	
+.tb-header-right {
+	width: 25%;
+	text-align: right;
+	}
+	
+.tb-button-today 
+{
+    margin-left:10px;
+    }
+
+.tb-button
+{
+    position: relative;
+    display: inline-block;
+    padding: 0 .6em;
+    overflow: hidden;
+   /* height: 1.9em; 
+    line-height: 1.9em; */
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid #99bbe8;
+    }
+    
+.tb-button-prev,
+.tb-button-next
+{
+    font-weight:bold;
+    }
+    
+ .tb-text-arrow 
+ {
+    margin: 0 .1em;
+   /* font-size: 2em; */
+    font-family: "Courier New", Courier, monospace;
+    vertical-align: baseline; 
+    }
+/* -------------------------Body-------------------------------*/
+.tb-cancedar
+{
+    padding:0px;
+    margin:0px;
+    table-layout:fixed;
+    }
+    
+.th-left,
+.td-left 
+{                
+    border-left: 1px solid #99bbe8;
+    }
+    
+.head-weekday 
+{
+    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    color: #4f6b72;
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px solid #99bbe8;
+    border-top: 1px solid #99bbe8;
+    letter-spacing: 2px;
+ /* padding-top:12px; */
+    text-transform: uppercase;
+    text-align:center;      
+    overflow:hidden;   
+    height:20px; 
+    background:transparent url('../images/bg-cancedar.png');
+    }   
+ 
+ .body-day-up
+{
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px dashed #99bbe8;
+    background: #fff;
+    font-size:11px;               
+    color: #000;
+    text-align:center;
+	overflow:hidden;
+	padding-top:2px;
+	 height:20px;
+    }
+    
+.body-allday
+{
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px solid #99bbe8;
+    background: #fff;
+    font-size:11px;               
+    color: #000;
+    text-align:center;
+    overflow:hidden;
+    padding-top:2px;
+    height:40px; 
+        }
+        
+ .body-day
+{
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px solid #99bbe8;
+    background: #fff;
+    font-size:11px;               
+    color: #000;
+    text-align:center;
+    overflow:hidden;
+    padding-top:2px;
+    height:20px;
+    }
+    
+.body-today
+{ 
+border-right: 1px solid #99bbe8;
+border-bottom: 1px solid #99bbe8;
+background: #FFF68F;
+font-size:11px;           
+color:  #000;
+text-align:center;
+overflow:hidden;
+padding-top:2px;  
+ height:20px;     
+    }
+ 
+.body-other-day
+{ 
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px solid #99bbe8;
+    background: #fff;
+    font-size:11px;               
+    color: #4f6b72;  
+    text-align:center;
+    overflow:hidden;
+    padding-top:2px;    
+     height:20px;        
+    }
+    
+.body-day-num
+{
+    padding:0px 2px 0px 2px;
+    float:right;
+    background-color:transparent;
+    }
+                 
+.body-day-content
+{
+    padding:0px;
+    clear:both;
+    cursor:default;
+    overflow:hidden;
+    display:block;
+  /*  min-height:40px; 修改为js控制
+    max-height:60px;  */
+    }
+    
+.week-body
+{
+   overflow-x:hidden;
+   padding:0px;
+    margin:0px;
+/* height:500px;  */
+    }
+    
+ .week-header
+    {
+         overflow-x:hidden;   
+          padding:0px;
+         margin:0px;
+        }
+    
+  .day-selected
+  {
+      background-color:#EEE9E9;
+      
+      }
+    /*-----------------Common-------------*/
+    .hover
+    {
+       background:transparent url('../images/bg-cancedar.png');
+        }
+        
+    /*圆角*/    
+   .event-div-month
+   {
+ border: 1px solid #99bbe8; 
+-moz-border-radius: 5px;
+border-radius: 5px; 
+padding: 1px; 
+background:transparent url('../images/bg-cancedar.png');
+display:block;
+width:96%;
+height:15px;
+font-size:10px;
+font-family:@华文宋体;
+font-style:normal;
+font-weight:normal;
+overflow:hidden;
+       }
+       
+.event-div-other
+{
+    border: 1px solid #99bbe8; 
+-moz-border-radius: 5px;
+border-radius: 5px; 
+padding: 1px; 
+background:transparent url('../images/bg-cancedar.png');
+display:inline;
+height:15px;
+font-size:10px;
+font-family:@华文宋体;
+font-style:normal;
+font-weight:normal; 
+max-height:13px;
+white-space:nowrap;
+overflow:hidden;
+    }    
+
+ 
+ /***************弹出任务明细***************/   
+    
+     .wait-task
+        {          
+            padding:0px;
+            margin:0px;
+            height:500px;
+            width:600px;
+         /*   position:absolute;
+            overflow:hidden;
+            top:200px;  */
+            }
+.head-task
+{
+    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    color: #4f6b72;
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px solid #99bbe8;
+    border-top: 1px solid #99bbe8;
+	border-left: 1px solid #99bbe8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align:left;      
+    overflow:hidden;   
+    height:20px; 
+    background:transparent url('../images/bg-cancedar.png');
+    } 
+	
+	.foot-task
+{
+    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    color: #4f6b72;
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px solid #99bbe8;
+    border-top: 1px solid #99bbe8;
+	border-left: 1px solid #99bbe8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align:right;      
+    overflow:hidden;   
+    height:20px; 
+    background:transparent url('../images/bg-cancedar.png');
+    } 
+	
+	 .body-task
+{
+    border-right: 1px solid #99bbe8;
+    border-bottom: 1px solid #99bbe8;
+    background: #fff;
+    font-size:11px;               
+    color: #000;
+    text-align:center;
+    overflow:hidden;
+    height:20px;
+    vertical-align:middle;
+    text-align:left;
+    }
+	
+	.body-task-left
+	{
+	border-left: 1px solid #99bbe8;
+	}
+	
+	.task-text-desc
+	{
+	    width:60px;	    
+	    }
+	    
+	    .task-text
+	    {
+	        width:99%;
+	         height:100%; 
+	         margin-top:1px;
+	          margin-bottom:1px;	        
+	        }
+	        
+	        .button{
+width: 80px;
+line-height:20px;
+text-align: center;
+font-weight: bold;
+color: #fff;
+text-shadow:1px 1px 1px #333;
+border-radius: 15px;
+margin:0 5px 5px 0;
+position: relative;
+overflow: hidden;
+}
+	        
+	        .button.gray{
+color: #4f6b72;
+text-shadow:1px 1px 1px #fff;
+border:1px solid #99bbe8;
+box-shadow: 0 1px 2px #fff inset,0 -1px 0 #a8abae inset;
+background: -webkit-linear-gradient(top,#f2f3f7,#e4e8ec);
+background: -moz-linear-gradient(top,#f2f3f7,#e4e8ec);
+background: linear-gradient(top,#f2f3f7,#e4e8ec);
+}
+
+.gray:hover{
+background: -webkit-linear-gradient(top,#fefefe,#ebeced);
+background: -moz-linear-gradient(top,#f2f3f7,#ebeced);
+background: linear-gradient(top,#f2f3f7,#ebeced);
+}
+
+.gray:active{
+top:1px;
+box-shadow: 0 1px 3px #a8abae inset,0 3px 0 #fff;
+background: -webkit-linear-gradient(top,#e4e8ec,#e4e8ec);
+background: -moz-linear-gradient(top,#e4e8ec,#e4e8ec);
+background: linear-gradient(top,#e4e8ec,#e4e8ec);
+}

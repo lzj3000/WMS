@@ -1,0 +1,83 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <ColumnMap>
+    <SourceName>FInterID</SourceName>
+    <TargetName>STAY1</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FDetailID</SourceName>
+    <TargetName>STAY2</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FEntryID</SourceName>
+    <TargetName>STAY3</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FItemID</SourceName>
+    <TargetName>MATERIALCODE</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FAuxQty</SourceName>
+    <TargetName>NUM</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FNote</SourceName>
+    <TargetName>Remark</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>MCODE</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FMODEL</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FUNITID</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>PARENTID</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+</DocumentElement>

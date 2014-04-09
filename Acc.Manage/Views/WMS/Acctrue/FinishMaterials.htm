@@ -1,0 +1,41 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.FinishMaterialsController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("BATCH", "0");
+                    form.setform("SEQUENCECODE", "1");
+                    form.setform("STATUS", "0");
+                    form.setform("STOREAMOUNT", "1");
+                    form.setform("LOWESTSTOCK", "1");
+                }
+            }
+            p.onSaveing = function (command, item) {
+                if (command == "add") {
+                    
+                }
+            }
+            p.init();
+        });
+
+        function SetDisable(data) {
+            window.MaterialCode = data.item.MATERIALCODE;
+            $("#t2").dialog({
+                title: "冻结" + data.item.MATERIALNAME + "",
+                width: 400,
+                height: 220,
+                maximizable: false,
+                cache: false,
+                shadow: true,
+                modal: true,
+                content:""+data.item.ID+""
+            });
+              
+        }
+    </script>
+<div id="t1"></div>
+<div id="t2">
+
+</div>

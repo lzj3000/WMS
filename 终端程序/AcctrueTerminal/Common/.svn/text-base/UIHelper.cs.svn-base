@@ -1,0 +1,431 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.IO;
+using System.Reflection;
+using System.Data;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using AcctrueTerminal.Common;
+
+
+namespace AcctrueTerminal.Common
+{
+    public class UIHelper
+    {
+        public static string sPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+
+        #region WIN CE 显示/隐藏任务栏
+        [DllImport("coredll.dll")]
+        public static extern int FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("coredll.dll")]
+        internal extern static int EnableWindow(int hwnd, int fEnable);
+        [DllImport("coredll.dll")]
+        public static extern int ShowWindow(int hwnd, int nCmdShow);
+        /// <summary>
+        /// 根据参数控制任务栏的显示与否
+        /// </summary>
+        /// <param name="showTemp">0：隐藏；1：显示</param>
+        public static void controlShow_Hide(int showTemp,int Index)
+        {
+            //右上角开始菜单
+            if (Index == 1)
+            {
+                int hTaskBarWnd = FindWindow("HHStartIcon", null);
+                ShowWindow(hTaskBarWnd, showTemp);
+            }
+            //标题栏
+            if (Index == 2)
+            {
+                int hTaskBarWnd = FindWindow("HHTaskBar", null);
+                ShowWindow(hTaskBarWnd, showTemp);
+            }
+            //软件盘
+            if (Index == 3)
+            {
+                int hTaskBarWnd = FindWindow("HHSIPButton", null);
+                ShowWindow(hTaskBarWnd, showTemp);
+            }            
+        }
+
+
+
+        #endregion
+
+        #region 判断Txtbox是否为空
+        public static bool CheckTextBox(string TxtValue)
+        {
+            if (string.IsNullOrEmpty(TxtValue) || TxtValue == "" || TxtValue == "请选择单号！")
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region 条码验证
+        public static bool Validation(string CODE)
+        {
+            CODE = CODE.TrimEnd('\0');
+            if (CODE.Trim().Length == 0 || CODE.Trim().IndexOf("nothing") != -1 || CODE.Length != 17)
+            {
+                UIHelper.ErrorMsg("未扫描到箱码,或箱码位数不是17位！");
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region 弹出错误 
+        /// <summary>
+        /// 弹出错误
+        /// </summary>
+        /// <param name="message"></param>
+        public static void ErrorMsg(string message)
+        {
+            MessageBox.Show(message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+        }
+        #endregion
+
+        #region 弹出提示
+        /// <summary>
+        /// 弹出提示
+        /// </summary>
+        /// <param name="message"></param>
+        public static void PromptMsg(string message)
+        {
+            MessageBox.Show(message, "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1);
+        }
+        #endregion
+
+        #region 弹出确认提示
+        /// <summary>
+        /// 弹出确认提示
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="yesOrNo"></param>
+        /// <returns></returns>
+        public static bool QuestionMsg(string message, Boolean yesOrNo)
+        {
+            if (yesOrNo)
+            {
+                return MessageBox.Show(message, "请确认", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes;
+            }
+            else
+            {
+                return MessageBox.Show(message, "请确认", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+            }
+        }
+        #endregion
+
+        #region 播放声音文件
+        [DllImport("CoreDll.DLL", EntryPoint = "PlaySound", SetLastError = true)]
+        private static extern int MobilePlaySound(string szSound, IntPtr hMod, int flags);
+        public static void PlayErrVoice()
+        {
+            if (File.Exists(sPath + @"\hibeep.wav"))
+                MobilePlaySound(sPath + @"\hibeep.wav", IntPtr.Zero, 0x20001);
+            else
+                MobilePlaySound(sPath + @"\hibeep.wav", IntPtr.Zero, 0x20001);
+        }
+        #endregion
+
+        #region 鼠标指针默认
+        /// <summary>
+        /// 鼠标指针默认
+        /// </summary>
+        public static void SetCursorDefault()
+        {
+            Cursor.Current = Cursors.Default;
+        }
+        #endregion
+
+        #region 鼠标指针等待
+        /// <summary>
+        /// 鼠标指针等待
+        /// </summary>
+        public static void SetCursorWaiting()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+        #endregion
+
+        #region 获取自增长单号
+        public static int GetCode(string tablename, string id)
+        {
+            //int i = 0;
+            //string sql = "select max(" + id + ") from " + tablename;
+            //object obj = SqlCEHelper.ExecuteScalar(DataBase.GetSqlCeConn(), CommandType.Text, sql);
+            //if (obj != System.DBNull.Value)
+            //{
+            //    i = Convert.ToInt32(obj);
+            //}
+
+            //DataBase.CloseConn();
+            //if (i > 0)
+            //    return i + 1;
+            //return 1000;
+            return 0;
+        }
+        #endregion      
+
+        #region 验证货位是否存在
+        /// <summary>
+        /// 判断货位,存在返回所属仓库编码,不存在返回空字符串
+        /// </summary>
+        /// <param name="bin">货位编码</param>
+        /// <returns></returns>
+        public static string ValiBin(string bin)
+        {
+            //string storecode = "";
+            //if (!string.IsNullOrEmpty(bin))
+            //{
+            //    if (CurUser.UserStoreCodes != null && CurUser.UserStoreCodes.Rows.Count > 0)
+            //    {
+            //        //先判断货位是否存在
+            //        string sql = "select * from T_PUB_BIN where CODE ='" + bin + "'";
+            //        DataTable dt = SqlCEHelper.ExecuteDataTable(DataBase.GetSqlCeConn(), CommandType.Text, sql);
+            //        if (dt != null && dt.Rows.Count > 0)
+            //        {
+            //            //判断货位是否属于登陆人的仓库货位权限内
+            //            DataRow[] dr = CurUser.UserStoreCodes.Select("BINCODE='" + bin + "'");
+            //            if (dr != null && dr.Length > 0)
+            //            {
+            //                storecode = dr[0]["STORECODE"].ToString();
+            //            }
+            //            else
+            //            {
+            //                UIHelper.ErrorMsg("当前用户无此货位权限！");
+            //            }
+            //        }
+            //        else
+            //        {
+            //            UIHelper.ErrorMsg("货位不存在！");
+            //        }
+            //        DataBase.CloseConn();
+            //    }
+            //    else
+            //    {
+            //        UIHelper.ErrorMsg("当前用户无此货位权限！");
+            //    }
+            //}
+            //else
+            //{
+            //    UIHelper.ErrorMsg("请扫描货位！");
+            //}
+            //return storecode;
+            return "";
+        }
+        #endregion
+
+        #region 验证数量合法性
+        /// <summary>
+        /// 验证数量合法性
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>       
+        public static bool CheckNum(string checkValue)
+        {
+            string name = checkValue.Trim();
+            //string ex = @"^\d*$";
+            string ex = @"^\d{1,5}(\.\d{1,5})?$";
+            Regex reg = new Regex(ex);
+            decimal num = 0;
+            try
+            {
+                num = Convert.ToDecimal(name);
+            }
+            catch
+            {                
+                return false;
+            }
+            if (reg.IsMatch(name).Equals(true) && num >0)
+            {
+                return true;
+            }           
+            return false;
+        }
+        #endregion
+
+        #region 数据类型转换
+        public static string FDataConversion(ForeignData fdata)
+        {
+            string str = string.Empty;
+            string str1 = string.Empty;
+            string str2 = string.Empty;
+            string str3 = string.Empty;
+            StringBuilder sb = new StringBuilder();
+            Json.JsonHelper.Serialize(sb, fdata);
+            str= sb.ToString();
+            str1 = str.Replace("\"", "'");
+            str2 = str1.Replace("\n", "");
+            str3 = str2.Replace(" ", "");
+            return str3;
+        }
+
+        public static string LoadItemConversion(LoadItem li)
+        {            
+            string str = string.Empty;
+            string str1 = string.Empty;
+            string str2 = string.Empty;
+            string str3 = string.Empty;
+            StringBuilder sb = new StringBuilder();
+            Json.JsonHelper.Serialize(sb, li);
+            str = sb.ToString();
+            str1 = str.Replace("\"", "'");
+            str2 = str1.Replace("\n", "");
+            str3 = str2.Replace(" ", "");
+            return str3;
+        }
+
+        public static string InSequenceListConversion(List<InSequenceList> pm)
+        {
+            string str = string.Empty;
+            string str1 = string.Empty;
+            string str2 = string.Empty;
+            string str3 = string.Empty;
+            string str4 = string.Empty;
+            for (int i = 0; i < pm.Count; i++)
+            {
+                StringBuilder sb = new StringBuilder();
+                Json.JsonHelper.Serialize(sb, pm[i]);
+                str = sb.ToString();
+                str1 = str.Replace("\"", "'");
+                str2 = str1.Replace("\n", "");
+                str3 = str2.Replace(" ", "");
+                if (i == 0)
+                {
+                    str4 = str3;
+                }
+                else
+                {
+                    str4 = str4 + "," + str3;
+                }
+                str = str1 = str2 = str3 = string.Empty;
+            }
+            return str4 = "[" + str4 + "]";
+        }
+
+        #endregion       
+    }  
+
+    #region 权限属性
+    public static class UserMenu
+    {
+        public const string TableName = "待定";
+        public const string UserId = "USERID";
+        public const string RoleId = "ROLEID";
+        public const string UserName = "USERNAME";
+        public const string Type = "TYPE";
+        public const string RoleType = "ROLETYPE";
+        public const string UserRoleName = "ROLENAME";
+        public static class NodeType
+        {
+            public const string Node = "节点";
+            public const string Function = "功能";
+
+        }
+    }
+    #endregion 
+
+    #region 菜单属性
+    public class LCatalog : IComparable
+    {
+
+        public LCatalog()
+        {
+
+        }
+        //Properties
+        public string CatalogName { get; set; }
+        public int ID { get; set; }
+        public int ImageIndex { get; set; }
+
+        #region IComparable 成员
+
+        public int CompareTo(object obj)
+        {
+            if (obj is LCatalog)
+            {
+                LCatalog log = (LCatalog)obj;
+                if (this.ID > log.ID)
+                    return 1;
+                else if (this.ID < log.ID) return -1;
+                else return 0;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        #endregion
+    }
+    #endregion 
+    
+    #region 功能属性
+    public class LModule : IComparable
+    {
+        // Methods
+        public LModule()
+        { }
+
+        // Properties
+        public string ClassFullName { get; set; }
+        public int ID { get; set; }
+        public int ImageIndex { get; set; }
+        public string Module_ClassParams { get; set; }
+        public string ModuleName { get; set; }
+
+        #region IComparable 成员
+
+        public int CompareTo(object obj)
+        {
+            if (obj is LModule)
+            {
+                LModule module = (LModule)obj;
+                int i = 0;
+                int j = int.Parse(this.Module_ClassParams);
+                if (module.Module_ClassParams.Trim().Length != 0)
+                    i = Convert.ToInt32(module.Module_ClassParams);
+                if (j > i) return 1;
+                else if (j < i) return -1;
+                else return 0;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        #endregion
+    }
+    #endregion 
+
+    #region 序列码
+    public class InSequenceList
+    {
+        /// <summary>
+        /// 单据ID
+        /// </summary>
+        public int InOrderId { get; set; }
+        /// <summary>
+        /// 入库明细ID
+        /// </summary>
+        public int InOrderMATERIALID { get; set; }
+        /// <summary>
+        /// 出库明细ID
+        /// </summary>
+        public int OutOrderMATERIALID { get; set; }
+        /// <summary>
+        /// 库存ID
+        /// </summary>
+        public int STOCKINFOMATERIALSID { get; set; }
+        /// <summary>
+        /// 序列码
+        /// </summary>
+        public string SEQUENCECODE { get; set; }
+    }
+    #endregion
+}

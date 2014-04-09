@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BusinessLogic
+END
+Stock.cs
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BusinessLogic/Stock.cs
+END
+StockInOrder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BusinessLogic/StockInOrder.cs
+END
+StockOutOrder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BusinessLogic/StockOutOrder.cs
+END
+StockInOrderMaterials.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BusinessLogic/StockInOrderMaterials.cs
+END
+StockOutOrderMaterials.cs
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Model/BusinessLogic/StockOutOrderMaterials.cs
+END

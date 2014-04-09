@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<table>
+  <TableProperty>
+    <name>Acc_WMS_StockInOrder_Materials</name>
+    <Kname>ICStockBillEntry</Kname>
+    <note>出库明细表</note>
+    <Knote>出入库明细表</Knote>
+  </TableProperty>
+
+  <!--<ColProperty>
+    <name>ID</name>
+    <Kname>FEntryID</Kname>
+  </ColProperty>-->
+  
+
+  <!--<ColProperty>
+    <name>FCONTRACTID</name>
+    <Kname>FID</Kname>
+    <note>合同ID</note>
+    <Knote>合同ID</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FCPID</name>
+    <Kname>FItemID</Kname>
+    <note>商品ID</note>
+    <Knote>商品ID</Knote>
+  </ColProperty>-->
+  
+  <!--<ColProperty>
+    <name>Creationdate</name>
+    <Kname>FBillDate</Kname>
+    <note>创建日期</note>
+    <Knote>创建日期</Knote>
+  </ColProperty>-->
+  
+  <ColProperty>
+    <name>NUM</name>
+    <Kname>FAuxQty</Kname>
+    <note>数量</note>
+    <Knote>数量</Knote>
+  </ColProperty>
+  <!--<ColProperty>
+    <name>PRICE</name>
+    <Kname>FConsignPrice</Kname>
+    <note>销售单价</note>
+    <Knote>销售价</Knote>
+  </ColProperty>-->
+  <!--<ColProperty>
+    <name>FTOTAL</name>
+    <Kname>FConsignAmount</Kname>
+    <note>价税合计</note>
+    <Knote>价税合计</Knote>
+  </ColProperty>-->
+
+  <!--<ColProperty>
+    <name>Remark</name>
+    <Kname>FNote</Kname>
+    <note>备注</note>
+    <Knote>备注</Knote>
+  </ColProperty>-->
+
+</table>
+

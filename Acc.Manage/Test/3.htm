@@ -1,0 +1,33 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var f = $("body").data("form");
+            f.init("t1", "t2");
+            for (var i in f.parent.modeldata.childmodel) {
+                var model = new Object();
+                model.modeldata = f.parent.modeldata.childmodel[i];
+                model.name = f.parent.c;
+                var source = new datasource();
+                source.setmodel(model);
+                var grid = new datagrid();
+                grid.datasource = source;
+                grid.applyTo = "t3";
+                $('<div title="' + model.modeldata.title + '" fit="true"><div id="t3"/></div>').appendTo($("#tabs3"));
+                grid.fit = false;
+                grid.init();
+                grid.edited();
+            }
+        })
+    </script>
+<div class="easyui-panel" id="tt" fit="true"  collapsible="true">
+           <div class="easyui-layout" data-options="fit:true">  
+           <div data-options="region:'north',title:'North Title',split:true" style="height:auto;padding:2px;" id="t1"></div>
+            <div data-options="region:'center'" style="padding:2px;" id="t2">  
+                  <div class="easyui-tabs" fit="true" id="tabs3">
+                
+                  </div>
+            </div>  
+        </div>  
+</div>
+
+
+

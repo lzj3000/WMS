@@ -1,0 +1,47 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.Controllers.TimeTaskController";
+            p.applyTo = "t1";
+            p.showfooter = false;
+            p.onFormSelect = function (form, box, item) {
+                if (box.field == "RUNTYPE") {
+                    var bb = form.findbox("Interval");
+                    if (bb) {
+                        if (item.value == "0")
+                            bb.type = "time";
+                        if (item.value == "1")
+                            bb.type = "int";
+                        bb.update();
+                    }
+                }
+            }
+            p.onForeigned = function (sender, fdata, rows) {
+                if (sender.field == "CONTROLLERNAME") {
+                    var form = sender.parent;
+                    var box = form.findbox("ControllerCommand");
+                    box.comvtp = {};
+                    box.comvtp.isvtp = true;
+                    box.comvtp.items = JSON.parse(rows["M"]);
+                    box.update();
+                    var grid = form.findgrid("Acc.Business.Model.TimeTaskParameter");
+                    var ppp = JSON.parse(rows["P"]);
+                    grid.clear();
+                    for (var i in ppp) {
+                        var obj = {};
+                        obj.FIELD = ppp[i];
+                        grid.insertRow(obj);
+                    }
+                }
+            }
+            p.onCommandClick = function (command, form, item) {
+                if (command == "edit") {
+                    form.findbox("ControllerCommand").setdisabled(true);
+                    form.findbox("ControllerName").setdisabled(true);
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>
+

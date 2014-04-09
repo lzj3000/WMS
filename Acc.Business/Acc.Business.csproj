@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{24D01528-E14D-4362-9C06-09BDD672EAB1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Acc.Business</RootNamespace>
+    <AssemblyName>Acc.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Acc.Business.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Acc.Code">
+      <HintPath>..\项目资源\Acc.Code.dll</HintPath>
+    </Reference>
+    <Reference Include="Acc.Contract">
+      <HintPath>..\项目资源\Acc.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Acc.ECharts">
+      <HintPath>..\项目资源\Acc.ECharts.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\项目资源\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\项目资源\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\项目资源\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\项目资源\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\项目资源\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Way.EAP.Cache">
+      <HintPath>..\项目资源\Way.EAP.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EAP.Configuration">
+      <HintPath>..\项目资源\Way.EAP.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EAP.DataAccess">
+      <HintPath>..\项目资源\Way.EAP.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EAP.Logging">
+      <HintPath>..\项目资源\Way.EAP.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Way.EventCenter">
+      <HintPath>..\项目资源\Way.EventCenter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessCenter.cs" />
+    <Compile Include="Controllers\BillNumberController.cs" />
+    <Compile Include="Controllers\BusinessController.cs" />
+    <Compile Include="Controllers\CommodityClassController.cs" />
+    <Compile Include="Controllers\CommodityController.cs" />
+    <Compile Include="Controllers\EChartsController.cs" />
+    <Compile Include="Controllers\ExcelDCController.cs" />
+    <Compile Include="Controllers\ExcelDRController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\MappingInfoController.cs" />
+    <Compile Include="Controllers\InterfaceTemplateController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\MobileSetController.cs" />
+    <Compile Include="Controllers\ObserverManageController.cs" />
+    <Compile Include="Controllers\OfficeWorkerController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\OverseeController.cs" />
+    <Compile Include="Controllers\PrintTemplateController.cs" />
+    <Compile Include="Controllers\PrintTemplateParmController.cs" />
+    <Compile Include="Controllers\ProcessStateController.cs" />
+    <Compile Include="Controllers\ReportBaseController.cs" />
+    <Compile Include="Controllers\XMLParse.cs" />
+    <Compile Include="Controllers\RegionController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SystemDirectoryController.cs" />
+    <Compile Include="Controllers\SystemInfoController.cs" />
+    <Compile Include="Controllers\SystemManagerController.cs" />
+    <Compile Include="Controllers\SystemModelController.cs" />
+    <Compile Include="Controllers\SystemEmailController.cs" />
+    <Compile Include="Controllers\DataInitializeController.cs" />
+    <Compile Include="Controllers\DataBackupController.cs" />
+    <Compile Include="Controllers\SystemConfigItemsController.cs" />
+    <Compile Include="Controllers\TaskCenter.cs" />
+    <Compile Include="Controllers\TimeTaskController.cs" />
+    <Compile Include="Controllers\UnitController.cs" />
+    <Compile Include="Model\BaseData\ObserverManage.cs" />
+    <Compile Include="Model\BasicInfo.cs" />
+    <Compile Include="Model\BillNumber.cs" />
+    <Compile Include="Model\BusinessBase.cs" />
+    <Compile Include="Model\BusinessCommodity.cs" />
+    <Compile Include="Model\BusinessCustomer.cs" />
+    <Compile Include="Model\CommodityKey.cs" />
+    <Compile Include="Model\Interface\ColumnMap.cs" />
+    <Compile Include="Model\Interface\InterfaceTemplate.cs" />
+    <Compile Include="Model\Interface\LogData.cs" />
+    <Compile Include="Model\Interface\MappingData.cs" />
+    <Compile Include="Model\Interface\MappingInfo.cs" />
+    <Compile Include="Model\MobileSetModel.cs" />
+    <Compile Include="Model\MobileSetModelList.cs" />
+    <Compile Include="Model\MobileSetProject.cs" />
+    <Compile Include="Model\OfficeWorker.cs" />
+    <Compile Include="Model\Organization.cs" />
+    <Compile Include="Model\PackUnit.cs" />
+    <Compile Include="Model\PackUnitList.cs" />
+    <Compile Include="Model\PrintTemplate.cs" />
+    <Compile Include="Model\PrintTemplateParm.cs" />
+    <Compile Include="Model\ProcessState.cs" />
+    <Compile Include="Model\ProcessStateView.cs" />
+    <Compile Include="Model\Purview\ModelCommand.cs" />
+    <Compile Include="Model\Purview\ModelData.cs" />
+    <Compile Include="Model\Purview\OverseeModel.cs" />
+    <Compile Include="Model\Purview\Role.cs" />
+    <Compile Include="Model\Purview\RoleCommand.cs" />
+    <Compile Include="Model\Purview\RoleModel.cs" />
+    <Compile Include="Model\Purview\SystemDirectory.cs" />
+    <Compile Include="Model\Purview\SystemModel.cs" />
+    <Compile Include="Model\Purview\SystemUser.cs" />
+    <Compile Include="Model\Purview\UserRole.cs" />
+    <Compile Include="Model\Region.cs" />
+    <Compile Include="Model\SystemInfo.cs" />
+    <Compile Include="Model\SystemInfoDetials.cs" />
+    <Compile Include="Model\TimeTask.cs" />
+    <Compile Include="Model\Unit.cs" />
+    <Compile Include="Model\SystemEmail.cs" />
+    <Compile Include="Model\DataBackup.cs" />
+    <Compile Include="Model\DataInitialize.cs" />
+    <Compile Include="Model\SystemConfigItems.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\BusinessLogic\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

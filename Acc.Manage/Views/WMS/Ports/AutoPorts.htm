@@ -1,0 +1,55 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.Controllers.PortsController";
+        
+            $("#ck").append("请输入托盘数量<input type='text' id='snum' /><br/>");
+            $("#ck").append("<input type='button' value='确定生成' onclick='test(this)' /><br/>");
+       
+
+    });
+
+    function checkForm(snum, ennum) {
+        if (snum == "") {
+            alert("开始数量不能为空！");
+            return;
+
+        }
+       
+        }
+        function test() {
+            var snum = document.getElementById("snum").value;
+            checkForm(snum);
+            var data = new datasource();
+            data.c = "Acc.Business.WMS.Controllers.PortsController";
+            var tt = data.post("AutoNext", "id=" + snum + "");
+            alert("生成完成！请刷新查看");
+        }
+    
+
+
+</script>
+<style type="text/css">
+    .hw1Class
+    {
+        background-color:#AAEEBE;
+        color:Black;    
+    }
+        .hw2Class
+    {
+        background-color:#FDAFEA;
+        color:Black;    
+    }
+        .hw3Class
+    {
+        background-color:#FDA342;
+        color:Black;    
+    }
+</style>
+
+<!--托盘-->
+
+<div id="ck" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-bottom: 10px; margin-top: 10px; margin-left: 20px;">
+    
+</div>

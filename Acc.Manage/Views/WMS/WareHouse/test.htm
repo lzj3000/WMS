@@ -1,0 +1,222 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+        ///加载仓库
+        if (window.hostWMS) {
+            var ck = data.post("GetWareHouseByID", "warehouseID=" + window.hostWMS);
+            ///根据id查询仓库货位并直接显示
+            GetWareHouseByID(ck);
+        }
+        else {
+            var ck1 = data.post("GetWareHouse", "whtype=001");
+            ///查询所有仓库并根据点击仓库显示货位
+            GetWareHouse(ck1);
+        }
+
+    });
+
+    function GetWareHouseByID($ID) {
+        //获取ID查询货位
+        $("#ck").html("");
+        ///直接调用显示货位
+        LoadWareHouseDepots($ID[0].ID);
+    }
+
+    ///查询仓库
+    function GetWareHouse($obj) {
+        $("#ck").html("");
+        var ck = $obj.length;
+        var select = $("<select onchange=\"LoadWareHouseDepots(this.options[this.selectedIndex].value)\"><option>--请选择仓库--</option></select>");
+        for (var i = 0; i < ck; i++) {
+            var linkbutton = $("<a href=\"javascript:LoadWareHouseDepots(" + $obj[i].ID + ")\" class=\"easyui-linkbutton\" style=\"margin-top:10px\">" + $obj[i].WAREHOUSENAME + "</a>");
+            $(linkbutton).appendTo($("#ck"));
+             $(linkbutton).linkbutton();
+            var option = $("<option value =" + $obj[i].ID + " id="+$obj[i].ID+" >" + $obj[i].WAREHOUSENAME + "</option>");
+            $(option).appendTo(select);
+          
+        }
+        $(select).appendTo($("#ck"));
+    }
+
+
+    ///根据仓库编码加载货区
+    function LoadWareHouseDepots($obj) {
+    ///清空货位div，使多个仓库不排列显示，只显示一个
+        $("#tt").html("");
+        var depotID = $obj;
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+        var depots = data.post("GetWareHouseDepots", "wareHouseID=" + depotID + "");
+        var hq = $('<div id="aaa" class="easyui-tabs" data-options="tools:\'#tab-tools\'" style="width: 1105px; height: 1200px; margin-bottom:20px"></div>');
+        var jt=null;
+        for (var i = 0; i < depots.length; i++) {
+            jt = $("<div title=\"" + depots[i].WAREHOUSENAME + "\"  style=\"padding: 20px;\">");
+            var hq1 = $('<div id="hq'+depots[i].ID+'" style="position: relative; overflow: hidden; border: 1px solid #ccc; width:auto ; height: 1180px;">');
+            $(hq1).appendTo(jt);
+            $(jt).appendTo($(hq));
+        }
+        $(hq).appendTo($("#tt"));
+        $(hq).tabs();
+        $(hq).tabs({
+            onSelect: function (title, index) {
+                LoadWareHouseArea(title, index);
+            }
+        });
+    }
+
+    var arr = new Array();
+    ///根据货区编码查询下面对应的所有货位
+    function LoadWareHouseArea($obj, $index) {
+        var depotID = $obj;
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+        ///根据货区编码查询货位
+        var tt = data.post("GetAreaNum", "depotID=" + depotID + "");
+        if (tt != "[]") {
+            GetWareHouseArea(tt, $index);
+            for (var i in tt) {
+                var child = tt[i].childcount;
+                for (var j = 1; j <= child; j++) {
+                    var name = tt[i].warehousename + j + "层";
+                    var t = data.post("GetAreaInfo", "areaName=" + name + "");
+                    for (var z in t) {
+                        if (t[z].MATERIALNO != null) {
+                            switch (j) {
+                                case 1: $("#" + name + "").addClass("hw1Class"); break;
+                                case 2: $("#" + name + "").addClass("hw2Class"); break;
+                                case 3: $("#" + name + "").addClass("hw3Class"); break;
+                                default:
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    ///根据货区编码自动加载货位
+    function GetWareHouseArea($obj, $index) {
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+        var tt = data.post("GetWareHouseDepotsCount", "");
+        for (var i = 0; i < tt.length; i++) {
+            $("#hq" + tt[i].ID).html("");
+        }
+        var count = $obj.length;
+        var name = "";
+            if (count > 0) {
+                var ddt="";
+                for (var n = 0; n < count; n++) {
+                    var hw = $('<div class="easyui-draggable" data-options="onDrag:onDrag" style="width:85px;height:60px;position:absolute; background:#fafafa;border:1px solid #ccc;margin-top:10px; display:inline;">');
+                    var hwTitle = $('<div id="title" style="background:#ccc;color:#fff; width:85px; height:15px;">' + $obj[n].warehousename + '</div>');
+                    $(hwTitle).appendTo(hw);
+                    var child = $obj[n].childcount;
+                    for (var i = child; i >= 1; i--) {
+                        name = $obj[n].warehousename + i + "层";
+                        hw.append("<div id='" + name + "' class='name' onclick='GetAreaInfo(this)' >" + i + "层</div>");
+                    }
+                    $(hw).draggable();
+                    ddt = $(hw).appendTo($("#hq" + $obj[n].parentid));
+
+                    var abc = 10;
+                    var bcd = 10;
+                    ///def列之间的距离，根据中框的宽度而定
+                    var def = 110;
+                    if (n < 10) {
+                        ///j<5说明每列显示5个中框的时候，如果更改每显列示数量随之更改
+                        $(ddt).css({ top: (n) * 65, left: 0 });
+                    }
+                    if (n < 20 && n >= 10) {
+                        $(ddt).css({ top: (n - 10) * 65, left: def });
+                    }
+                    if (n < 30 && n >= 20) {
+                        $(ddt).css({ top: (n - 20) * 65, left: def * 2 });
+                    }
+                }
+            }
+    }
+
+    ///根据货位ID查询对应货位上的产品信息
+    function GetAreaInfo($obj) {
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+        var tt = data.post("GetAreaInfo", "areaName=" + $obj.id + "");
+        for (var i in tt) {
+            if (tt[i].MATERIALNO != null) {
+                $("#" + $obj.id + "").addClass("hwClass");
+                $("#" + $obj.id + "").click(function (aa) {
+                    var $win;
+                    $win = $('#infoAlert').window({
+                        title: '产品详情',
+                        width: 300,
+                        height: 150,
+                        shadow: true,
+                        modal: true,
+                        iconCls: 'icon-search',
+                        closed: true,
+                        minimizable: false,
+                        maximizable: false,
+                        collapsible: false,
+                        content: "<font style='font-size:18px'>&nbsp;&nbsp;产品编码:" + tt[i].MATERIALNO + "<br/><br/>&nbsp;&nbsp;产品数量:" + tt[i].NUM+"</font>"
+                    });
+
+                    $win.window('open');
+                });
+            }
+        }
+
+    }
+
+    ///控制小货位（层）不出货位
+    function onDrag(e) {
+
+        var d = e.data;
+        if (d.left < 0) { d.left = 0 }
+         if (d.top < 0) { d.top = 0 }
+         if (d.left + $(d.target).outerWidth() > $(d.parent).width()) {
+            d.left = $(d.parent).width() - $(d.target).outerWidth();
+        }
+         if (d.top + $(d.target).outerHeight() > $(d.parent).height()) {
+            d.top = $(d.parent).height() - $(d.target).outerHeight();
+        }
+    }
+
+</script>
+<style type="text/css">
+    .hw1Class
+    {
+        background-color:#AAEEBE;
+        color:Black;    
+    }
+        .hw2Class
+    {
+        background-color:#FDAFEA;
+        color:Black;    
+    }
+        .hw3Class
+    {
+        background-color:#FDA342;
+        color:Black;    
+    }
+</style>
+
+<!--显示货位-->
+
+<div id="ck" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-bottom: 10px; margin-top: 10px; margin-left: 20px;">
+</div>
+<div id="tt" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-left: 20px;">
+</div>
+<div id="depots" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-left: 20px;">
+</div>
+<div id="p-tools">
+    <a href="#" class="icon-mini-add" onclick="alert('add')"></a><a href="#" class="icon-mini-edit"
+        onclick="alert('edit')"></a><a href="#" class="icon-mini-refresh" onclick="alert('refresh')">
+        </a>
+</div>
+<div id="infoAlert"></div>
+
+<div id="test"></div>

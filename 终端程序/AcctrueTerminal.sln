@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcctrueTerminal", "AcctrueTerminal\AcctrueTerminal.csproj", "{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalUpdate", "TerminalUpdate\TerminalUpdate.csproj", "{EB180226-7980-46DF-999E-C2C5C1637846}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcctrueTerminalServer", "AcctrueTerminalServer\AcctrueTerminalServer.csproj", "{15CA041F-285C-45F5-9CF7-A467C685B330}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "项目资料", "项目资料", "{A0EE4BA2-FB0E-4603-87B4-480BD2ED3FE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WmsTest", "WmsText\WmsTest.csproj", "{0C3FB586-2AF8-475A-80CE-086B1A83FD72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{5CF4DC65-4D04-45F5-91CD-FBF042A97870}"
+EndProject
+Project("{B900F1C2-3D47-4FEC-85B3-04AAF18C3634}") = "SmartDeviceCab1", "SmartDeviceCab1\SmartDeviceCab1.vddproj", "{43C1256D-B4B0-4958-AFE9-FE3DFD1360D7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WebSetup1", "WebSetup1\WebSetup1.vdproj", "{09E0AEA9-45FA-4CE3-919A-1355068347AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EB180226-7980-46DF-999E-C2C5C1637846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB180226-7980-46DF-999E-C2C5C1637846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB180226-7980-46DF-999E-C2C5C1637846}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EB180226-7980-46DF-999E-C2C5C1637846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB180226-7980-46DF-999E-C2C5C1637846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB180226-7980-46DF-999E-C2C5C1637846}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{15CA041F-285C-45F5-9CF7-A467C685B330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CA041F-285C-45F5-9CF7-A467C685B330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CA041F-285C-45F5-9CF7-A467C685B330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CA041F-285C-45F5-9CF7-A467C685B330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3FB586-2AF8-475A-80CE-086B1A83FD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3FB586-2AF8-475A-80CE-086B1A83FD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3FB586-2AF8-475A-80CE-086B1A83FD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3FB586-2AF8-475A-80CE-086B1A83FD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF4DC65-4D04-45F5-91CD-FBF042A97870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF4DC65-4D04-45F5-91CD-FBF042A97870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF4DC65-4D04-45F5-91CD-FBF042A97870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF4DC65-4D04-45F5-91CD-FBF042A97870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C1256D-B4B0-4958-AFE9-FE3DFD1360D7}.Debug|Any CPU.ActiveCfg = Debug
+		{43C1256D-B4B0-4958-AFE9-FE3DFD1360D7}.Release|Any CPU.ActiveCfg = Release
+		{09E0AEA9-45FA-4CE3-919A-1355068347AB}.Debug|Any CPU.ActiveCfg = Debug
+		{09E0AEA9-45FA-4CE3-919A-1355068347AB}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

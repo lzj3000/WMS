@@ -1,0 +1,205 @@
+﻿<html>
+<body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var data = new datasource();
+            data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+            var ck = data.post("GetWareHouse", "whtype=001");
+            GetWareHouse(ck);
+            $("#test").hide();
+        });
+
+        ///查询仓库
+        function GetWareHouse($obj) {
+            $("#ck").html("");
+            var ck = $obj.length;
+            var select = $("<select onchange=\"LoadDepotsNum(this.options[this.selectedIndex].value)\"><option value=\"0\">--请选择仓库--</option></select>");
+            for (var i = 0; i < ck; i++) {
+                var option = $("<option value =" + $obj[i].WAREHOUSENAME + " id=" + $obj[i].ID + " >" + $obj[i].WAREHOUSENAME + "</option>");
+                $(option).appendTo(select);
+
+            }
+            $(select).appendTo($("#ck"));
+        }
+
+        function LoadDepotsNum($DepotNum) {
+//            $("#test").html("");
+//            $("#test").append("请输入货区的名称<input type=\"text\" />");
+//            $("#test").append("<br/>请输入货区的数量<input type=\"text\" />");
+            //            $("#test").append("<br/><input type=\"button\" value=\"添加到GV\" />");
+            $("#test").show();
+        }
+
+        $('#tt').datagrid({
+            url: 'datagrid_data.json',
+            columns: [[
+        { field: 'wareHouseName', title: '货区名称', width: 100 },
+        { field: 'wareHouseNum', title: '货区数量', width: 100 }
+    ]]
+        }); 
+    </script>
+    <div id="ck" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+        width: auto; height: auto; margin-bottom: 10px; margin-top: 10px; margin-left: 20px;">
+        仓库名称:
+    </div>
+    <div id="test" style=" margin-left:20px;">
+    <table id="dg" title="添加货区" class="easyui-datagrid" style="width: 700px; height: 250px"
+        url="get_users.php" toolbar="#toolbar" pagination="true" rownumbers="true" fitcolumns="true"  singleselect="true">
+        <thead>
+            <tr>
+                <th field="firstname" width="50">
+                    货区名称
+                </th>
+            </tr>
+
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newUser()">添加货区</a> 
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="editUser()">编辑货区</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" plain="true" onclick="destroyUser()">删除货区</a>
+        <!--<a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="newWHArea()">添加货位</a>-->
+    </div>
+    <div id="dlg" class="easyui-dialog" style="width: 400px; height: 400px; padding: 10px 20px" closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">货区详情</div>
+        <form id="fmOne" method="post" novalidate>
+        <div class="fitem">
+            <label> 
+                货区名称</label>
+            <input name="firstname" class="easyui-validatebox" required="true">
+        </div>
+         <div class="fitem">
+            <label>
+                货位的名称</label>
+            <input name="firstname" class="easyui-validatebox" required="true"><font style=" color:Red;">*</font>
+        </div>
+         <div class="fitem">
+            <label>
+                货位的数量</label>
+            <input name="firstname" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>
+                货位的长度</label>
+            <input name="firstname" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>
+                货位的宽度</label>
+            <input name="firstname" class="easyui-validatebox" required="true">
+        </div>
+         <div class="fitem">
+            <label>
+                显示列数量</label>
+            <input name="email" class="easyui-validatebox" required="true">
+        </div>
+       <div class="fitem">
+            <label>
+                内货位数量:</label>
+            <input name="lastname" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>
+                内货位长度:</label>
+            <input name="phone" class="easyui-validatebox" required="true">
+        </div>
+        <div class="fitem">
+            <label>
+                内货位宽度</label>
+            <input name="email" class="easyui-validatebox" required="true">
+        </div>
+        </form>
+    </div>
+    
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="saveUser()">
+            保存</a> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel"
+                onclick="javascript:$('#dlg').dialog('close')">取消</a>
+    </div>
+      
+    <script type="text/javascript">
+        var url;
+        ///添加新货区
+        function newUser() {
+            $('#dlg').dialog('open').dialog('setTitle', '添加新货区');
+            $('#fmOne').form('clear');
+
+        }
+     
+
+        function editUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $('#dlg').dialog('open').dialog('setTitle', 'Edit User');
+                $('#fm').form('load', row);
+                url = 'update_user.php?id=' + row.id;
+            }
+        }
+        function saveUser() {
+            $('#fm').form('submit', {
+                url: url,
+                onSubmit: function () {
+                    return $(this).form('validate');
+                },
+                success: function (result) {
+                    var result = eval('(' + result + ')');
+                    if (result.errorMsg) {
+                        $.messager.show({
+                            title: 'Error',
+                            msg: result.errorMsg
+                        });
+                    } else {
+                        $('#dlg').dialog('close');      // close the dialog  
+                        $('#dg').datagrid('reload');    // reload the user data  
+                    }
+                }
+            });
+        }
+        function destroyUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $.messager.confirm('Confirm', 'Are you sure you want to destroy this user?', function (r) {
+                    if (r) {
+                        $.post('destroy_user.php', { id: row.id }, function (result) {
+                            if (result.success) {
+                                $('#dg').datagrid('reload');    // reload the user data  
+                            } else {
+                                $.messager.show({   // show error message  
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            }
+        }     
+        
+    </script>
+    <style type="text/css">
+        #fm
+        {
+            margin: 0;
+            padding: 10px 30px;
+        }
+        .ftitle
+        {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .fitem
+        {
+            margin-bottom: 5px;
+        }
+        .fitem label
+        {
+            display: inline-block;
+            width: 80px;
+        }
+    </style>
+</body>
+</html>

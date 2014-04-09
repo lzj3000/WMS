@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       <link rel="stylesheet" id="theme" type="text/css" href="Scripts/jquery-1.3/themes/default/easyui.css"/>
+       <link rel="stylesheet" type="text/css" href="Scripts/jquery-1.3/themes/icon.css"/>
+       	<link rel="stylesheet" type="text/css" href="Scripts/webcontrols/demo.css">
+       <script type="text/javascript" src="Scripts/jquery-1.3/jquery-1.7.2.min.js"></script>
+       <script type="text/javascript" src="Scripts/jquery-1.3/jquery.easyui.min.js"></script>
+       <script type="text/javascript" src="Scripts/jquery-1.3/easyloader.js"></script>
+       <script type="text/javascript" src="Scripts/webcontrols/jquery.spinnerbox.js"></script>
+        <script type="text/javascript" src="Scripts/jsbase.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/toolstrip.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/jquery.datagrid.editors.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/jquery.datagrid.detailview.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/jquery.searchbox.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/datagrid.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/webcontrol.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/datasource.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/textbox.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/childform.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/searchform.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/tree.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/page/singlepage.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/page/treepage.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/AdvancedSearch.js"></script>
+        <script type="text/javascript" src="Scripts/store/store.js"></script>
+        <script type="text/javascript" src="Scripts/webcontrols/report/showpdf.js"></script>
+        <script type="text/javascript" src="Scripts/upload/jquery.upload.js"></script>
+        <script type="text/javascript" src="Scripts/cryptojs/rollups/md5.js"></script>
+            <script type="text/javascript" src="Scripts/webcam/codeScan.js"></script>
+        <script type="text/javascript" src="Scripts/webcam/webscan.js"></script>
+         <script src="Scripts/echarts-master/esl.js" type="text/javascript"></script>  
+        <script src="Scripts/jquery-1.3/plugins/jquery.portal.js" type="text/javascript"></script>
+        <script src="Scripts/echarts-master/eacharts-acctrue.js" type="text/javascript"></script>
+        <script src="Scripts/webcontrols/AccCanlendar.js" type="text/javascript"></script>
+        <link href="Styles/Cancendar.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/zrender.css" rel="stylesheet" type="text/css" />
+       <script type="text/javascript" >
+           var iii = "";
+           easyloader.locale = 'zh_CN';
+           $(document).ready(function () {
+
+               $("#selectpf").combobox({
+                   onSelect: function (item) {
+                       if (item.value != "") {
+                           easyloader.theme = item.value;
+                           var css = "Scripts/jquery-1.3/themes/" + easyloader.theme + "/easyui.css";
+                           $("#theme").attr("href", css);
+                       }
+                   }
+               });
+               if (!webjs.isLogin) {
+                   $('#ddlogin').dialog({
+                       buttons: [{
+                           text: '登录',
+                           iconCls: 'icon-ok',
+                           handler: function () {
+                               if (!webjs.loging) {
+                                   webjs.loging = true;
+                                   var name = $("#loginname").val();
+                                   var pass = $("#password1").val();
+                                   var passmd5 = CryptoJS.MD5(pass);
+                                   //alert(passmd5);
+                                   webjs.login(name, pass, function (obj) {
+                                       try {
+                                           if (obj.IsLogin) {
+
+                                               var d = new datasource();
+                                               d.c = "Acc.Business.Controllers.SystemInfoController";
+                                               var str = d.post("GetSystemInfo");
+                                               $("#loginnametext").html("欢迎您【" + obj.name + "】");
+                                               if (str != "[]") {
+                                                   if (str[0] != null) {
+                                                       if (str[0].ImgSrc != "") {
+                                                           $("#imgSrc").attr("src", str[0].ImgSrc);
+                                                       }
+                                                       if (str[0].ImgWidth != "") {
+                                                           $("#imgSrc").attr("width", str[0].ImgWidth);
+                                                       }
+                                                       if (str[0].ImgHeight != "") {
+                                                           $("#imgSrc").attr("height", str[0].ImgHeight);
+                                                       }
+                                                       if (str[0].SystemName != "") {
+                                                           $("#titleName").html(str[0].SystemName);
+                                                       }
+                                                       if (str[0].SystemName != "") {
+                                                           $("#loginnametext").html(str[0].SystemName + "欢迎您【" + obj.name + "】");
+                                                       }
+                                                   }
+                                                   var e = new datasource();
+                                                   e.c = "Acc.Business.Controllers.SystemInfoController";
+                                                   var details = e.post("GetSystemInfoDetails");
+                                                   if (details != "[]") {
+                                                       for (var i = 0; i < details.length; i++) {
+                                                           iii = details[i].PageRUL.toString();
+                                                           var table = $("<table style='height:40px;'><tr><td><a style='text-decoration:blink;font-size:18px;' onclick=\"systemInfoclick('" + details[i].PageName + "','" + details[i].PageRUL + "')\"> " + details[i].DisplayName + "</a></td><td style='font-size:18px;'>" + details[i].NUM + "</td></tr></table>");
+                                                           $(table).appendTo($("#systemInfo"));
+                                                       }
+                                                   }
+                                               }
+                                               for (var i in obj.menu) {
+                                                   var dic = obj.menu[i];
+                                                   $('#mainmenu').accordion('add', {
+                                                       title: dic.Name,
+                                                       content: "<div style='text-align:left;padding:5px;padding-left:5px;margin-bottom:20px' id='mt" + dic.ID + "'/>",
+                                                       selected: false
+                                                   });
+                                                   var treenodes = getTreeRow(dic);
+                                                   $("#mt" + dic.ID).tree(
+                                                   {
+                                                       data: treenodes,
+                                                       onSelect: function (node) {
+                                                           if (node.attributes.url)
+                                                               opentab(node.attributes.name, node.attributes.url);
+                                                       },
+                                                       onBeforeLoad: function (node, param) {
+
+                                                       }
+                                                   });
+                                               }
+
+                                               //首页                                            });
+                                               $('#pp').portal({
+                                                   border: false,
+                                                   fit: true
+                                               });
+                                               //代办任务
+                                               var obj = webjs.post("Acc.Business.Controllers.ProcessStateController", "GetProcessStates", "UserId=" + webjs.obj.ID);
+                                               if (obj.error) {
+                                                   $.messager.alert('异常', obj.errormsg, 'info');
+                                               }
+                                               $('#pgrid').datagrid({
+                                                   //title: '代办任务',
+                                                   width: '100%',
+                                                   height: 'auto',
+                                                   rownumbers: true,
+                                                   fitColumns: true,
+                                                   columns: obj.columns
+                                               });
+
+                                               $('#pgrid').datagrid('loadData', obj.data);
+
+                                               //日历
+                                               $("#taskpicker").AcctureCancendar({});
+                                               //图表
+                                               initEchart();                                            
+
+
+                                               $('#mainmenu').accordion('select', 0);
+                                               $('#ddlogin').dialog('close');
+                                           }
+                                       }
+                                       catch (e) {
+                                           webjs.loging = false;
+                                       }
+                                   });
+                               }
+                           }
+                       }, {
+                           text: '取消',
+                           handler: function () {
+                               $('#ddlogin').dialog('close');
+                           }
+                       }]
+                   });
+               }
+           });
+           function out() {
+               webjs.outlogin();
+           }
+           ///提示跳转页面
+           function systemInfoclick($pageName, $pageURL) {
+               opentab($pageName, $pageURL);
+           }
+
+           function initEchart() {
+               var ec = new ECharts("linebar", "Acc.Business.WMS.Controllers.BusinessLogic.EChartWorkTotalController", true);
+              ec.addEvent("click", function (parm, opt) {
+                   if (opt) {
+                       if (ec.isFirstSearch) {
+                           var lengedName, dataName;
+                           if (opt.xAxis[0].type == "value") {
+                               dataName = opt.yAxis[0].data[parm.dataIndex];
+                           }
+                           else {
+                               dataName = opt.xAxis[0].data[parm.dataIndex];
+                           }
+                           lengedName = opt.series[parm.seriesIndex].name
+                           var params = "LengedName=" + lengedName + "&DataName=" + dataName;
+                           ec.search(ec, params);
+                       }
+                   }
+               });
+               ec.init();
+           }
+
+           //自定义跳转
+           function myOpentab(tabTitle, tabUrl) {
+               var reg = new RegExp("(^|&)Ids=([^&]*)(&|$)", "i");
+               var index = tabUrl.indexOf("?");
+               var r = tabUrl.substr(index + 1).match(reg);
+               if (r != null) {
+                   var matchQuery = unescape(r[2]);
+                   $('#pgrid').attr("Ids", matchQuery);
+                   opentab(tabTitle, tabUrl)
+               }
+           }
+
+           function getTreeRow(dic) {
+               var nodes = [];
+               //有子目录r
+               if (dic.childs && dic.childs.length > 0) {
+                   var c;
+                   for (var i in dic.childs) {
+                       c = dic.childs[i];
+                       var n = {};
+                       n.id = c.ID;
+                       n.text = c.Name;
+                       n.attributes = c;
+                       n.iconCls = "icon-menu";
+                       n.children = getTreeRow(c);
+                       nodes.push(n);
+                   }
+               }
+               //有子模块
+               if (dic.menus && dic.menus.length > 0) {
+                   var m;
+                   for (var i in dic.menus) {
+                       m = dic.menus[i];
+                       var n = {};
+                       n.id = i
+                       n.text = m.name;
+                       n.attributes = m;
+                       n.iconCls = "icon-menu";
+                       nodes.push(n);
+                   }
+               }
+               return nodes;
+           }
+           function opentab(name, path) {
+               var ps = $('#tabcenter').tabs('tabs');
+               for (var i in ps) {
+                   var opt = $(ps[i]).panel('options');
+                   if (opt.href == path) {
+                       $('#tabcenter').tabs('select', parseInt(i));
+                       return;
+                   }
+               }
+               $('#tabcenter').tabs('add', {
+                   title: name,
+                   closable: true,
+                   cache: true,
+                   href: path
+               });
+           }
+           function showMessage() {
+               webjs.showMsg();
+           }
+           function showscan() {
+               codescan.show();
+           }
+           function showhelp() {
+               var t = new toolstrip();
+               t.showhelp("Help/index.html", "");
+           }
+           function showpass() {
+               $('#passedit').dialog({
+                   buttons: [{
+                       text: '确认修改',
+                       iconCls: 'icon-ok',
+                       handler: function () {
+                           if (webjs.isLogin) {
+                               var op = $('#oldpass').val();
+                               var np = $('#newpass').val();
+                               var nnp = $('#nnewpass').val();
+                               if (op == undefined || op == null || op == "") {
+                                   $.messager.alert('异常', "原密码不能为空！", 'info');
+                                   return;
+                               }
+                               if (np == undefined || np == null || np == "") {
+                                   $.messager.alert('异常', "新密码不能为空！", 'info');
+                                   return;
+                               }
+                               if (nnp == undefined || nnp == null || nnp == "") {
+                                   $.messager.alert('异常', "确认新密码不能为空！", 'info');
+                                   return;
+                               }
+                               if (np != nnp) {
+                                   $.messager.alert('异常', "确认新密码与新密码不相同！", 'info');
+                                   return;
+                               }
+                               webjs.uppass(np, op);
+                           }
+                           else {
+                               $.messager.alert('消息', "请先登录系统！", 'info');
+                           }
+                       }
+                   }, {
+                       text: '取消',
+                       handler: function () {
+                           $('#passedit').dialog('close');
+                       }
+                   }]
+               });
+               $('#passedit').dialog("open");
+           }
+       </script>
+    <title id="titleName" title="新华扬WMS仓库执行系统"></title>
+      
+       <style type="text/css">
+           .style1
+           {
+               width: 564px;
+               
+           }
+           .style2
+           {
+               width: 331px;
+           }
+           .aaa{
+	display:inline-block;
+	padding:1px 3px;
+	text-decoration:none;
+	color:#fff;
+    }
+.aaa a.hover{
+	text-decoration:underline;
+    }
+     .aaa a.download-link{
+	color:#0000ff;
+     } 
+       </style>
+      
+</head>
+<body class="easyui-layout">
+		<div region="north" style="height:50px; background-color:#0E2D5F; ">
+            <img id="imgSrc" alt="" 
+                style="border:0px solid black; position: absolute; z-index: inherit; top: 10px; left: 10px; height: 30px; width: 164px;" />
+    <table style="width: 100%; height:100%">
+        <tr>
+            <td class="style2" >
+              
+            </td>
+            <td style="color: #FFFFFF; font-weight: bolder;" class="style1">
+               <div id='loginnametext'/>
+            </td>
+            <td align="center" valign="bottom" style="color: #95B8E7; font-weight: bolder;">
+               <!--选择皮肤<select id="selectpf" class="easyui-combobox" style="width:60px; height: 10px;" 
+                    panelHeight="auto">
+                <option value="default">默认</option>  
+                <option value="gray">淡色</option>  
+                <option value="black">黑色</option>  
+                <option value="metro">微软</option>  
+               </select>-->
+               <div style="padding:5px;">
+<!--		<a class="aaa" href="#" onclick="showscan();">打开扫描</a> |-->
+        <a class="aaa" href="#" onclick="showpass();">修改密码</a> |
+		<a class="aaa" href="#" onclick="showhelp();">帮助</a> |
+		<a class="aaa" href="#" onclick="">关于</a> |
+        <a class="aaa" href='#' onclick='out()'>退出</a>
+	     </div>
+               </td>
+        </tr>
+    </table>
+        </div>
+		<div region="south" split="true" style="height:60px;padding:8px;background:#efefef;">
+			<div class="easyui-layout" fit="true" style="background:#ccc;">
+                <div region="west" split="false" border="true" style="width:200px;background:#efefef;">
+                <div style="margin:auto;text-align:center;line-height:30px; color: #0E2D5F;"><b>消息<a href="#" id="msgaaa" onclick="showMessage()">0</a>条</b></div>
+                </div>
+				<div region="center">
+                    </div>
+				<div region="east" split="false" border="true" style="width:200px;background:#efefef;">
+                <div style="margin:auto;text-align:center;line-height:15px; color: #0E2D5F;">
+                   北京爱创科技股份有限公司</br>
+                   <a href="http://www.acctrue.com">www.acctrue.com</a>
+                </div>
+                </div>
+                
+			</div>
+		</div>
+		<div region="west" split="true" title="菜 单" style="width:200px;padding:1px;overflow:hidden;">
+			<div class="easyui-accordion" fit="true" border="false" id="mainmenu">                    
+			</div>
+		</div>
+		<div region="center" id="region" style="overflow:hidden;">
+			<div class="easyui-tabs" id="tabcenter" fit="true" border="false">
+				<div title="欢迎页面" style="padding:20px;overflow:hidden;">
+                    <div id="pp" style="position:relative">
+			            <div style="width:40%;">
+				            <div title="日历" id="taskpicker" style="text-align:center;height:300px;padding:1px;">					
+			                </div>  
+			            </div>
+			            <div style="width:60%;">	
+                         	 <div id="pgrid" title="代办任务" style="height:400px;">					
+				            </div>	    
+                             <div title="周工作量统计" id="linebar" data-options="tools:[{iconCls:'icon-back',handler:function(){initEchart();}}]"  style="height:200px;padding:1px;">
+			                </div>
+			            </div>
+		            </div> 	
+				</div>
+			</div>
+            <div id="temp"></div>
+		</div>
+        <div id="ddlogin" class="easyui-dialog"  closed="false" title="登录系统" style="padding:5px;width:400px;height:200px;">
+           <table>
+           <tr><td>用户名：</td><td><input type="text" id="loginname" name="loginname" value="admin"/></td></tr>
+           <tr><td>密  码：</td><td><input type="password" id="password1" name="password1" value="acctrue"/></td></tr>
+           <tr><td></td><td></td></tr>
+           <tr><td></td><td><a href="http://doc.acctrue.com/llq.zip">谷歌浏览器稳定版下载</a></td></tr>
+           </table>
+        </div>
+        <div id="passedit" class="easyui-dialog"  closed="true" title="修改密码" style="padding:5px;width:400px;height:200px;">
+           <table>
+           <tr><td>原密码：</td><td><input type="password" id="oldpass" name="oldpass"/></td></tr>
+           <tr><td>新密码：</td><td><input type="password" id="newpass" name="newpass"/></td></tr>
+           <tr><td>确认新密码：</td><td><input type="password" id="nnewpass" name="nnewpass"/></td></tr>
+           </table>
+        </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.CRM.Controllers.ContractController";
+            p.applyTo = "t1";
+            p.onAfterEdit = function (index, item, changes) {
+                //合同产品明细行计算
+                if (item.FQTY != null && item.FPRICE != null) {
+                    item.FTOTAL = (item.FQTY * item.FPRICE).toFixed(2); //合同产品明细行：合计=数量*单价----toFixed(2)小数两位
+                }
+                //合同付款明细行计算
+                var contractMian = p.datasource.selectItem; //合同主表
+                if (contractMian.FALLTOTAL != null && item.FPAYSRATE != null) {
+                    item.FPAYAMOUNT = (contractMian.FALLTOTAL * item.FPAYSRATE * 0.01).toFixed(2); //合同付款明细行：付款金额=表头总金额*付款比例
+                }
+
+            }
+            p.onFormSelect = function (form, box, item) {
+
+            }
+            p.onCommandClick = function (command, form, item) {
+
+                if (command == "add") {
+                    form.setform("创建人", webjs.username); //或创建人
+                    //                    var myDate = new Date();
+                    //                    var d = myDate.getFullYear() + "-" + myDate.getMonth() + 1 + "-" + myDate.getDate();
+                    //                    form.setform("创建日期", d);
+                    var myDate = new Date();
+                    var d = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    //form.setform("创建日期", d);
+                    form.setform("FISCLOSED", "0"); //关闭状态
+                    form.setform("FSTATUS", "0"); //单据状态
+                    form.setform("FPROJECTTYPEID", "01"); //项目类型
+                    form.setform("FINDUSTRYID", "01"); //行业
+                    form.setform("FCONTRACTTYPEID", "01"); //合同类型
+                    form.setform("FAllTOTAL", 0); //合同总金额
+
+                }
+
+                if (command == "edit") {
+                    //编辑状态置否--字段
+                    if (item.FSTATUS == 2) {
+                        form.setdisabled(true);
+                    }
+                    //编辑状态置否--单据
+                    if (item.FISCLOSED == 1) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>
+

@@ -1,0 +1,28 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.OtherOutOrderController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("创建人", webjs.username); //或创建人
+                    var myDate = new Date();
+                    var d = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    form.setform("创建日期", d);
+                    //                    var date = myDate.toLocaleString();
+
+
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+
+
+            p.init();
+        });
+
+    </script>
+<div id="t1"></div>

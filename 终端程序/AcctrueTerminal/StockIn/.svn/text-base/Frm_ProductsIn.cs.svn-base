@@ -1,0 +1,1053 @@
+﻿using System;
+
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Collections;
+using AcctrueTerminal.Common;
+using AcctrueTerminal.Model.IsOffModel;
+
+namespace AcctrueTerminal.StockIn
+{
+    public partial class Frm_ProductsIn:Form
+    {
+        public Frm_ProductsIn()
+        {
+            InitializeComponent();
+        }
+
+        #region 初始化属性
+        private SessionModel sm;        
+        private UrlTypeData ud;
+        private string strSQL = string.Empty;
+        private StockInMaterials sIn;
+        private string strTempBatch;
+        private string strSourceCode;
+        private int whid;
+        #endregion
+
+        #region 页面加载
+        private void Frm_ProductsIn_Load(object sender, EventArgs e)
+        {
+            sm = new SessionModel();
+            if (PDASet.IsOff)
+            {
+                ;
+            }
+            else
+            {
+                //获取权限
+                DataTable dt = null;
+                if (this.Owner.Text == BaseCommon.ProductsIn)
+                    dt = BaseCommon.GetMobileSetInfo(BaseCommon.ProductsIn);
+                if (this.Owner.Text == BaseCommon.ProductsElseIn)
+                    dt = BaseCommon.GetMobileSetInfo(BaseCommon.ProductsElseIn);
+                if (this.Owner.Text == BaseCommon.ProductsSemIn)
+                    dt = BaseCommon.GetMobileSetInfo(BaseCommon.ProductsSemIn);
+                if (this.Owner.Text == BaseCommon.ProductsProIn)
+                    dt = BaseCommon.GetMobileSetInfo(BaseCommon.ProductsProIn);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    sm.ControllerName = dt.Rows[0]["ControllerName"].ToString();
+                    sm.ModelId = Convert.ToInt32(dt.Rows[0]["ID"].ToString());
+                    AccessControl(Convert.ToInt32(this.tabControlSet.TabPages.Count));
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.NotControllerName);
+                }
+            }
+        }
+        #endregion
+
+        #region 选择入库单
+        private void btn_CheckOrderQuery_Click(object sender, EventArgs e)
+        {
+            DataTable dtList = null;
+            Frm_SerachOrder fso = null;
+            if (this.Owner.Text == BaseCommon.ProductsIn)
+            {
+                fso = new Frm_SerachOrder(BaseCommon.ProductsIn);
+            }
+            if (this.Owner.Text == BaseCommon.ProductsElseIn)
+            {
+                fso = new Frm_SerachOrder(BaseCommon.ProductsElseIn);
+            }
+            if (this.Owner.Text == BaseCommon.ProductsSemIn)
+            {
+                fso = new Frm_SerachOrder(BaseCommon.ProductsSemIn);
+            }
+            if (this.Owner.Text == BaseCommon.ProductsProIn)
+            {
+                fso = new Frm_SerachOrder(BaseCommon.ProductsProIn);
+            }
+            DialogResult ret=fso.ShowDialog();
+            if (ret == DialogResult.OK && fso.OrderCode != null)
+            {
+                txt_OrderCode.Text = fso.OrderCode;
+                txt_OrderDesc.Text = fso.OrderDesc;
+                txt_WhName.Text = fso.WhName;
+                sm.OrderId = fso.OrderID;
+                sm.SourceCodeId = fso.SourceID;
+                whid=sm.WhourseId = fso.WhourseId;
+                //sm.SourceCodeId = fso.SourceCodeID;
+                BindLv_OrderList(fso.DtStaylist);
+                if (this.Owner.Text == BaseCommon.ProductsProIn && fso.DtStaylist.Rows.Count>0)
+                {
+                    txt_Batch.Text = lv_OrderList.Items[0].SubItems[7].Text.ToString();
+                    txt_Batch.Enabled = false;
+                }
+                dtList = BaseCommon.GetOrderMaterialsInfo(sm.OrderId.ToString(), sm.ControllerName, BaseCommon.ProductsIn,BaseCommon.StockInMaterials);
+                lv_RecordList.Items.Clear();
+                if (dtList != null && dtList.Rows.Count > 0)
+                {
+                    if (UIHelper.QuestionMsg(InfoMessage.FindNotSubmmitData, true))
+                    {
+                        BindLv_RecordList(dtList);
+                        tabControlSet.SelectedIndex = 3;
+                    }
+                    else
+                    {
+                        tabControlSet.SelectedIndex = 0;
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region ListView 数据绑定
+        private void BindLv_OrderList(DataTable dt)
+        {
+            lv_OrderList.Items.Clear();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem((i + 1).ToString());
+                    list.SubItems.Add(dt.Rows[i]["MCODE"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["MATERIALCODE_FNAME"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["STAYNUM"].ToString());
+                    //list.SubItems.Add(dt.Rows[i]["FUNITID_UNITNAME"].ToString());
+                    list.SubItems.Add("暂无");
+                    list.SubItems.Add(dt.Rows[i]["FMODEL"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["ID"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["BATCHNO"].ToString());
+                    lv_OrderList.Items.Add(list);
+                }
+            }
+        }        
+        public void BindLv_RecordList(DataTable dt)
+        {
+            lv_RecordList.Items.Clear();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem((i + 1).ToString());
+                    list.SubItems.Add(dt.Rows[i]["PORTNAME_PORTNO"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["MCODE"].ToString());                    
+                    list.SubItems.Add(dt.Rows[i]["MATERIALCODE_FNAME"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["NUM"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["DEPOTWBS_CODE"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["BATCHNO"].ToString());
+                    //list.SubItems.Add(dt.Rows[i]["FUNITID_UNITNAME"].ToString());
+                    list.SubItems.Add("暂无");
+                    list.SubItems.Add(dt.Rows[i]["FMODEL"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["ID"].ToString());
+                    lv_RecordList.Items.Add(list);
+                }
+            }
+        }
+
+        public void BindLv_GroupTrayData(DataTable dt)
+        {
+            lv_GroupTrayData.Items.Clear();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem((i + 1).ToString());
+                    list.SubItems.Add(dt.Rows[i]["TRAYCODE_PORTNO"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["GCODE"].ToString());
+                    if (this.Owner.Text == BaseCommon.ProductsProIn)
+                    {
+                        txt_Code.Text = dt.Rows[i]["GCODE"].ToString();
+                        CheckTxtCode();
+                        ListViewItem listl = new ListViewItem();
+                        listl.SubItems.Add(dt.Rows[i]["FMODEL"].ToString());
+                        lv_shInfo.Items.Add(listl);
+                        txt_AssetsCode.Text = "";
+                    }
+                    list.SubItems.Add(dt.Rows[i]["GNAME_FNAME"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["TRAYNUM"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["BATCHNO"].ToString());
+                    //list.SubItems.Add(dt.Rows[i]["FUNITID_UNITNAME"].ToString());
+                    list.SubItems.Add("暂无");
+                    list.SubItems.Add(dt.Rows[i]["FMODEL"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["ID"].ToString());
+                    lv_GroupTrayData.Items.Add(list);
+                }
+                txt_Num.Text = lv_GroupTrayData.Items.Count.ToString();
+                txt_Batch.Enabled=txt_Code.Enabled = txt_Num.Enabled = false;
+                txt_Batch.BackColor = Color.White;
+            }
+        }
+        #endregion
+
+        #region 数据提交
+        private void menuItemSubmmit_Click(object sender, EventArgs e)
+        {
+            if (lv_RecordList.Items.Count <= 0)
+            {
+                UIHelper.PromptMsg(InfoMessage.NotSubmmitData);
+                return;
+            }           
+            if (UIHelper.QuestionMsg("确认提交？", true))
+            {               
+                ud = new UrlTypeData();               
+                ud.c = sm.ControllerName;
+                ud.m = BaseCommon.SubmmitData;
+                ud.LoadItem = "{'ID':'" + sm.OrderId + "','TOWHNO':'" + whid + "','StateBase':3}";
+                sm.strResult = ToJson.ExecuteMethod(ud);
+                if (sm.strResult == "Y")
+                {
+                    UIHelper.PromptMsg(InfoMessage.SubmmitSuccess);
+                    lv_OrderList.Items.Clear();
+                    lv_RecordList.Items.Clear();
+                    lv_RecordList.Items.Clear();
+                    txt_OrderCode.Text = txt_OrderDesc.Text = txt_WhName.Text = "";
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.SubmmitFailed+"："+sm.strResult);
+                }                
+            }
+        }
+        #endregion
+
+        #region 数据保存
+        private void menuItemSave_Click(object sender, EventArgs e)
+        {
+            if (CheckData())
+            {
+                if (PDASet.IsOff)
+                {
+                    IsOffSaveData();
+                }
+                else
+                {
+                    WiFiSaveData();
+                }         
+            }
+        }
+
+        public bool OneOrderIn(string ListId)
+        {
+            if (ListId.Length > 10)
+            {
+                return false;
+            }
+            ud = new UrlTypeData();
+            ud.Type = (int)CheckEnum.Edit;
+            ud.c = sm.ControllerName;
+            ud.m = "AddInSequence";
+            ud.LoadItem = "";
+            List<InSequenceList> ISL = new List<InSequenceList>();
+            for (int i = 0; i < lv_GroupTrayData.Items.Count; i++)
+            {
+                InSequenceList InSequences = new InSequenceList();
+                InSequences.InOrderId = Convert.ToInt32(lv_OrderList.Items[0].SubItems[6].Text.ToString());
+                InSequences.InOrderMATERIALID = Convert.ToInt32(ListId);
+                InSequences.SEQUENCECODE = lv_GroupTrayData.Items[i].SubItems[7].Text;
+                ISL.Add(InSequences);
+            }
+            ud.LoadItem = UIHelper.InSequenceListConversion(ISL);
+            if (ToJson.InSequenceInExecuteMethod(ud) != "Y")
+                return false;
+            return true;
+        }
+
+        #region 无线网络操作
+        public void WiFiSaveData()
+        {            
+            if (UIHelper.QuestionMsg("确认保存？", true))
+            {
+                for (int i = 0; i < SessionModel.DtOrderInfo.Rows.Count;i++)
+                {
+                    if (txt_OrderCode.Text == SessionModel.DtOrderInfo.Rows[i]["Code"].ToString())
+                    {
+                        strSourceCode = SessionModel.DtOrderInfo.Rows[i]["SOURCECODE"].ToString();
+                    }
+                }
+                ud = new UrlTypeData();
+                ud.Type = (int)CheckEnum.Edit;
+                ud.c = sm.ControllerName;
+                ud.m = BaseCommon.Edit;
+                if (!string.IsNullOrEmpty(txt_Code.Text.Trim()))
+                {
+                    DataTable dt = BaseCommon.GetOrderInfo("Acc.Business.WMS.Controllers.StockInOrderController", txt_OrderCode.Text.Trim(), BaseCommon.ProductsProIn);
+                    ud.LoadItem = "{'GetOldObject':{'ID':'" + sm.OrderId.ToString() + "','CODE':'" + txt_OrderCode.Text.Trim() + "','SourceCode':'" + strSourceCode + "','CLIENTNO':'" + dt.Rows[0]["CLIENTNO"].ToString() + "','TOWHNO':'" + whid + "'},'Acc.Business.WMS.Model.StockInOrderMaterials':[{'PARENTID':'" + sm.OrderId + "','PORTNAME':'" + SessionModel.DtPortsInfo.Rows[0]["ID"].ToString() + "','MATERIALCODE':'" + SessionModel.DtMaterialsInfo.Rows[0]["ID"].ToString() + "','MCODE':'" + txt_Code.Text.Trim() + "','FMODEL':'" + SessionModel.DtMaterialsInfo.Rows[0]["FMODEL"].ToString() + "','BATCHNO':'" + txt_Batch.Text.Trim() + "','DEPOTWBS':'" + sm.WhourseId + "','NUM':'" + txt_Num.Text.Trim() + "','SourceRowID':" + sm.SourceRowId + ",'StateBase':0,'STAY1':'0'}]}";
+                    if (this.Owner.Text == BaseCommon.ProductsProIn)
+                    {
+                        if(OneOrderIn(ToJson.OnOrderInExecuteMethod(ud)))
+                            sm.strResult = "Y";
+                    }
+                    else
+                        sm.strResult = ToJson.ExecuteMethod(ud);
+                }
+                else
+                {
+                    if (lv_GroupTrayData.Items.Count > 0)
+                    {
+                        for (int i = 0; i < lv_GroupTrayData.Items.Count; i++)
+                        {
+                            if (SessionModel.DtTrayInfo != null && SessionModel.DtTrayInfo.Rows.Count > 0)
+                            {
+                                ud.LoadItem = "{'GetOldObject':{'ID':'" + sm.OrderId + "','CODE':'" + txt_OrderCode.Text.Trim() + "'},'Acc.Business.WMS.Model.StockInOrderMaterials':[{'PARENTID':'" + sm.OrderId + "','PORTNAME':'" + SessionModel.DtTrayInfo.Rows[i]["TRAYCODE"].ToString() + "','MATERIALCODE':'" + SessionModel.DtTrayInfo.Rows[i]["GNAME"].ToString() + "','MCODE':'" + SessionModel.DtTrayInfo.Rows[i]["GCODE"].ToString() + "','FMODEL':'" + SessionModel.DtTrayInfo.Rows[i]["FMODEL"].ToString() + "','BATCHNO':'" + SessionModel.DtTrayInfo.Rows[i]["BATCHNO"].ToString() + "','DEPOTWBS':'" + sm.WhourseId + "','NUM':'" + SessionModel.DtTrayInfo.Rows[i]["TRAYNUM"].ToString() + "','StateBase':0}]}";
+                                sm.strResult = ToJson.ExecuteMethod(ud);
+                                if (sm.strResult != "Y")
+                                {
+                                    UIHelper.ErrorMsg(sm.strResult);
+                                }
+                            }
+                        }
+                        ClearGroupTrayData();
+                    }
+                    else
+                    {
+                        UIHelper.ErrorMsg(InfoMessage.NotBindData);
+                    }
+                }
+                if (sm.strResult == "Y")
+                {
+                    UIHelper.PromptMsg(InfoMessage.SaveSuccess);
+                    BindLv_OrderList(BaseCommon.GetOrderNoticeInfo(sm.SourceCodeId.ToString(), sm.ControllerName, this.Owner.Text));
+                    Clear();
+                    IsEnabled(true, Color.White);
+                    txt_Code.Focus();
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.SaveFailed + "：" + sm.strResult);
+                }
+            }
+        }
+        #endregion
+
+        #region 离线状态操作
+        private void IsOffSaveData()
+        {           
+            if (UIHelper.QuestionMsg("确认保存？", true))
+            {
+                sIn = new StockInMaterials();
+                if (!string.IsNullOrEmpty(txt_Code.Text.Trim()))
+                {                   
+                    sIn.PARENTID = sm.OrderId;
+                    sIn.MATERIALCODE = sm.NameId;
+                    sIn.MATERIALCODE_FNAME = txt_Desc.Text.Trim();
+                    sIn.MCODE = txt_Code.Text.Trim();
+                    sIn.NUM =Convert.ToDecimal(txt_Num.Text.Trim());                   
+                    sIn.PORTNAME = sm.PortsId;
+                    sIn.PORTNAME_PORTNO = txt_TrayCode.Text.Trim();
+                    sIn.SourceRowID = sm.SourceRowId;
+                    sIn.BATCHNO = txt_Batch.Text.Trim();
+                    sIn.DEPOTWBS = sm.WhourseId;
+                    sIn.DEPOTWBS_CODE = txt_Bin.Text.Trim();
+                    sIn.FMODEL = txt_Spec.Text.Trim();
+                    sIn.FUNITID = 0;
+                    sIn.FUNITID_UNITNAME = "暂无";
+                    if (BaseCommon.StockInSaveData(sIn, BaseCommon.StockInMaterials))
+                    {
+                        UIHelper.PromptMsg(InfoMessage.SaveSuccess);
+                        Clear();
+                        IsEnabled(true, Color.White);
+                        txt_Code.Focus();
+                    }
+                    else
+                    {
+                        UIHelper.ErrorMsg(InfoMessage.SaveFailed + "：" + sm.strResult);
+                    }
+                }
+                //按托盘入库
+                if (lv_GroupTrayData.Items.Count > 0&&string.IsNullOrEmpty(txt_Code.Text.Trim()))
+                {
+                    #region 暂时不可用
+                    //for (int i = 0; i < lv_GroupTrayData.Items.Count; i++)
+                    //{
+                    //    sIn.PARENTID = sm.OrderId;
+                    //    sIn.MATERIALCODE = sm.NameId;
+                    //    sIn.MATERIALCODE_FNAME = txt_Desc.Text.Trim();
+                    //    sIn.MCODE = txt_Code.Text.Trim();
+                    //    sIn.NUM = Convert.ToDecimal(txt_Num.Text.Trim());
+                    //    sIn.PORTNAME = sm.PortsId;
+                    //    sIn.PORTNAME_PORTNO = txt_TrayCode.Text.Trim();
+                    //    sIn.SourceRowID = sm.SourceRowId;
+                    //    sIn.BATCHNO = txt_Batch.Text.Trim();
+                    //    sIn.DEPOTWBS = sm.WhourseId;
+                    //    sIn.DEPOTWBS_CODE = txt_Bin.Text.Trim();
+                    //    sIn.FMODEL = txt_Spec.Text.Trim();
+                    //    sIn.FUNITID = 0;
+                    //    sIn.FUNITID_UNITNAME = "暂无";
+                    //    //strSQL = "ID='" + sm.OrderId.ToString() + "',PORTNAME='" + SessionModel.DtTrayInfo.Rows[i]["TRAYCODE"].ToString() + "',MATERIALCODE='" + SessionModel.DtTrayInfo.Rows[i]["GNAME"].ToString() + "',MCODE='" + SessionModel.DtTrayInfo.Rows[i]["GCODE"].ToString() + "',FMODEL='" + SessionModel.DtTrayInfo.Rows[i]["FMODEL"].ToString() + "',BATCH='" + SessionModel.DtTrayInfo.Rows[i]["BATCHNO"].ToString() + "',DEPOTWBS='" + sm.WhourseId + "',NUM='" + SessionModel.DtTrayInfo.Rows[i]["TRAYNUM"].ToString() + "'";
+                    //    Flag = BaseCommon.SaveData(strSQL, BaseCommon.StockInMaterials);
+                    //}
+                    //if (Flag)
+                    //{
+                    //    UIHelper.PromptMsg(InfoMessage.SaveSuccess);
+                    //    ClearGroupTrayData();
+                    //    Clear();
+                    //    IsEnabled(true, Color.White);
+                    //    txt_Code.Focus();
+                    //}
+                    //else
+                    //{
+                    //    UIHelper.ErrorMsg(InfoMessage.SaveFailed + "：" + sm.strResult);
+                    //}
+                    #endregion
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.NotBindData);
+                }     
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 散件入库或入库组盘
+        /// <summary>
+        /// 扫描编码自动带出描述、规格、单位等信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt_Code_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {               
+                //判断此编码是否属于该入库单
+                if (!string.IsNullOrEmpty(txt_Code.Text.Trim()))
+                {
+                    if (lv_OrderList.Items.Count >= 1 && !string.IsNullOrEmpty(txt_OrderCode.Text.Trim()))
+                    { 
+                        for (int i = 0; i < lv_OrderList.Items.Count; i++)
+                        {                            
+                            if (lv_OrderList.Items[i].SubItems[1].Text == txt_Code.Text.Trim())
+                            {
+                                txt_YNum.Text = lv_OrderList.Items[i].SubItems[3].Text;
+                                sm.SourceRowId = Convert.ToInt32(lv_OrderList.Items[i].SubItems[6].Text);
+                                break;
+                            }
+                            else
+                            {
+                                if (i == (lv_OrderList.Items.Count - 1))
+                                {
+                                    if (this.Owner.Text != BaseCommon.ProductsElseIn && this.Owner.Text != BaseCommon.ProductsElseOut)
+                                    {
+                                        UIHelper.ErrorMsg(InfoMessage.CodeNotOrder);
+                                        return;
+                                    }
+                                }
+                            }                            
+                        }                                        
+                        CheckTxtCode();
+                        if (this.Owner.Text == BaseCommon.ProductsIn)
+                        {
+                            ud = new UrlTypeData();
+                            ud.Type = (int)CheckEnum.Edit;
+                            ud.c = "Acc.Business.WMS.XHY.Controllers.ProduceInOrderController";
+                            ud.m = "GetServerData";
+                            ud.LoadItem = "{}";
+                            strTempBatch=txt_Batch.Text = ToJson.GetServerData(ud);
+                            txt_Batch.Focus();
+                            txt_Batch.SelectionStart = txt_Batch.TextLength;
+                        }
+                        else if (this.Owner.Text == BaseCommon.ProductsSemIn)
+                        {
+                            for (int i = 0; i < lv_OrderList.Items.Count;i++ )
+                            {
+                                if(txt_Code.Text==lv_OrderList.Items[i].SubItems[1].Text.ToString())
+                                    txt_Batch.Text = lv_OrderList.Items[i].SubItems[7].Text.ToString();
+                            }
+                        }
+                        else
+                            txt_Batch.Text = "";
+                    }                   
+                }
+                else
+                {
+                    UIHelper.PromptMsg(InfoMessage.NotCode);
+                }
+            }
+        }
+
+        public bool CheckTxtCode()
+        {
+            SessionModel.DtMaterialsInfo = BaseCommon.GetMaterialsInfo(txt_Code.Text.Trim());
+            if (SessionModel.DtMaterialsInfo != null && SessionModel.DtMaterialsInfo.Rows.Count > 0)
+            {
+                sm.NameId = Convert.ToInt32(SessionModel.DtMaterialsInfo.Rows[0]["ID"].ToString());                
+                if (SessionModel.DtMaterialsInfo.Rows[0]["SEQUENCECODE"].ToString() == "True")
+                {
+                    txt_AssetsCode.Text = txt_Code.Text;
+                    tabControlSet.SelectedIndex = 2;
+                }
+                if (SessionModel.DtMaterialsInfo.Rows[0]["BATCH"].ToString() == "False")
+                {
+                    txt_Batch.Enabled = false;
+                    //Btn_Select.Enabled = false;
+                    txt_Batch.BackColor = Color.Aquamarine;
+                }
+                txt_Desc.Text = SessionModel.DtMaterialsInfo.Rows[0]["FNAME"].ToString();
+                if (this.Owner.Text == BaseCommon.ProductsProIn)
+                    txt_Uom.Text = "件";
+                else
+                    txt_Uom.Text = "KG";
+                txt_Spec.Text = SessionModel.DtMaterialsInfo.Rows[0]["FMODEL"].ToString();
+                if (txt_Batch.Enabled != false)
+                {
+                    txt_Batch.Focus();
+                }
+                else
+                {
+                    txt_Bin.Focus();
+                }
+                return true;
+            }
+            else
+            {
+                UIHelper.PromptMsg(InfoMessage.NotFoundCode);
+                txt_Code.SelectAll();
+                return false;
+            }
+        }
+        #endregion
+
+        #region 权限控制
+        /// <summary>
+        /// 权限控制
+        /// </summary>
+        public void AccessControl(int TabControlCount)
+        {
+            ud =BaseCommon.ModelControlFdata(sm.ModelId);
+            DataTable dt = ToJson.getData(ud);
+            try
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < tabControlSet.TabPages.Count; i++)
+                    {
+                        if (dt.Select("ModelListName='" + tabControlSet.TabPages[i].Text + "'").Length > 0)
+                        {
+                            PDASet.List.Add(i);
+                        }
+                        if (dt.Select("ModelListName='托盘记录'").Length<=0)
+                        {
+                            //txt_TrayCode.Enabled = false;
+                            //txt_TrayCode.BackColor = Color.Aquamarine;
+                        }
+                    }                  
+                    for (int i = 0; i < PDASet.List.Count; i++)
+                    {
+                        #region
+                        //if (tabControlSet.TabPages.Count < 6)
+                        //{
+                        //    a = 6 - tabControlSet.TabPages.Count;
+                        //    tabControlSet.TabPages.RemoveAt(Convert.ToInt32(list[i])-a);
+                        //}
+                        //else
+                        //{
+                        //    tabControlSet.TabPages.RemoveAt(Convert.ToInt32(list[i]));
+                        //}
+                        #endregion
+
+                        PDASet.InitTabPageCount = TabControlCount - tabControlSet.TabPages.Count;
+                        tabControlSet.TabPages.RemoveAt(Convert.ToInt32(PDASet.List[i]) - PDASet.InitTabPageCount);
+                    }
+                }
+                PDASet.List.Clear();
+                tabControlSet.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 按托盘入库
+        private void txt_TrayCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (string.IsNullOrEmpty(txt_TrayCode.Text.Trim()))
+                {
+                    UIHelper.ErrorMsg(InfoMessage.InputOrScanningTrayCode);
+                    return;
+                }
+                if (CheckTxtTrayCode())
+                    txt_Code.Focus();
+                else
+                {
+                    txt_TrayCode.SelectAll();
+                    txt_TrayCode.Focus();
+                }
+
+            }
+        }
+
+        public bool CheckTxtTrayCode()
+        {
+            SessionModel.DtPortsInfo = BaseCommon.GetPortsInfo(txt_TrayCode.Text.Trim());
+            if (SessionModel.DtPortsInfo != null && SessionModel.DtPortsInfo.Rows.Count > 0)
+            {
+                if (SessionModel.DtPortsInfo.Rows[0]["STATUS"].ToString() == "1")
+                {
+                    UIHelper.ErrorMsg("托盘占用！");
+                    return false;
+                }
+                sm.PortsId =Convert.ToInt32( SessionModel.DtPortsInfo.Rows[0]["ID"].ToString());
+                SessionModel.DtTrayInfo = BaseCommon.GetTrayInfo("", sm.PortsId.ToString(),null);
+                if (this.Owner.Text == BaseCommon.ProductsProIn && SessionModel.DtTrayInfo.Rows.Count == 0)
+                {
+                    UIHelper.ErrorMsg("托盘未组盘，重新扫描托盘！");
+                    txt_TrayCode.Focus();
+                    txt_TrayCode.SelectionStart = txt_TrayCode.TextLength;
+                    return false;
+                }
+                if (SessionModel.DtTrayInfo != null && SessionModel.DtTrayInfo.Rows.Count > 0)
+                {
+                    if (this.Owner.Text != BaseCommon.ProductsProIn)
+                    {
+                        UIHelper.ErrorMsg("托盘已经组盘，不能操作！");
+                        txt_TrayCode.Focus();
+                        txt_TrayCode.SelectionStart = txt_TrayCode.TextLength;
+                        return false;
+                    }
+                    IsEnabled(false, Color.Aquamarine);
+                    BindLv_GroupTrayData(SessionModel.DtTrayInfo);
+                    for (int i = 0; i < lv_GroupTrayData.Items.Count;i++ )
+                    {
+                        txt_Batch.Text=lv_GroupTrayData.Items[i].SubItems[5].Text.ToString();
+                    }
+                    txt_YNum.Text = lv_OrderList.Items[0].SubItems[3].Text;
+                }
+                else
+                {
+                    IsEnabled(true, Color.White);
+                    txt_TrayCode.Focus();
+                }
+                return true;
+            }
+            else
+            {
+                UIHelper.ErrorMsg(InfoMessage.NotTrayCode);
+                txt_TrayCode.SelectAll();
+                return false;
+            }
+        }
+        #endregion 
+
+        #region 数据项验证
+        private bool CheckData()
+        {
+            if (!UIHelper.CheckTextBox(txt_OrderCode.Text.Trim()))
+            {
+                UIHelper.ErrorMsg(InfoMessage.SelectOrder);
+                return false;
+            }
+            if (!UIHelper.CheckTextBox(txt_Code.Text.Trim()) && !UIHelper.CheckTextBox(txt_TrayCode.Text.Trim()))
+            {
+                UIHelper.ErrorMsg(InfoMessage.InputOrScanningCode + "或者" + InfoMessage.InputOrScanningTrayCode);
+                txt_TrayCode.Focus();
+                return false;
+            }
+            if (!CheckTxtTrayCode())
+            {
+                return false;
+            }
+            if (!CheckTxtCode())
+            {
+                return false;
+            }
+            if (!GetWhourseId(txt_Bin.Text.Trim()))
+            {
+                return false;
+            }
+            if (!UIHelper.CheckTextBox(txt_Bin.Text.Trim()))
+            {
+                txt_Bin.Text = InfoMessage.InputOrScanningBinCode;
+                txt_Bin.SelectAll();
+                txt_Bin.Focus();
+                return false;
+            }
+            if (this.Owner.Text == BaseCommon.ProductsIn && txt_Batch.Text.Trim().Length<6)
+            {
+                UIHelper.ErrorMsg("批次前6位不能改变！");
+                txt_Batch.Text = strTempBatch;
+                txt_Batch.Focus();
+                txt_Batch.SelectionStart = txt_Batch.TextLength;
+                return false;
+            }
+            if (this.Owner.Text == BaseCommon.ProductsIn && txt_Batch.Text.Trim().Substring(0, 6) != strTempBatch)
+            {
+                UIHelper.ErrorMsg("批次前6位不能改变！");
+                txt_Batch.Text = strTempBatch;
+                txt_Batch.Focus();
+                txt_Batch.SelectionStart = txt_Batch.TextLength;
+                return false;
+            }
+            if (!UIHelper.CheckNum(txt_Num.Text.Trim()))
+            {
+                UIHelper.ErrorMsg(InfoMessage.Number);
+                return false;
+            }
+            if (this.Owner.Text != BaseCommon.ProductsElseIn && this.Owner.Text != BaseCommon.ProductsElseOut)
+            {
+                if (!UIHelper.CheckNum(txt_YNum.Text.Trim()))
+                {
+                    UIHelper.ErrorMsg(InfoMessage.Number);
+                    return false;
+                }
+                if (Convert.ToDouble(txt_Num.Text.Trim()) > Convert.ToDouble(txt_YNum.Text.Trim()))
+                {
+                    UIHelper.ErrorMsg("入库数量大于源单数量！");
+                    return false;
+                }
+            }
+            if (string.IsNullOrEmpty(txt_TrayCode.Text.Trim()) || lv_GroupTrayData.Items.Count <= 0)
+            {
+                if (!UIHelper.CheckNum(txt_Num.Text.Trim()))
+                {
+                    UIHelper.ErrorMsg(InfoMessage.Number);
+                    return false;
+                }
+            }
+            //if (GetWhourseId(txt_Bin.Text.Trim()) == false)
+            //{
+            //    return false;
+            //}
+
+            return true;
+        }
+        #endregion
+
+        #region 单件序列码管理
+        #endregion
+
+        #region 数据删除
+        /// <summary>
+        /// 数据删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lv_RecordList_ItemActivate(object sender, EventArgs e)
+        {
+            if (lv_RecordList.Items.Count < 0)
+            {
+                UIHelper.ErrorMsg(InfoMessage.NotDeleteData);
+                return;
+            }            
+            if (UIHelper.QuestionMsg("确认删除？", true))
+            {
+                int ID = Convert.ToInt32(lv_RecordList.Items[lv_RecordList.SelectedIndices[0]].SubItems[9].Text);   
+                if (this.lv_RecordList.Items.Count > 0 && this.lv_RecordList.SelectedIndices.Count > 0)
+                {
+                    if (PDASet.IsOff)
+                    {
+                        strSQL = " where ID="+ID+"";
+                        if (BaseCommon.DeleteData(BaseCommon.StockInMaterials,strSQL))
+                        {
+                            UIHelper.PromptMsg(InfoMessage.DeleteSuccess);
+                            lv_RecordList.Items.RemoveAt(lv_RecordList.SelectedIndices[0]);
+                        }
+                        else
+                        {
+                            UIHelper.ErrorMsg(InfoMessage.DeleteFailed);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < SessionModel.DtOrderInfo.Rows.Count; i++)
+                        {
+                            if (txt_OrderCode.Text == SessionModel.DtOrderInfo.Rows[i]["Code"].ToString())
+                            {
+                                strSourceCode = SessionModel.DtOrderInfo.Rows[i]["SOURCECODE"].ToString();
+                            }
+                        }
+                        ud = new UrlTypeData();
+                        ud.Type = (int)CheckEnum.Edit;
+                        ud.c = sm.ControllerName;
+                        ud.m = BaseCommon.Edit;
+                        ud.LoadItem = "{'GetOldObject':{'ID':'" + sm.OrderId + "','CODE':'" + txt_OrderCode.Text.Trim() + "','SourceCode':'" + strSourceCode + "','TOWHNO':'" + whid + "'},'Acc.Business.WMS.Model.StockInOrder_Materials':[{'ID':" + ID + ",'StateBase':2}]}";
+                        sm.strResult = ToJson.ExecuteMethod(ud);
+                        if (sm.strResult == "Y")
+                        {
+                            UIHelper.PromptMsg(InfoMessage.DeleteSuccess);
+                            lv_RecordList.Items.RemoveAt(lv_RecordList.SelectedIndices[0]);
+                        }
+                        else
+                        {
+                            UIHelper.ErrorMsg(InfoMessage.DeleteFailed);
+                        }
+                    }
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.NotDeleteData);
+                    return;
+                }
+            }
+        }
+        #endregion
+
+        #region 属性控制
+        public void IsEnabled(bool Falg,Color co)
+        {
+            //txt_Code.Enabled = Falg;
+            //txt_Code.BackColor = co;
+            txt_Batch.Enabled = Falg;
+            txt_Batch.BackColor = co;
+            txt_Num.Enabled = Falg;
+            txt_Num.BackColor = co;
+        }
+
+        private void Clear()
+        {
+           txt_TrayCode.Text = txt_Code.Text = txt_Desc.Text = txt_Batch.Text = txt_Uom.Text = txt_Bin.Text = txt_Num.Text = txt_Spec.Text = txt_YNum.Text =""; ;
+           txt_Batch.Enabled = true;
+           lv_shInfo.Items.Clear();
+           SessionModel.Clear();
+        }
+        #endregion
+
+        #region Tab页面控制
+        private void tabControlSet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dtList=null;
+            switch (tabControlSet.TabPages[tabControlSet.SelectedIndex].Text)
+            {
+                case "明细":
+                    if (txt_Batch.Enabled == false)
+                    {
+                        txt_Bin.Focus();
+                        txt_Bin.SelectAll();
+                    }
+                    else
+                    {
+                        txt_TrayCode.Focus();
+                        txt_TrayCode.SelectAll();
+                    }
+                    break;
+                case "操作":
+                    txt_AssetsCode.Focus();
+                    break;
+                case "记录":
+                    if (string.IsNullOrEmpty(txt_OrderCode.Text.Trim()) || txt_OrderCode.Text.Trim() == InfoMessage.SelectOrder)
+                    {
+                        txt_OrderCode.Text = InfoMessage.SelectOrder;
+                        txt_OrderCode.SelectAll();
+                        txt_OrderCode.Focus();
+                    }
+                    else
+                    {                       
+                        dtList = BaseCommon.GetOrderMaterialsInfo(sm.OrderId.ToString(), sm.ControllerName, BaseCommon.ProductsIn,BaseCommon.StockInMaterials);                        
+                        if (dtList != null && dtList.Rows.Count > 0)
+                        {
+                            BindLv_RecordList(dtList);
+                        }                       
+                    }
+                    break;
+                default:
+                    break;
+                    
+            }
+        }
+
+        private bool CheckOrder()
+        {
+            if (string.IsNullOrEmpty(txt_OrderCode.Text) || string.IsNullOrEmpty(txt_OrderDesc.Text) || string.IsNullOrEmpty(txt_WhName.Text))
+            {
+                UIHelper.ErrorMsg("请正确选择入库单号！");
+                tabControlSet.SelectedIndex = 1;
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region KeyPress事件
+        private void txt_Batch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                txt_Bin.Focus();
+            }
+        }
+
+        #region 验证存放位置
+        /// <summary>
+        /// 验证存放位置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt_Bin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(txt_Bin.Text.Trim()))
+                {
+                    GetWhourseId(txt_Bin.Text.Trim());
+                }
+                else
+                {
+                    UIHelper.PromptMsg(InfoMessage.InputOrScanningBinCode);
+                }                
+            }
+        }
+        #endregion
+
+        private void txt_Num_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (UIHelper.CheckNum(txt_Num.Text.Trim()))
+                {
+                    menuItemSave_Click(sender,e);
+                }
+            }
+        }
+        #endregion
+
+        #region 获取存储位置信息
+        private bool GetWhourseId(string BinCode)
+        {
+            DataTable dt = null;           
+            dt = BaseCommon.GetWhouseInfo(BinCode,whid.ToString());          
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                sm.WhourseId = Convert.ToInt32(dt.Rows[0]["ID"].ToString());
+                txt_Num.Focus();
+                return true;
+            }
+            else
+            {
+                UIHelper.ErrorMsg(InfoMessage.BinCodeNotFound);
+                txt_Bin.SelectAll();
+            }
+            return false;
+        }
+        #endregion
+
+        #region 删除组盘数据
+        /// <summary>
+        /// 删除组盘数据
+        /// </summary>
+        private void ClearGroupTrayData()
+        {
+            DataTable dtTrayCName = BaseCommon.GetMobileSetInfo(BaseCommon.GroupTray);
+            ud = new UrlTypeData();
+            ud.c = dtTrayCName.Rows[0]["ControllerName"].ToString();
+            ud.m = BaseCommon.Remove;
+
+            for (int i = 0; i < SessionModel.DtTrayInfo.Rows.Count; i++)
+            {
+                ud.LoadItem = "{'ID':'" + SessionModel.DtTrayInfo.Rows[i]["ID"].ToString() + "','StateBase':3}";
+                sm.strResult = ToJson.ExecuteMethod(ud);
+                if (sm.strResult != "Y")
+                {
+                    UIHelper.ErrorMsg(sm.strResult);
+                }
+            }   
+            if (sm.strResult == "Y")
+            {
+                //UIHelper.PromptMsg(InfoMessage.DeleteSuccess);                
+                lv_GroupTrayData.Items.Clear();
+            }
+            else
+            {
+                UIHelper.ErrorMsg(InfoMessage.DeleteFailed);
+            }
+        }
+        #endregion
+
+        #region ListViewTODataTable
+        public DataTable ListViewTODataTable(ListView lv)
+        {
+            DataRow dr;
+            DataTable dt = null;
+            for (int i = 0; i < lv.Columns.Count; i++)
+            {
+                lv.Columns.Add(lv.Columns[i].Text.Trim(),60,HorizontalAlignment.Center);
+            }
+
+            for (int i = 0; i < lv.Items.Count; i++)
+            {
+                dr = dt.NewRow();
+                for (int j = 0; j < lv.Columns.Count; j++)
+                {
+                    dr[j] = lv.Items[i].SubItems[j].Text.Trim();
+                }
+                dt.Rows.Add(dr);
+            }
+            return dt;
+        }
+        #endregion
+
+        #region 退出界面
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            if (UIHelper.QuestionMsg(InfoMessage.ExitForm, true))
+            {
+                SessionModel.Clear();
+                mainMenu1.Dispose();
+            }
+        }
+        #endregion
+
+        #region 单件入库回车事件
+        private void txt_AssetsCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13 && txt_AssetsCode.Text.Trim()!="")
+            {
+                int i = lv_shInfo.Items.Count;
+                i = i + 1;
+                ListViewItem list = new ListViewItem();
+                list.SubItems.Add(txt_AssetsCode.Text.Trim().ToString());
+                lv_shInfo.Items.Add(list);
+                txt_AssetsCode.Text = "";
+            }
+        }
+        #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ListView.SelectedIndexCollection c = lv_shInfo.SelectedIndices;
+             if (c.Count > 0)
+             { 
+                 lv_shInfo.Items.RemoveAt(c[0]);
+                 lv_shInfo.Refresh();
+
+             }
+        }
+
+        private void lv_OrderList_ItemActivate(object sender, EventArgs e)
+        {
+            if (lv_OrderList.Items.Count > 0)
+            {
+                txt_Code.Text = lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[1].Text;
+                txt_Desc.Text = lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[2].Text;
+                txt_Batch.Text = lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[7].Text;
+                if (this.Owner.Text == BaseCommon.ProductsProIn)
+                    txt_Uom.Text = "件";
+                else
+                    txt_Uom.Text = "KG";
+                txt_Spec.Text = lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[5].Text;
+                txt_YNum.Text = lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[3].Text;
+                tabControlSet.SelectedIndex = 1;
+            }
+        }
+    }
+}

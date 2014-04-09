@@ -1,0 +1,26 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "TestLucong.Controllers.ComputationUnitController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    for (var i in form.griditems) {
+                        var grid = form.griditems[i];
+                        grid.setdisabled(true);
+                    }
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                    for (var i in form.griditems) {
+                        var grid = form.griditems[i];
+                        grid.setdisabled(true);
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

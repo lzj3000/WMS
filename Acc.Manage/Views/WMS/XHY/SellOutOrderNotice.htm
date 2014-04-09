@@ -1,0 +1,51 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.SellOutNoticeOrderController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            //通知单下推，选择其他原单时改变待入库明细的数据
+            p.onForeigned = function (sender, fdata, rows) {
+          
+                    //通知单下推，选择其他原单时改变待入库明细的数据
+                if (fdata.tablename.toString() == "Acc_WMS_OutNotice" && sender.field.toString() == "SOURCECODE") {
+                    var tt = p.datasource.post("GetNoticeStayGrid", "NoticeId=" + fdata.filedvalue + "");
+                    if (tt != "[]") {
+                        var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockOutNoticeMaterials"];
+                        grid.clear();
+                        grid.insertRow(tt);
+                    }
+
+                }
+                if (fdata.tablename == "Acc_WMS_WareHouse" && sender.field == "DEPOTWBS") {
+                    var eb = sender.parent.geteditor("PORTNAME");
+                    rows[eb.target.foreign.displayname] = rows["TPCODE"]
+                    rows[eb.target.field] = rows["TPID"];
+                    eb.actions.setValue(eb.target, "", rows);
+                    var eb2 = sender.parent.geteditor("BATCHNO");
+                    var pici = eb2.actions.getValue(eb2.target);
+                    if (pici == "") {
+                        eb2.actions.setValue(eb2.target, rows["BATCHNO"]);
+                    }
+                    var eb1 = sender.parent.geteditor("NUM");
+                    eb1.actions.setValue(eb1.target, rows["NUM"], rows[eb1.field]);
+                }
+                if (fdata.tablename == "Acc_WMS_Ports" && sender.field == "PORTNAME") {
+                    var eb = sender.parent.geteditor("DEPOTWBS");
+                    rows[eb.target.foreign.displayname] = rows["HWCODE"]
+                    rows[eb.target.field] = rows["HWID"];
+                    eb.actions.setValue(eb.target, "", rows);
+                    var eb2 = sender.parent.geteditor("BATCHNO");
+                    var pici = eb2.actions.getValue(eb2.target);
+                    if (pici == "") {
+                        eb2.actions.setValue(eb2.target, rows["BATCHNO"]);
+                    }
+                    var eb1 = sender.parent.geteditor("NUM");
+                    eb1.actions.setValue(eb1.target, rows["NUM"], rows[eb1.field]);
+                }
+               
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

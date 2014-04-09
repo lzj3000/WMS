@@ -1,0 +1,163 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FInterID</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>STAY1</SourceName>
+    <TargetName />
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>STAY2</SourceName>
+    <TargetName />
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Code</SourceName>
+    <TargetName>FBillNo</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Remark</SourceName>
+    <TargetName>FExplanation</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Submiteddate</SourceName>
+    <TargetName>FDate</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FMarketingStyle</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>12530</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FBrID</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FBrNo</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FTranType</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>1</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FROB</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>1</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FStatus</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>CLIENTNO</SourceName>
+    <TargetName>FSupplyID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>TOWHNO</SourceName>
+    <TargetName>FDCStockID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Createdby</SourceName>
+    <TargetName>FBillerID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Createdby</SourceName>
+    <TargetName>FSManagerID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Submitedby</SourceName>
+    <TargetName>FFManagerID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceID</SourceName>
+    <TargetName>FSelTranType</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceID</SourceName>
+    <TargetName>FPOMode</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>SourceID</SourceName>
+    <TargetName>FPOStyle</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+</DocumentElement>

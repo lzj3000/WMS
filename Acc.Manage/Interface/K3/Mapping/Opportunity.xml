@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<table>
+  <TableProperty>
+    <name>Acc_Crm_Opportunity</name>
+    <Kname>CRM_Opportunity</Kname>
+    <note>商机</note>
+    <Knote>商机</Knote>
+  </TableProperty>
+
+  <!--<ColProperty>
+    <name>ID</name>
+    <Kname>FOpportunityID</Kname>
+  </ColProperty>-->
+  
+  <ColProperty>
+    <name>Code</name>
+    <Kname>FNumber</Kname>
+    <note>代码</note>
+    <Knote>编码</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FBILLNAME</name>
+    <Kname>FName</Kname>
+    <note>名称</note>
+    <Knote>名称</Knote>
+  </ColProperty>
+  
+  <ColProperty>
+    <name>Creationdate</name>
+    <Kname>FBillDate</Kname>
+    <note>创建日期</note>
+    <Knote>创建日期</Knote>
+  </ColProperty>
+
+  <ColProperty>
+    <name>FYJCJJE</name>
+    <Kname>FForecastAmount</Kname>
+    <note>预计成交金额</note>
+    <Knote>预计成交金额</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FYJMLJE</name>
+    <Kname>FBalanceAmount</Kname>
+    <note>预计毛利金额</note>
+    <Knote>预计毛利金额</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FYJCJRQ</name>
+    <Kname>FForecastDate</Kname>
+    <note>预计成交日期</note>
+    <Knote>预计成交日期</Knote>
+  </ColProperty>
+  
+  <!--<ColProperty>
+    <name>IsDisable</name>
+    <Kname>FDeleted</Kname>
+    <note>是否禁用</note>
+    <Knote>是否禁用</Knote>
+  </ColProperty>-->
+  <!--<Property>
+    <name>Remark</name>
+    <Kname>FNote</Kname>
+    <note>备注</note>
+    <Knote>备注</Knote>
+  </Property>-->
+</table>
+

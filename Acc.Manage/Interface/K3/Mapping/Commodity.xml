@@ -1,0 +1,155 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <ColumnMap>
+    <SourceName>FItemID</SourceName>
+    <TargetName>STAY1</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Fnumber</SourceName>
+    <TargetName>STAY2</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FItemID</SourceName>
+    <TargetName>ID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Fnumber</SourceName>
+    <TargetName>Code</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FName</SourceName>
+    <TargetName>FNAME</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FFullName</SourceName>
+    <TargetName>FFULLNAME</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FModel</SourceName>
+    <TargetName>FMODEL</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FParentID</SourceName>
+    <TargetName>ClassID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FUnitID</SourceName>
+    <TargetName>FUNITID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FDeleted</SourceName>
+    <TargetName>ISDELETE</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>false</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FDeleted</SourceName>
+    <TargetName>IsDisable</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>false</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>CommodityType</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>BATCH</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>ISCHECKPRO</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>STOREAMOUNT</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>1</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FModifyTime</SourceName>
+    <TargetName />
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>Creationdate</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>Modifieddate</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>WeightNUM</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>25</Deluft>
+  </ColumnMap>
+</DocumentElement>

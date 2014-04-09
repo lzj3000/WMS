@@ -1,0 +1,163 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <ColumnMap>
+    <SourceName>FItemID</SourceName>
+    <TargetName>ID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Fnumber</SourceName>
+    <TargetName>Code</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FName</SourceName>
+    <TargetName>CUSTOMERNAME</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FParentID</SourceName>
+    <TargetName>FCUSTOMERID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FDeleted</SourceName>
+    <TargetName>ISDELETE</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>false</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FDeleted</SourceName>
+    <TargetName>IsDisable</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>false</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FModifyTime</SourceName>
+    <TargetName />
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>Creationdate</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>Modifieddate</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>FTYPE</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>2</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>IsCustomer</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>1</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>IsSuppliers</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FBank</SourceName>
+    <TargetName>Bark</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FAccount</SourceName>
+    <TargetName>BarkCode</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FAddress</SourceName>
+    <TargetName>LXRAddress</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FContact</SourceName>
+    <TargetName>LXRName</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FMobilePhone</SourceName>
+    <TargetName>LXRPhone</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FPhone</SourceName>
+    <TargetName>FPHONE</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FFax</SourceName>
+    <TargetName>FFAX</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FHomePage</SourceName>
+    <TargetName>FHOMEPAGE</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+</DocumentElement>

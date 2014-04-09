@@ -1,0 +1,157 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new treepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.XHY_WareHouseController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add" || command == "addroot") {
+                    form.findbox("PARENTID").setdisabled(true);
+                    var box = form.findbox("WHTYPE");
+                    if (box.comvtp.olditems != undefined)
+                        box.comvtp.items = box.comvtp.olditems;
+                    if (box.comvtp && box.comvtp.items) {
+                        box.comvtp.olditems = box.comvtp.items;
+                        var tts = [];
+                        if (command == "addroot") {
+                           // tts[0] = box.comvtp.items[0];
+                            tts[1] = box.comvtp.items[3];
+                            $("#" + box.name).combobox();
+                        }
+                        box.comvtp.items = tts;
+                        box.update();
+                    }
+                }
+//                if (command == "edit") {
+//                    //form.setdisabled(true,false);
+//                }
+            }
+            // 更改下拉框事件
+            p.onFormSelect = function (form, box, item) {
+                var a = box.val();
+                if (box.field == "WHTYPE") {
+                    if (a == "0") {
+                        for (var i in form.items) {
+                            switch (form.items[i].field) {
+                                case "PARENTID":
+                                    form.items[i].setdisabled(true);
+                                    break;
+                                default:
+                                    form.items[i].setdisabled(false);
+                                    break;
+                            }
+                        }
+                    }
+                    else {
+                        for (var i in form.items) {
+                            switch (form.items[i].field) {
+                                case "PARENTID":
+                                    form.items[i].setdisabled(false);
+                                    break;
+
+                            }
+                        }
+                    }
+
+                }
+            }
+            p.init();
+            p.tool.remove("add");
+        });
+
+        function openWindow(data) {
+            window.hostWMS = data.item.ID;
+            $("#t2").dialog({
+                title: "" + data.item.WAREHOUSENAME + "",
+                width: 1200,
+                height: 620,
+                maximizable: false,
+                cache: false,
+                href: "Views/WMS/WareHouse/test.htm"
+            });
+        }
+        function selectRequisition(data) {
+            var hqID = data.item.ID;
+            //var whtype = data.item.WHTYPE;
+//            if (whtype != 0) {
+//                alert("请选择货区进行打印货区内的货位");
+//                return; 
+//            }
+            var id = "";
+            var data = new datasource();
+            data.c = "Acc.Business.WMS.XHY.Controllers.XHY_WareHouseController";
+            var depots = data.post("GetAreaNameList", "areaNameList=" + hqID + "");
+            for (var i = 0; i < depots.length; i++) {
+                if (id == "")
+                    id = depots[i].Code + "|" + depots[i].WareHouseName;
+                else
+                    id += ";" + depots[i].Code + "|" + depots[i].WareHouseName;
+            }
+            window.open("DesginManager/PrintSet.aspx?selectPortsRows=" + id, "_black", "width=300,height=200,left=200,top=200");
+        }
+        function openAutoNext(data) {
+            var id = webjs.newid();
+            var str = '<div id="' + id + '">'
+                    + '<table>'
+                       + '<tr><td>行开始</td><td><input class="easyui-numberspinner" min="1" type="text" name="hs" value="1"/></td><td>行结束</td><td><input class="easyui-numberspinner" min="1" type="text" name="he" value="10"/></td><td>仓库行设置</td></tr>'
+                       + '<tr><td>列开始</td><td><input class="easyui-numberspinner" min="1" type="text" name="ls" value="1"/></td><td>列结束</td><td><input class="easyui-numberspinner" min="1" type="text" name="le" value="10"/></td><td>仓库列设置</td></tr>'
+                       + '<tr><td>层数</td><td><input class="easyui-numberspinner"  min="1" type="text" name="cs" value="3"/><td>货位层数</td></td></tr>'
+                    + '</table>'
+                    + '</div>';
+            $(str).appendTo("body");
+            $("#" + id + " .easyui-numberspinner").numberspinner();
+            $("#" + id).dialog({
+                title: "生成" + data.item.WAREHOUSENAME + "货位",
+                width: 500,
+                height: 200,
+                maximizable: false,
+                cache: false,
+                buttons: [{
+                    text: '生成',
+                    handler: function () {
+                        try {
+                            var ddd = {};
+                            $('#' + id + " input").each(function () {
+                                if (this.name != "") {
+                                    ddd[this.name] = this.value;
+                                }
+                            });
+                            var e = data.sender.datasource.post("CreateLocator", "args=" + webjs.jsonval(ddd) + "&ActionItem=" + webjs.jsonval(data.item));
+                            if (e && e.error) {
+                                $.messager.alert('异常', e.errormsg, 'error');
+                            }
+                            else {
+                                data.sender.datasource.p.tree.search(data);
+                                $("#" + id).dialog('close');
+                                $.messager.show({ title: '消息', msg: "生成" + data.item.WAREHOUSENAME + "货位完成。", showType: 'show' });
+                            }
+                        }
+                        catch (e) {
+                            $.messager.alert('异常', e, 'error');
+                        }
+                    }
+                }],
+                onClose: function () {
+                    $("#" + id).remove();
+                }
+            });
+        }
+//        function openAutoNext(data) {
+//            window.parID = data.item.ID;
+//            window.whtype = data.item.WHTYPE;
+//            $("#t3").dialog({
+//                title: "生成" + data.item.WAREHOUSENAME + "下一级",
+//                width: 300,
+//                height: 200,
+//                maximizable: false,
+//                cache: false,
+//                href: "Views/WMS/WareHouse/AutoNextWareHouse.htm"
+//            });
+//        }
+        function SetPrintModel(data) {
+            window.open("DesginManager/SetPrintModel.aspx?strController=" + data.sender.datasource.c, "_black", "width=300,height=200,left=200,top=200");
+        }
+    </script>
+<div id="t1"></div>
+<div id="t2"></div>
+<div id="t3"></div>

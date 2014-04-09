@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <!--WEB系统业务连接地址-->
+    <add key="AccServerAddress" value="http://192.168.100.117:14/web.aspx?"></add>
+    <!--WEB系统登陆连接地址-->
+    <add key="AccLoginAddress" value="http://192.168.100.117:14/user.aspx?"></add>
+    <!--PDA系统业务连接地址-->
+    <add key="AccPdaServer" value="http://192.168.100.117:88/AccWms/Service1.asmx" />
+  </appSettings>
+  <!--<configSections>
+    <section name="dataConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Data.Configuration.DatabaseSettings, Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=null" />
+  </configSections>
+  <dataConfiguration defaultDatabase="">
+    <providerMappings>
+      <add databaseType="EntLibContrib.Data.SQLite.SQLiteDatabase, EntLibContrib.Data.SqLite, Version=4.1.0.0, Culture=neutral, PublicKeyToken=null"  name="System.Data.SQLite" />
+    </providerMappings>
+  </dataConfiguration>
+  <connectionStrings>
+    <add name="sqlite" connectionString="Data Source=D:\DataBase.db;Pooling=true;FailIfMissing=false" providerName="System.Data.SQLite" />
+  </connectionStrings>-->
+</configuration>
+
+

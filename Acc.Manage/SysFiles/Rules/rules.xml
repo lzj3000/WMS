@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rules>
+  <!--<rule name="StockInOrder_Split"
+        displayName="收料任务拆分规则"
+        comment="收料"
+        type="TaskSplit"
+        status="enable"
+        usefor="orderCommon"
+        scanningType="byTime"
+        processor="AcctrueWMS.Bll.Rule.StockInOrderProcessor,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="StockOutOrder_Split"
+        displayName="发料料任务拆分规则"
+        comment="发料"
+        type="TaskSplit"
+        status="enable"
+        usefor="orderCommon"
+          scanningType="byTime"
+        processor="AcctrueWMS.Bll.Rule.StockOutOrderProcessor,AcctrueWMS.Bll">
+  </rule>-->
+
+
+  <rule name="TaskOrder_NoticeOrder_Alarm"
+      displayName="任务单与通知单不符"
+      comment="任务单与通知单不符报警"
+      type="Alert"
+      status="enable"
+      usefor="orderCommon"
+          scanningType="byTime"
+        interval="300:M"
+      processor="AcctrueWMS.Bll.Rule.TaskNoticeDiffAlarm,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="resault_Task_Order_Alarm"
+      displayName="执行结果与任务单不符报警"
+      comment="执行结果与任务单不"
+      type="Alert"
+      status="enable"
+      usefor="taskCommon"
+          scanningType="byTime"    
+        interval="300:M"
+      processor="AcctrueWMS.Bll.Rule.ActionTaskDiffAlarm,AcctrueWMS.Bll">
+  </rule>
+
+
+  <rule name="upper_lower_Limit_Alarm"
+    displayName="货位高储与低储报警"
+    comment="货位高储与低储"
+    type="Alert"
+    status="enable"
+    usefor="warehouse_depots"
+          scanningType="wholeTable"
+        interval="300:M"
+    processor="AcctrueWMS.Bll.Rule.UpperLowerLimitAlarm,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="wineStorageTime45_Alarm"
+    displayName="酒龄超45天报警"
+    comment="45天报警"
+    type="Alert"
+    status="enable"
+    usefor="stockInfo_materials"
+           scanningType="wholeTable"
+        interval="300:M"
+    processor="AcctrueWMS.Bll.Rule.WineStorageTime45Alarm,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="wineStorageTime60_Alarm"
+    displayName="酒龄超60天报警"
+    comment="60天报警"
+    type="Alert"
+    status="enable"
+    usefor="stockInfo_materials"
+           scanningType="wholeTable"
+        interval="300:M"
+    processor="AcctrueWMS.Bll.Rule.WineStorageTime60Alarm,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="wineStorageTime90_Alarm"
+    displayName="酒龄超90天报警"
+    comment="90天报警"
+    type="Alert"
+    status="enable"
+    usefor="stockInfo_materials"
+           scanningType="wholeTable"
+        interval="300:M"
+    processor="AcctrueWMS.Bll.Rule.WineStorageTime90Alarm,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="shelfLife_Alarm"
+    displayName="存货过期报警"
+    comment="存货过期"
+    type="Alert"
+    status="enable"
+    usefor="stockInfo_materials"
+           scanningType="wholeTable"
+        interval="300:M"
+    processor="AcctrueWMS.Bll.Rule.ShelfLifeAlarm,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="task_Overdue_Alarm"
+    displayName="任务过期报警"
+    comment="任务过期"
+    type="Alert"
+    status="enable"
+    usefor="taskCommon"
+           scanningType="wholeTable"
+        interval="300:M"
+    processor="AcctrueWMS.Bll.Rule.TaskOverdueAlarm,AcctrueWMS.Bll">
+  </rule>
+
+  <rule name="lowest_stock_Alarm"
+    displayName="最低库存报警"
+    comment="最低库存"
+    type="Alert"
+    status="enable"
+    usefor="materials"
+           scanningType="wholeTable"
+        interval="300:M"
+    processor="AcctrueWMS.Bll.Rule.LowestStockAlarm,AcctrueWMS.Bll">
+  </rule>
+</rules>

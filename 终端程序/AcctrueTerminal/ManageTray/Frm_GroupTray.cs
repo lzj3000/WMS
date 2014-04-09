@@ -1,0 +1,942 @@
+﻿using System;
+
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using AcctrueTerminal.Common;
+
+namespace AcctrueTerminal.ManageTray
+{
+    public partial class Frm_GroupTray : Form
+    {
+        private SessionModel sm;
+        private UrlTypeData ud;
+        private string strSQL = string.Empty;
+        public Frm_GroupTray()
+        {
+            InitializeComponent();
+        }
+
+        private void Frm_GroupTray_Load(object sender, EventArgs e)
+        {
+            sm = new SessionModel();
+            if (PDASet.IsOff)
+            {
+
+            }
+            else
+            {
+                DataTable dt = BaseCommon.GetMobileSetInfo(BaseCommon.GroupTray);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    sm.ControllerName = dt.Rows[0]["ControllerName"].ToString();
+                    sm.ModelId = Convert.ToInt32(dt.Rows[0]["ID"].ToString());
+                    AccessControl(Convert.ToInt32(this.tabControlSet.TabPages.Count));
+                }
+            }
+        }
+
+        private void btn_CheckOrderQuery_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(txt_OrderCode.Text.Trim()))
+                {
+                    SessionModel.DtOrderInfo = BaseCommon.GetNoticeInfo(null, txt_OrderCode.Text.Trim());
+                    if (SessionModel.DtOrderInfo != null && SessionModel.DtOrderInfo.Rows.Count > 0)
+                    {
+                        sm.OrderId = Convert.ToInt32(SessionModel.DtOrderInfo.Rows[0]["ID"].ToString());
+                        sm.WhourseId = Convert.ToInt32(SessionModel.DtOrderInfo.Rows[0]["STAY5"].ToString());
+                        txt_Code.Text = SessionModel.DtOrderInfo.Rows[0]["MCODE"].ToString();
+                        txt_Batch.Text = SessionModel.DtOrderInfo.Rows[0]["BATCHNO"].ToString();
+                        txt_OrderDesc.Text = SessionModel.DtOrderInfo.Rows[0]["CREATEDBY_WORKNAME"].ToString();
+                        BindLv_OrderList(SessionModel.DtOrderInfo);
+                    }
+                    else
+                    {
+                        UIHelper.ErrorMsg("请输入正确的赋码单号！");
+                    }
+                }
+                else
+                {
+                    Frm_SerachOrder fso = new Frm_SerachOrder(BaseCommon.GroupTray);
+                    DialogResult ret = fso.ShowDialog();
+                    if (fso.OrderCode != null)
+                    {
+                        txt_OrderCode.Text = fso.OrderCode;
+                        txt_OrderDesc.Text = fso.OrderDesc;
+                        txt_WhName.Text = fso.WhName;
+                        sm.OrderId = fso.OrderID;
+                        sm.WhourseId = fso.WhourseId;
+                        txt_Code.Text = fso.MCODE;
+                        txt_Batch.Enabled = false;
+                        if (fso.DtStaylist.Rows.Count > 0)
+                            txt_Batch.Text = fso.DtStaylist.Rows[0]["BATCHNO"].ToString();
+                        BindLv_OrderList(fso.DtStaylist);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                SessionModel.DtMaterialsInfo = BaseCommon.GetMaterialsInfo(txt_Code.Text.Trim());
+                if (SessionModel.DtMaterialsInfo != null && SessionModel.DtMaterialsInfo.Rows.Count > 0)
+                {
+                    CheckMaterialsInfo(SessionModel.DtMaterialsInfo);
+                }
+                DataTable dt = BaseCommon.GetZPSUM(txt_OrderCode.Text.ToString());
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    BindList2List(dt);
+                }
+                else
+                {
+                    listView2.Items.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+
+        private void Frm_GroupTray_Closed(object sender, EventArgs e)
+        {
+            if (UIHelper.QuestionMsg(InfoMessage.ExitForm) == DialogResult.Yes)
+            {
+                SessionModel.Clear();
+                mainMenu1.Dispose();
+            }
+            else
+                return;
+        }
+
+        #region 托盘验证
+        /// <summary>
+        /// 验证托盘是否存在，如果存在检查此托盘是否已组盘，如果已经组盘带出该托盘的组盘记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txt_TrayCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (string.IsNullOrEmpty(txt_TrayCode.Text.Trim()) || txt_TrayCode.Text.Trim() == InfoMessage.InputOrScanningTrayCode)
+                {
+                    txt_TrayCode.Text = InfoMessage.InputOrScanningTrayCode;
+                    txt_TrayCode.SelectAll();
+                    return;
+                }
+                SessionModel.DtPortsInfo = BaseCommon.GetPortsInfo(txt_TrayCode.Text.Trim());
+                if (SessionModel.DtPortsInfo != null && SessionModel.DtPortsInfo.Rows.Count > 0)
+                {
+                    #region 注释代码
+                    //dtTray = BaseCommon.GetTrayInfo(txt_OrderCode.Text.Trim(), dtPorts.Rows[0]["ID"].ToString());
+                    //if (dtTray != null && dtTray.Rows.Count > 0)
+                    //{
+                    //    if (UIHelper.QuestionMsg(InfoMessage.FindTrayData, true))
+                    //    {
+                    //        txt_Code.Focus();
+                    //    }
+                    //    else
+                    //    {
+                    //        BindLv_GroupTrayData(dtTray);
+                    //        tabControlSet.SelectedIndex = 2;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    txt_Code.Focus();
+                    //}
+                    #endregion
+                    QueryTrayData(SessionModel.DtPortsInfo);
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.TrayCodeNotFound);
+                }
+            }
+        }
+        #endregion
+
+        #region 编码验证
+        private void txt_Code_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (string.IsNullOrEmpty(txt_Code.Text.Trim()) || txt_Code.Text.Trim() == InfoMessage.NotCode)
+                {
+                    txt_Code.Text = InfoMessage.NotCode;
+                    txt_Code.SelectAll();
+                    return;
+                }
+                if (lv_OrderList.Items.Count >= 1 && !string.IsNullOrEmpty(txt_OrderCode.Text.Trim()))
+                {
+                    for (int i = 0; i < lv_OrderList.Items.Count; i++)
+                    {
+                        if (lv_OrderList.Items[i].SubItems[1].Text != txt_Code.Text.Trim())
+                        {
+                            UIHelper.ErrorMsg(InfoMessage.CodeNotOrder);
+                            return;
+                        }
+                    }
+                }
+                txt_Code.Focus();
+                SessionModel.DtMaterialsInfo = BaseCommon.GetMaterialsInfo(txt_Code.Text.Trim());
+                if (SessionModel.DtMaterialsInfo != null && SessionModel.DtMaterialsInfo.Rows.Count > 0)
+                {
+                    #region
+                    //if (dtMaterials.Rows[0]["BATCH"].ToString() == "False")
+                    //{
+                    //    txt_Batch.Enabled = false;
+                    //    txt_Batch.BackColor = Color.Aquamarine;
+                    //}
+                    //txt_Name.Text = dtMaterials.Rows[0]["FNAME"].ToString();
+                    //txt_Spec.Text = dtMaterials.Rows[0]["FMODEL"].ToString();
+                    //txt_Uom.Text = "暂无";
+                    //txt_Batch.Focus();
+                    #endregion
+                    CheckMaterialsInfo(SessionModel.DtMaterialsInfo);
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.NotFoundCode);
+                    txt_Name.Text = txt_Spec.Text = txt_Uom.Text = "";
+                }
+            }
+        }
+        #endregion
+
+        #region 绑定数据
+        private void BindList2List(DataTable dt)
+        {
+            listView2.Items.Clear();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem((i + 1).ToString());
+                    list.SubItems.Add(dt.Rows[i]["TrayCode_PORTNO"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["GCODE"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["GNAME_FNAME"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["NUM"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["ID"].ToString());
+                    listView2.Items.Add(list);
+                }
+            }
+        }
+
+        private void BindLv_OrderList(DataTable dt)
+        {
+            lv_OrderList.Items.Clear();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                txt_WhName.Text = dt.Rows[0]["STAY5_OrganizationName"].ToString();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem((i + 1).ToString());
+                    list.SubItems.Add(dt.Rows[i]["MCODE"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["MATERIALCODE_FNAME"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["NUM"].ToString());
+                    list.SubItems.Add("暂无");
+                    list.SubItems.Add(dt.Rows[i]["FMODEL"].ToString());
+                    lv_OrderList.Items.Add(list);
+                }
+            }
+        }
+
+        public void BindLv_GroupTrayData(DataTable dt)
+        {
+            lv_GroupTrayData.Items.Clear();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem((i + 1).ToString());
+                    //list.SubItems.Add(dt.Rows[i]["TRAYCODE_PORTNO"].ToString());
+                    //list.SubItems.Add(dt.Rows[i]["GCODE"].ToString());
+                    //list.SubItems.Add(dt.Rows[i]["GNAME_FNAME"].ToString());
+                    //list.SubItems.Add(dt.Rows[i]["TRAYNUM"].ToString());                 
+                    //list.SubItems.Add(dt.Rows[i]["BATCHNO"].ToString());
+                    //list.SubItems.Add("暂无");
+                    list.SubItems.Add(dt.Rows[i]["FMODEL"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["ID"].ToString());
+                    lv_GroupTrayData.Items.Add(list);
+                }
+            }
+        }
+
+        public void QueryTrayData(DataTable DtPorts)
+        {
+            sm.PortsId = Convert.ToInt32(DtPorts.Rows[0]["ID"].ToString());
+            SessionModel.DtTrayInfo = BaseCommon.GetTrayInfo(txt_OrderCode.Text.Trim(), sm.PortsId.ToString(), null);
+            if (SessionModel.DtTrayInfo != null && SessionModel.DtTrayInfo.Rows.Count > 0)
+            {
+                if (UIHelper.QuestionMsg(InfoMessage.FindTrayData) == DialogResult.Yes)
+                {
+                    txt_Code.Focus();
+                }
+                else
+                {
+                    //BindLv_GroupTrayData(SessionModel.DtTrayInfo);
+                    //tabControlSet.SelectedIndex = 2;
+                    tabControlSet.SelectedIndex = 4;
+                }
+            }
+            else
+            {
+                txt_Code.Focus();
+            }
+        }
+        public void CheckMaterialsInfo(DataTable DtMaterials)
+        {
+            sm.NameId = Convert.ToInt32(DtMaterials.Rows[0]["ID"].ToString());
+            sm.UomCodeId = Convert.ToInt32(SessionModel.DtMaterialsInfo.Rows[0]["FUNITID"].ToString());
+            if (DtMaterials.Rows[0]["BATCH"].ToString() == "False")
+            {
+                txt_Batch.Enabled = false;
+                txt_Batch.BackColor = Color.Aquamarine;
+                txt_Num.Focus();
+            }
+            else
+            {
+                txt_Batch.Focus();
+            }
+            txt_Name.Text = DtMaterials.Rows[0]["FNAME"].ToString();
+            txt_Spec.Text = DtMaterials.Rows[0]["FMODEL"].ToString();
+            txt_Uom.Text = "暂无";
+
+        }
+        #endregion
+
+        #region 组盘
+        /// <summary>
+        /// 组盘
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItemSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CheckData())
+                {
+                    SaveTray();
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+
+        public void BindLv_GroupTrayData_zupanmingxi(ListView listView1)
+        {
+            lv_GroupTrayData.Items.Clear();
+            if (listView1 != null && listView1.Items.Count > 0)
+            {
+                for (int i = 0; i < listView1.Items.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem();
+                    list.Text = i + "";
+                    list.SubItems.Add(listView1.Items[i].SubItems[1].Text.ToString());
+                    lv_GroupTrayData.Items.Add(list);
+                }
+            }
+        }
+        public void SaveTray()
+        {
+            if (UIHelper.QuestionMsg("确认组盘？") == DialogResult.Yes)
+            {
+                #region 改为sql语句屏蔽
+                /*
+                ud = new UrlTypeData();
+                ud.c = sm.ControllerName;
+                ud.m = BaseCommon.Add;
+                 */
+                #endregion
+
+                string strSql = " ";
+                if (listView1.Items.Count > 0)
+                {
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        #region 张朝阳注释
+                        //SessionModel.DtPortsInfo = BaseCommon.GetPortsInfo(listView1.Items[i].SubItems[2].Text.ToString());
+                        //ud.LoadItem = "{'ORDERCODE':'" + txt_OrderCode.Text.Trim() + "','WHNAME':'" + sm.WhourseId + "','TRAYCODE':'" + SessionModel.DtPortsInfo.Rows[0]["ID"].ToString() + "'," +
+                        //         "'GCODE':'" + txt_Code.Text.Trim() + "','GNAME':'" + sm.NameId + "','BATCHNO':'" + txt_Batch.Text.Trim() + "','FMODEL':'" + listView1.Items[i].SubItems[1].Text.ToString() + "'," +
+                        //         "'FUNITID':'" + sm.UomCodeId + "','TRAYNUM':'" + txt_Num.Text.Trim() + "','StateBase':0}";
+                        #endregion
+
+                        strSql += " insert into Acc_WMS_GroupTray(OrderCode,WHNAME,TrayCode,GCODE,GNAME,BatchNo,FModel,FUNITID,TrayNum,Createdby,Creationdate) values('";
+                        strSql += txt_OrderCode.Text.Trim() + "','" + sm.WhourseId + "','" + sm.PortsId.ToString() + "','" + txt_Code.Text.Trim() + "','" + sm.NameId + "','" + txt_Batch.Text.Trim() + "','" + listView1.Items[i].SubItems[1].Text.ToString() + "','" + sm.UomCodeId + "','" + txt_Num.Text.Trim() + "','766','"+DateTime.Now.ToString()+"')  ";
+                        strSql += "  update Acc_WMS_Ports set STATUS='1'  where Code='" + textBox1.Text.Trim() + "' ";
+                        #region 改为sql语句屏蔽
+                        /*
+                        ud.LoadItem = "{'ORDERCODE':'" + txt_OrderCode.Text.Trim() + "','WHNAME':'" + sm.WhourseId + "','TRAYCODE':'" + sm.PortsId.ToString() + "'," +
+                                "'GCODE':'" + txt_Code.Text.Trim() + "','GNAME':'" + sm.NameId + "','BATCHNO':'" + txt_Batch.Text.Trim() + "','FMODEL':'" + listView1.Items[i].SubItems[1].Text.ToString() + "'," +
+                                "'FUNITID':'" + sm.UomCodeId + "','TRAYNUM':'" + txt_Num.Text.Trim() + "','StateBase':0}";
+
+                        sm.strResult = ToJson.ExecuteMethod(ud);
+                         */
+                        #endregion
+                    }
+                    //BindLv_GroupTrayData_zupanmingxi(listView1);
+                    ud = new UrlTypeData();
+                    ud.Type = 2;
+                    ud.c = "Acc.Business.WMS.XHY.Controllers.ProduceInOrderController";
+                    ud.m = "webExecSql";
+                    ud.LoadItem = "{}&webSql=" + strSql;
+                    sm.strResult = ToJson.ExecuteSql(ud);
+                    if (sm.strResult != "Y")
+                        UIHelper.ErrorMsg("操作失败！");
+                }
+                if (sm.strResult == "Y")
+                {
+                    UIHelper.PromptMsg(InfoMessage.SaveSuccess);
+                    Clear();
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.SaveFailed + "：" + sm.strResult);
+                }
+            }
+        }
+        #endregion
+
+        #region 数据项验证
+        private bool CheckData()
+        {
+            if (string.IsNullOrEmpty(txt_OrderCode.Text.Trim()))
+            {
+                UIHelper.ErrorMsg("请选择或查找生产赋码单！");
+                return false;
+            }
+            if (string.IsNullOrEmpty(textBox1.Text.Trim()))
+            {
+                UIHelper.ErrorMsg("请扫描托盘码！");
+                return false;
+            }
+
+            if (!CheckPorts())
+                return false;
+            if (listView1.Items.Count <= 0)
+            {
+                UIHelper.ErrorMsg("没有可组盘的数据！");
+                return false;
+            }
+
+            #region 张朝阳注释
+            //if (SessionModel.DtPortsInfo == null || SessionModel.DtPortsInfo.Rows.Count <= 0)
+            //{
+            //    SessionModel.DtPortsInfo = BaseCommon.GetPortsInfo(textBox1.Text.Trim());
+            //    if (SessionModel.DtPortsInfo == null || SessionModel.DtPortsInfo.Rows.Count <= 0)
+            //    {
+            //        textBox1.Focus();
+            //        UIHelper.ErrorMsg(InfoMessage.TrayCodeNotFound);
+            //        textBox1.SelectAll();
+            //        return false;
+            //    }
+            //    else
+            //    {
+            //        QueryTrayData(SessionModel.DtPortsInfo);
+            //    }
+            //}
+
+            //if (!UIHelper.CheckTextBox(textBox1.Text.Trim()) || textBox1.Text.Trim() == InfoMessage.InputOrScanningCode)
+            //{
+            //    //UIHelper.ErrorMsg(InfoMessage.SelectCode);
+            //    textBox1.Focus();
+            //    textBox1.Text = InfoMessage.InputOrScanningCode;
+            //    textBox1.SelectAll();
+            //    return false;
+            //}  
+            #endregion
+
+            return true;
+        }
+
+        private bool CheckPorts()
+        {
+            SessionModel.DtPortsInfo = BaseCommon.GetPortsInfo(textBox1.Text.Trim());
+            if (SessionModel.DtPortsInfo == null || SessionModel.DtPortsInfo.Rows.Count <= 0)
+            {
+                textBox1.Focus();
+                UIHelper.ErrorMsg(InfoMessage.TrayCodeNotFound);
+                textBox1.SelectAll();
+                return false;
+            }
+            return true;
+        }
+
+
+        #endregion
+
+        #region 权限控制
+        /// <summary>
+        /// 权限控制
+        /// </summary>
+        public void AccessControl(int TabControlCount)
+        {
+            ud = BaseCommon.ModelControlFdata(sm.ModelId);
+            DataTable dt = ToJson.getData(ud);
+            try
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < tabControlSet.TabPages.Count; i++)
+                    {
+                        if (dt.Select("ModelListName='" + tabControlSet.TabPages[i].Text + "'").Length > 0)
+                        {
+                            PDASet.List.Add(i);
+                        }
+                    }
+                    for (int i = 0; i < PDASet.List.Count; i++)
+                    {
+
+                        PDASet.InitTabPageCount = TabControlCount - tabControlSet.TabPages.Count;
+                        tabControlSet.TabPages.RemoveAt(Convert.ToInt32(PDASet.List[i]) - PDASet.InitTabPageCount);
+                    }
+                }
+                PDASet.List.Clear();
+                tabControlSet.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
+        private void Clear()
+        {
+            textBox1.Enabled = true;
+            textBox1.Text = textBox2.Text = "";
+            textBox1.Focus();
+            listView1.Items.Clear();
+        }
+
+        private void tabControlSet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabControlSet.TabPages[tabControlSet.SelectedIndex].Text)
+            {
+                case "记录":
+                    if (txt_OrderCode.Text.ToString() != "" && txt_OrderCode.Text.ToString() != null)
+                    {
+                        DataTable dt = BaseCommon.GetZPSUM(txt_OrderCode.Text.ToString());
+                        //DataTable dt = BaseCommon.GetTrayInfo(null,txt_OrderCode.Text.ToString(),null);
+                        if (dt != null && dt.Rows.Count > 0)
+                        {
+                            BindList2List(dt);
+                        }
+                        else
+                        {
+                            listView2.Items.Clear();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        #region 数据删除
+        /// <summary>
+        /// 数据删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lv_GroupTrayData_ItemActivate(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lv_GroupTrayData.Items.Count < 0)
+                {
+                    UIHelper.ErrorMsg(InfoMessage.NotDeleteData);
+                    return;
+                }
+                if (UIHelper.QuestionMsg("确认删除？") == DialogResult.Yes)
+                {
+                    int ID = Convert.ToInt32(lv_GroupTrayData.Items[lv_GroupTrayData.SelectedIndices[0]].SubItems[2].Text);
+                    if (this.lv_GroupTrayData.Items.Count > 0 && this.lv_GroupTrayData.SelectedIndices.Count > 0)
+                    {
+                        ud = new UrlTypeData();
+                        ud.c = sm.ControllerName;
+                        ud.m = BaseCommon.Remove;
+                        ud.LoadItem = "{'ID':'" + ID + "','StateBase':3}";
+                        sm.strResult = ToJson.ExecuteMethod(ud);
+                        if (sm.strResult == "Y")
+                        {
+                            UIHelper.PromptMsg(InfoMessage.DeleteSuccess);
+                            lv_GroupTrayData.Items.RemoveAt(lv_GroupTrayData.SelectedIndices[0]);
+                            for (int i = 0; i < lv_GroupTrayData.Items.Count; i++)
+                            {
+                                lv_GroupTrayData.Items[i].SubItems[0].Text = (i + 1).ToString();
+                            }
+                        }
+                        else
+                        {
+                            UIHelper.ErrorMsg(InfoMessage.DeleteFailed);
+                        }
+                    }
+                    else
+                    {
+                        UIHelper.ErrorMsg(InfoMessage.NotDeleteData);
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+        #endregion
+
+        private void txt_Batch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                CheckBatch();
+            }
+        }
+
+        private void txt_Num_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (CheckNumber())
+                {
+                    menuItemSave_Click(sender, e);
+                }
+            }
+        }
+
+        public bool CheckBatch()
+        {
+            if (string.IsNullOrEmpty(txt_Batch.Text.Trim()) || txt_Batch.Text.Trim() == InfoMessage.InputBatch)
+            {
+                txt_Batch.Focus();
+                txt_Batch.Text = InfoMessage.InputBatch;
+                txt_Batch.SelectAll();
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckNumber()
+        {
+            if (UIHelper.CheckNum(txt_Num.Text.Trim()))
+            {
+                return true;
+            }
+            else
+            {
+                UIHelper.ErrorMsg(InfoMessage.Number);
+                txt_Num.SelectAll();
+                txt_Num.Focus();
+                return false;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_AssetsCode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        #region 单件托盘码回车
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                if (e.KeyChar == 13)
+                {
+                    if (CheckNumber())
+                    {
+                        if (string.IsNullOrEmpty(textBox1.Text.Trim()))
+                        {
+                            UIHelper.ErrorMsg("请扫描托盘码！");
+                            return;
+                        }
+                        SessionModel.DtPortsInfo = BaseCommon.GetPortsInfo(textBox1.Text.Trim());
+                        if (SessionModel.DtPortsInfo.Rows.Count > 0)
+                        {
+                            if (SessionModel.DtPortsInfo.Rows[0]["STATUS"].ToString() == "1")
+                            {
+                                UIHelper.ErrorMsg("此托盘已被占用！"); ;
+                                textBox2.Text = "";
+                                textBox1.Focus();
+                                textBox1.SelectionStart = textBox1.TextLength;
+                                return;
+                            }
+                            else
+                            {
+                                sm.PortsId = Convert.ToInt32(SessionModel.DtPortsInfo.Rows[0]["ID"].ToString());
+                                SessionModel.DtTrayInfo = BaseCommon.GetTrayInfo(null, sm.PortsId.ToString(), null);
+                                if (SessionModel.DtTrayInfo.Rows.Count > 0)
+                                {
+                                    if (UIHelper.QuestionMsg("该托盘已经组盘，确认重复组盘？") == DialogResult.Yes)
+                                    {
+                                        textBox2.Focus();
+                                    }
+                                    else
+                                    {
+                                        textBox1.SelectAll();
+                                        textBox1.Focus();
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    textBox2.Focus();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            UIHelper.ErrorMsg(InfoMessage.NotFoundCode);
+                            textBox2.Text = "";
+                            textBox1.Focus();
+                            textBox1.SelectionStart = textBox1.TextLength;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+        #endregion
+
+        #region 单件码回车
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                if (e.KeyChar == 13)
+                {
+                    if (string.IsNullOrEmpty(textBox1.Text.Trim()))
+                    {
+                        UIHelper.ErrorMsg("请扫描托盘码！");
+                        return;
+                    }
+                    if (!CheckPorts())
+                    {
+                        textBox1.Text = "";
+                        return;
+                    }
+                    if (textBox2.Text.Trim().Length != 20)
+                    {
+                        UIHelper.ErrorMsg("请正确输入或扫描单件码！");
+                        textBox2.Text = "";
+                        return;
+                    }
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        if (textBox2.Text == listView1.Items[i].SubItems[1].Text)
+                        {
+                            UIHelper.ErrorMsg("此单件码已扫描！");
+                            textBox2.Text = "";
+                            return;
+                        }
+                    }
+                    ud = new UrlTypeData();
+                    ud.Type = 2;
+                    ud.c = "Acc.Business.WMS.XHY.Controllers.ProduceInOrderController";
+                    ud.m = "GetSequencesList";
+                    ud.LoadItem = "{}&CPorderid=" + sm.OrderId + "&SEcode=" + textBox2.Text.Trim();
+                    DataTable dt = ToJson.getData(ud);
+                    if (dt != null)
+                    {
+                        if (dt.Rows.Count == 0)
+                        {
+                            UIHelper.ErrorMsg("该单件码不存在”或“不属于当前赋码单！");
+                            textBox2.Text = "";
+                            textBox2.SelectAll();
+                            textBox2.Focus();
+                            textBox2.SelectionStart = textBox2.TextLength;
+                            return;
+                        }
+                    }
+                    SessionModel.DtTrayInfo = BaseCommon.GetTrayInfo(null, null, textBox2.Text.Trim());
+                    if (SessionModel.DtTrayInfo.Rows.Count > 0)
+                    {
+                        UIHelper.ErrorMsg("该单件码已经组盘，不能重复组盘！");
+                        textBox2.Text = "";
+                        textBox2.SelectAll();
+                        textBox2.Focus();
+                        textBox2.SelectionStart = textBox2.TextLength;
+                        return;
+                    }
+                    ListViewItem list = new ListViewItem();
+                    list.Text = listView1.Items.Count + 1 + ""; //textBox1.Text.Trim().ToString();
+                    list.SubItems.Add(textBox2.Text.Trim().ToString());
+                    list.SubItems.Add(textBox1.Text.Trim().ToString());
+                    listView1.Items.Add(list);
+                    textBox2.Text = "";
+                    textBox2.Focus();
+                    textBox1.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+        #endregion
+
+
+
+        private void listView2_ItemActivate(object sender, EventArgs e)
+        {
+            try
+            {
+                string TrayCode = listView2.Items[listView2.SelectedIndices[0]].SubItems[1].Text;
+                SessionModel.DtPortsInfo = BaseCommon.GetPortsInfo(TrayCode);
+                SessionModel.DtTrayInfo = BaseCommon.GetTrayInfo(txt_OrderCode.Text.Trim(), SessionModel.DtPortsInfo.Rows[0]["ID"].ToString(), null);
+                if (UIHelper.QuestionMsg("确认删除该托盘所有组盘信息？") == DialogResult.Yes)
+                {
+                    string strSql = " ";
+                    for (int i = 0; i < SessionModel.DtTrayInfo.Rows.Count; i++)
+                    {
+                        #region 改用sql语句屏蔽
+                        /*
+                        ud = new UrlTypeData();
+                        ud.c = sm.ControllerName;
+                        ud.m = BaseCommon.Remove;
+                        ud.LoadItem = "{'ID':'" + SessionModel.DtTrayInfo.Rows[i]["ID"].ToString() + "','StateBase':3}";
+                        sm.strResult = ToJson.ExecuteMethod(ud);
+                         */
+                        #endregion
+                        strSql += "  delete Acc_WMS_GroupTray where FModel='" + SessionModel.DtTrayInfo.Rows[i]["FMODEL"].ToString() + "' ";
+                    }
+                    ud = new UrlTypeData();
+                    ud.Type = 2;
+                    ud.c = "Acc.Business.WMS.XHY.Controllers.ProduceInOrderController";
+                    ud.m = "webExecSql";
+                    ud.LoadItem = "{}&webSql=" + strSql;
+                    string strR = ToJson.ExecuteSql(ud);
+                    if (strR != "Y")
+                    {
+                        UIHelper.ErrorMsg("操作失败！");
+                        return;
+                    }
+
+                    listView2.Items.RemoveAt(listView2.SelectedIndices[0]);
+                    for (int i = 0; i < listView2.Items.Count; i++)
+                    {
+                        listView2.Items[i].SubItems[0].Text = (i + 1).ToString();
+                    }
+                }
+                else
+                {
+                    if (SessionModel.DtTrayInfo != null && SessionModel.DtTrayInfo.Rows.Count > 0)
+                    {
+                        BindLv_GroupTrayData(SessionModel.DtTrayInfo);
+                    }
+                    else
+                    {
+                        lv_GroupTrayData.Items.Clear();
+                    }
+                    tabControlSet.SelectedIndex = 3;
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+            #region 注释代码
+            //int Count = -1;
+            //for (int i = 0; i < listView2.Items.Count; i++)
+            //{
+            //    Count += Convert.ToInt32( listView2.Items[i].SubItems[4].Text);
+            //}
+            //if (Count != -1)
+            //{
+            //    if (Convert.ToInt32(lv_OrderList.Items[0].SubItems[3].Text) != Count)
+            //    {
+            //        UIHelper.ErrorMsg("当前生产赋码单数据与");
+            //    }
+            //}
+            //else
+            //{
+
+            //}
+            //ud = new UrlTypeData();
+            //ud.Type = (int)CheckEnum.Edit;
+            //ud.c = "Acc.Business.WMS.XHY.Controllers.ProduceInOrderController";
+            //ud.m = "UpdateSCFM";
+            //ud.LoadItem = "{}&CPorderid=" + sm.OrderId;
+            //sm.strResult = ToJson.ExecuteMethod(ud);
+            //if (sm.strResult == "Y")
+            //{
+            //    UIHelper.PromptMsg("操作成功！");
+            //    txt_OrderCode.Text = txt_OrderDesc.Text = txt_WhName.Text = textBox1.Text = textBox2.Text = "";
+            //    lv_OrderList.Items.Clear();
+            //    listView1.Items.Clear();
+            //    listView2.Items.Clear();
+            //    lv_GroupTrayData.Items.Clear();
+            //}
+            //else
+            //{
+            //    UIHelper.ErrorMsg("操作失败！");
+            //}
+            #endregion
+            try
+            {
+                this.Close();
+                menuItem2.Dispose();
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+        #region 删除单件码（缓存）
+        /// <summary>
+        /// 删除单件码（缓存）
+        /// /// /// /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView1_ItemActivate(object sender, EventArgs e)
+        {
+            try
+            {
+                if (UIHelper.QuestionMsg("确认删除此单件码？") == DialogResult.Yes)
+                {
+                    listView1.Items.RemoveAt(listView1.SelectedIndices[0]);
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        listView1.Items[i].SubItems[0].Text = (i + 1).ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                UIHelper.ErrorMsg(ex.Message);
+                return;
+            }
+        }
+        #endregion
+    }
+}

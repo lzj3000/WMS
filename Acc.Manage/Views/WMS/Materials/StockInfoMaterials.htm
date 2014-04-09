@@ -1,0 +1,23 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.Controllers.StockInfoMaterialsController";
+            p.applyTo = "t1";
+            p.init();
+        });
+        function SetDisabled(data) {
+            window.hostWMS = 1;
+            $("#t2").dialog({
+                title: "" + data.item.MATERIALNAME+ "",
+                width: 1200,
+                height: 620,
+                maximizable: false,
+                cache: false,
+                shadow: true,
+                modal: true,
+                content:"请选择冻结方式："+data.item.ID+""
+            });
+        }
+      </script>
+<div id="t1"></div>
+<div id="t2"></div>

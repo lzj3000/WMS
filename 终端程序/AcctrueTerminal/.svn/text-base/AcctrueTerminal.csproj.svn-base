@@ -1,0 +1,329 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BBC9F953-D452-4007-A68D-9CF3CF1D55C4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AcctrueTerminal</RootNamespace>
+    <AssemblyName>AcctrueTerminal</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>PocketPC</PlatformFamilyName>
+    <PlatformID>4118C335-430C-497f-BE48-11C3316B135E</PlatformID>
+    <OSVersion>5.01</OSVersion>
+    <DeployDirSuffix>AcctrueTerminal</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <NativePlatformName>Windows Mobile 5.0 Pocket PC SDK</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CompactFormatter, Version=1.0.0.27374, Culture=neutral" />
+    <Reference Include="Json, Version=1.0.3926.39560, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=1fdb50b1b62b4c84, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3be235df1c8d2ad3, processorArchitecture=MSIL" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\BaseCommon.cs" />
+    <Compile Include="Common\DataBaseConnection.cs" />
+    <Compile Include="Common\ForeignData.cs" />
+    <Compile Include="Common\InfoMessage.cs" />
+    <Compile Include="Common\LoadItem.cs" />
+    <Compile Include="Common\PublicEnum.cs" />
+    <Compile Include="Common\SessionModel.cs" />
+    <Compile Include="Common\SqlCEHelper.cs" />
+    <Compile Include="Common\SqliteHelper.cs" />
+    <Compile Include="Common\PDASet.cs" />
+    <Compile Include="Common\ToJson.cs" />
+    <Compile Include="Common\UIHelper.cs" />
+    <Compile Include="Common\UrlTypeData.cs" />
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="DataDownload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataDownload.Designer.cs">
+      <DependentUpon>DataDownload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EarlyWarning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EarlyWarning.Designer.cs">
+      <DependentUpon>EarlyWarning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Batch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Batch.Designer.cs">
+      <DependentUpon>Frm_Batch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_SerachOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_SerachOrder.designer.cs">
+      <DependentUpon>Frm_SerachOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Store.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Store.Designer.cs">
+      <DependentUpon>Frm_Store.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageBox\Frm_Groupbox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageBox\Frm_Groupbox.designer.cs">
+      <DependentUpon>Frm_Groupbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageBox\Frm_TackBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageBox\Frm_TackBox.Designer.cs">
+      <DependentUpon>Frm_TackBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTray\Frm_GroupTray.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManageTray\Frm_GroupTray.Designer.cs">
+      <DependentUpon>Frm_GroupTray.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuMain.designer.cs">
+      <DependentUpon>MenuMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BaseData\BasicInfo.cs" />
+    <Compile Include="Model\BaseData\Material.cs" />
+    <Compile Include="Model\BaseData\MobileSetModel.cs" />
+    <Compile Include="Model\BaseData\MobileSetModelList.cs" />
+    <Compile Include="Model\BaseData\MobileSetProject.cs" />
+    <Compile Include="Model\BaseData\OrderStayMaterials.cs" />
+    <Compile Include="Model\BaseData\WmsOrder.cs" />
+    <Compile Include="Model\BaseData\WmsOrderMaterials.cs" />
+    <Compile Include="Model\BusinessLogic\Stock.cs" />
+    <Compile Include="Model\BusinessLogic\StockInOrder.cs" />
+    <Compile Include="Model\BusinessLogic\StockInOrderMaterials.cs" />
+    <Compile Include="Model\BusinessLogic\StockOutOrder.cs" />
+    <Compile Include="Model\BusinessLogic\StockOutOrderMaterials.cs" />
+    <Compile Include="Model\IsOffModel\StockInMaterials.cs" />
+    <Compile Include="Model\IsOffModel\StockInNoticeMaterials.cs" />
+    <Compile Include="Model\IsOffModel\StockOutMaterials.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DataDownload.resx">
+      <DependentUpon>DataDownload.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EarlyWarning.resx">
+      <DependentUpon>EarlyWarning.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Batch.resx">
+      <DependentUpon>Frm_Batch.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_SerachOrder.resx">
+      <DependentUpon>Frm_SerachOrder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Store.resx">
+      <DependentUpon>Frm_Store.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageBox\Frm_Groupbox.resx">
+      <DependentUpon>Frm_Groupbox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageBox\Frm_TackBox.resx">
+      <DependentUpon>Frm_TackBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManageTray\Frm_GroupTray.resx">
+      <DependentUpon>Frm_GroupTray.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuMain.resx">
+      <DependentUpon>MenuMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\Frm_Added.resx">
+      <DependentUpon>Frm_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\Frm_ProductsIn.resx">
+      <DependentUpon>Frm_ProductsIn.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\Frm_OffShelf.resx">
+      <DependentUpon>Frm_OffShelf.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\Frm_ProductsOut.resx">
+      <DependentUpon>Frm_ProductsOut.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\Frm_MoveBin.resx">
+      <DependentUpon>Frm_MoveBin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\Frm_MoveTray.resx">
+      <DependentUpon>Frm_MoveTray.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\StockSearch.resx">
+      <DependentUpon>StockSearch.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock\WarehouseInventory.resx">
+      <DependentUpon>WarehouseInventory.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_BestStore.resx">
+      <DependentUpon>Frm_BestStore.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\Frm_Added.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\Frm_Added.Designer.cs">
+      <DependentUpon>Frm_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\Frm_ProductsIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\Frm_ProductsIn.designer.cs">
+      <DependentUpon>Frm_ProductsIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\Frm_OffShelf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\Frm_OffShelf.Designer.cs">
+      <DependentUpon>Frm_OffShelf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\Frm_ProductsOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\Frm_ProductsOut.Designer.cs">
+      <DependentUpon>Frm_ProductsOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\Frm_MoveBin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock\Frm_MoveBin.designer.cs">
+      <DependentUpon>Frm_MoveBin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\Frm_MoveTray.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock\Frm_MoveTray.Designer.cs">
+      <DependentUpon>Frm_MoveTray.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\StockSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock\StockSearch.Designer.cs">
+      <DependentUpon>StockSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stock\WarehouseInventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stock\WarehouseInventory.Designer.cs">
+      <DependentUpon>WarehouseInventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_BestStore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_BestStore.Designer.cs">
+      <DependentUpon>Frm_BestStore.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DLL\CompactFormatter.dll" />
+    <Content Include="DLL\DeviceIntermecClass.dll" />
+    <Content Include="DLL\Json.dll" />
+    <Content Include="DLL\SQLite.Interop.066.DLL">
+    </Content>
+    <Content Include="DLL\System.Data.SQLite.dll">
+    </Content>
+    <Content Include="Image\acctrue.jpg" />
+    <Content Include="SQLite.Interop.066.DLL">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TerminalUpdate.exe" />
+    <Content Include="Voice\Err.wav" />
+    <Content Include="Voice\hibeep.wav" />
+    <Content Include="Voice\Right.wav" />
+    <Content Include="XmlFile\Config.xml" />
+    <Content Include="XmlFile\Version.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

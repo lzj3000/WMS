@@ -1,0 +1,612 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<modules>
+  <child>
+    <module name="5" url="" showInMenu="true" parent="0" text="基础信息">
+      <child>
+        <module name="5.4" url="Pages/material_Categories_main.htm" limitUrl="model.aspx?model=material_Categories&amp;temp=material_Categories_list" showInMenu="true" parent="5" text="产品分类">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.4"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.4"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.4"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.4"></action>
+          </actions>
+
+        </module>
+        <module name="5.2" url="DesginManager/Default.aspx" showInMenu="true" parent="5" text="打印模板"></module>
+ 
+        <!--物料信息 start-->
+        <module name="5.5" url="Pages/materials_Main.htm" limitUrl="model.aspx?temp=materials_list&amp;model=materials" showInMenu="true" parent="5" text="产品信息">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2"  parent="5.5"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4"  parent="5.5"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5"  parent="5.5"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.5"></action>
+          </actions>
+        </module>
+        <!--物料信息 end-->
+        
+        <!--仓库管理 start-->
+        <module name="5.6" url="Pages/warehouseManager.htm" limitUrl="model.aspx?model=warehouseInfo&amp;temp=warehouseInfo_list" showInMenu="true" parent="5" text="仓库管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.6"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.6"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.6"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.6"></action>
+          </actions>
+        </module>
+
+        <module name="5.7" url="Pages/warehouseManager.htm" limitUrl="model=warehouse_areas&amp;temp=warehouse_areas" showInMenu="false" showInAuthority ="true"  parent="5" text="货区管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.7"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.7"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.7"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.7"></action>
+          </actions>
+        </module>
+
+        <module name="5.8" url="Pages/warehouseManager.htm" limitUrl="model=warehouse_depotsList&amp;temp=warehouse_depots" showInMenu="false" showInAuthority ="false"  parent="5" text="货位管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.8"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.8"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.8"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.8"></action>
+            <action name="printTag" displayName="打印货位编码" controlID="printTag" maskNo="7" parent="5.8"></action>
+          </actions>
+        </module>
+
+        <module name="5.14" url="depotView.aspx?target=_blank&amp;opt=layout&amp;isAll=0&amp;whCode={whCode}" showInMenu="true" parent="5" text="货位布局">
+        </module>
+
+        <!--托盘管理 start-->
+        <module name="5.10" url="model.aspx?model=warehouse_ports&amp;temp=warehouse_ports_list" showInMenu="true" parent="5" text="托盘管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.10"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.10"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.10"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.10"></action>
+          </actions>
+        </module>
+        <!--托盘管理 end -->
+        <!--包装管理 start-->
+        <module name="5.18" url="model.aspx?model=pack_unit&amp;temp=pack_unit_list" showInMenu="true" parent="5" text="包装管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.10"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.10"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.10"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.10"></action>
+          </actions>
+        </module>
+        <!--包装管理 end -->
+
+        
+        <module name="5.16" url="model.aspx?model=allMaterialCode&amp;temp=materialCode_Print_list"  showInMenu="true" parent="5" text="打印条码">
+          <actions>
+            <action name="printTag" displayName="打印产品编码" controlID="printTag" maskNo="1"  parent="5.16"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="2"  parent="5.16"></action>
+          </actions>
+        </module>
+        <!--日志管理 start-->
+        <module name="5.11" url="model.aspx?model=logInfo&amp;temp=logInfo_list" showInMenu="true" parent="5" text="日志查询">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="5.11"></action>
+            <action name="btnmodify" displayName="处理" controlID="btnmodify" maskNo="2" parent="5.11"></action>
+          </actions>
+        </module>
+        <!--日志管理 end-->
+        <!--回收站 start-->
+        <module name="5.12" url="model.aspx?model=recycle_bin&amp;temp=recyclebin_list" showInMenu="true" parent="5" text="回收站">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.12"></action>
+            <action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="5.12"></action>
+          </actions>
+        </module>
+        <!--<module name="5.12.1" url="model.aspx?opt=1&amp;model=warehouse_ports&amp;temp=warehouse_ports_edit" showInMenu="false" parent="5" defaultPrivilege="all" text=""></module>
+        <module name="5.12.2" url="model.aspx?opt=1&amp;model=warehouse_ports&amp;temp=warehouse_ports_edit" showInMenu="false" parent="5" defaultPrivilege="all" text=""></module>-->
+        <!--回收站 end-->
+        <!--设备管理 start-->
+        <module name="5.13" url="model.aspx?model=devices&amp;temp=devices_list" showInMenu="false" parent="5" text="设备管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.13"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.13"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.13"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.13"></action>
+          </actions>
+        </module>
+        <!--销售大区管理-->
+        <module name="5.17" url="model.aspx?model=compareSaleArea&amp;temp=compareSaleArea_list" showInMenu="true" parent="5" text="销售大区管理">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="5.17"></action>
+            <action name="delete" displayName="删除" controlID="btndelete" maskNo="2" parent="5.17"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.17"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.17"></action>
+          </actions>
+        </module>
+        <module name="5.1" url="model.aspx?model=supplier&amp;temp=supplierlist" showInMenu="true" showInAuthority ="false"  parent="5" text="客户管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="1" parent="5.1"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="2" parent="5.1"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="3" parent="5.1"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="4" parent="5.1"></action>
+          </actions>
+        </module>
+        <module name="5.2" url="Pages/warehouseManager.htm" limitUrl="model=dealer&amp;temp=warehouse_depots" showInMenu="false" showInAuthority ="false"  parent="5" text="经销商管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="5.8"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="5.8"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="5.8"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="5.8"></action>
+            <action name="printTag" displayName="经销商编码" controlID="printTag" maskNo="7" parent="5.8"></action>
+          </actions>
+        </module>
+      </child>
+    </module>
+    
+    <module name="1" url="" showInMenu="true" parent="0" text="出入库管理" >
+      <child>
+
+        
+        <module name="1.1" url="model.aspx?model=stockInOrderWithCommon&amp;temp=stockInOrder_list" showInMenu="true" parent="1" text="入库通知">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="1.1"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.1"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.1"></action>
+            <action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="1.1"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.1"></action>
+            <action name="allocateZP" displayName="恢复" controlID="allocateZP" maskNo="8" parent="1.1"></action>
+            <action name="allocate" displayName="分派" controlID="btnallocate" maskNo="11" parent="1.1"></action>
+            <action name="allocateEnd" displayName="完成" controlID="allocateEnd" maskNo="12" parent="1.1"></action>
+          </actions>
+        </module>
+
+        <module name="1.91" url="model.aspx?model=my_stockInOrderWithCommon&amp;temp=my_stockInOrder_list" showInMenu="false" showInAuthority ="true" parent="1" text="我的收料通知">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="1.91"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.91"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.91"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.91"></action>
+            <action name="allocate" displayName="分派" controlID="btnallocate" maskNo="11" parent="1.91"></action>
+          </actions>
+        </module>
+
+        <module name="1.1.1" url="model.aspx?opt=1&amp;model=stockInOrder&amp;temp=stockInOrder_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="收料单据新增"></module>
+        <module name="1.1.2" url="model.aspx?opt=2&amp;model=stockInOrder&amp;temp=stockInOrder_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="收料单据修改"></module>
+        <module name="1.1.3" url="model.aspx?opt=1&amp;model=stockInTask&amp;temp=stockInTask_allocate" showInMenu="false" parent="1" defaultPrivilege="all" text="收料单据分派"></module>
+        <module name="1.1.31" url="model.aspx?opt=3&amp;model=stockInOrder&amp;temp=stockInOrder_view" showInMenu="false" parent="1" defaultPrivilege="all" text="收料单据查看"></module>
+
+        <module name="1.1.32" url="model.aspx?opt=3&amp;model=stockInTaskAndAction&amp;temp=stockInAction_view" showInMenu="false" parent="1" defaultPrivilege="all" text="收料执行结果查看"></module>
+        <module name="1.1.33" url="model.aspx?opt=3&amp;model=stockOutTaskAndAction&amp;temp=stockOutAction_view" showInMenu="false" parent="1" defaultPrivilege="all" text="发料执行结果查看"></module>
+        <module name="1.1.35" url="model.aspx?opt=3&amp;model=alarms&amp;temp=alarmProcess_view" showInMenu="false" parent="1" defaultPrivilege="all" text="报警处理查看"></module>
+        <module name="1.1.36" url="model.aspx?opt=2&amp;model=alarms&amp;temp=alarmProcess" showInMenu="false" parent="1" defaultPrivilege="all" text="报警处理"></module>
+        <module name="1.1.88" url="model.aspx?opt=3&amp;model=material_categories&amp;temp=material_categories_view" showInMenu="false" parent="1" defaultPrivilege="all" text="分类查看"></module>
+
+
+
+        <module name="1.1.5" url="model.aspx?model=roleInfo&amp;temp=userRoleAuthorizationList" showInMenu="false" parent="1" defaultPrivilege="all" text="收料分派"></module>
+        <module name="1.1.7" url="model.aspx?opt=2&amp;model=alarms&amp;temp=alarmProcess" showInMenu="false" parent="1" defaultPrivilege="all" text="收料分派"></module>
+        <module name="1.1.4" url="model.aspx?opt=2&amp;model=userInfo_edit&amp;temp=userInfo_modify_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="修改用户个人信息"></module>
+
+        <module name="1.2" url="model.aspx?model=stockInTaskWithCommon&amp;temp=stockInTask_list" showInMenu="false" parent="1"  text="收料任务">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="1.2"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.2"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.2"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.2"></action>
+            <action name="sending" displayName="下发" controlID="btnsending" maskNo="11" parent="1.2"></action>
+            <action name="check" displayName="质检" controlID="check" maskNo="12" parent="1.2"></action>
+            <action name="execute" displayName="执行" controlID="execute" maskNo="13" parent="1.2"></action>
+          </actions>
+        </module>
+
+        <module name="1.92" url="model.aspx?model=my_stockInTaskWithCommon&amp;temp=my_stockInTask_list" showInMenu="false"   showInAuthority ="true"   parent="1"  text="我的收料任务">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="1.92"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.92"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.92"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.92"></action>
+            <action name="sending" displayName="下发" controlID="btnsending" maskNo="11" parent="1.92"></action>
+            <action name="check" displayName="质检" controlID="check" maskNo="12" parent="1.92"></action>
+          </actions>
+        </module>
+
+        <module name="1.2.1" url="model.aspx?opt=1&amp;model=stockInTask&amp;temp=stockInTask_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="收料任务新增"></module>
+        <module name="1.2.2" url="model.aspx?opt=2&amp;model=taskSending&amp;temp=taskSending" showInMenu="false" parent="1" defaultPrivilege="all" text="收料任务修改"></module>
+        <module name="1.2.3" url="model.aspx?opt=1&amp;model=taskSending&amp;temp=taskSending" showInMenu="false" parent="1" defaultPrivilege="all" text="收料任务下发"></module>
+        <module name="1.2.21" url="model.aspx?opt=3&amp;model=stockInTask&amp;temp=stockInTask_view" showInMenu="false" parent="1" defaultPrivilege="all" text="收料任务查看"></module>
+
+        <module name="1.0" url="model.aspx?model=saleOrder&amp;temp=saleOrder_list" showInMenu="false" parent="1" text="销售单">
+          <actions>
+            <action name="createOrder" displayName="同步发料单" controlID="createOrder" maskNo="5" parent="1.0"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.0"></action>
+          </actions>
+        </module>
+        
+
+        <module name="1.3" url="model.aspx?model=stockOutOrderWithCommon&amp;temp=stockOutOrder_list" showInMenu="true" parent="1" text="出库通知">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.3"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.3"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.3"></action>
+            <action name="del" displayName="删除" controlID="btndel" maskNo="6" parent="1.3"></action>
+            <action name="audit" displayName="分派" controlID="btnaudit" maskNo="11" parent="1.3"></action>
+            <action name="lock" displayName="锁定" controlID="lock" maskNo="12" parent="1.3"></action>
+            <action name="finsh" displayName="完成" controlID="finsh" maskNo="13" parent="1.3"></action>
+          </actions>
+        </module>
+
+        <module name="1.83" url="model.aspx?model=my_stockOutOrderWithCommon&amp;temp=my_stockOutOrder_list" showInMenu="false" showInAuthority ="true"  parent="1" text="我的发料通知">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="1.83"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.83"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.83"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.83"></action>
+            <!--<action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="1.83"></action>
+            <action name="submit" displayName="提交" controlID="btnsubmit" maskNo="8" parent="1.83"></action>
+            <action name="rollback" displayName="回退" controlID="btnrollback" maskNo="9" parent="1.83"></action>
+            <action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="1.83"></action>-->
+            <action name="allocate" displayName="分派" controlID="btnallocate" maskNo="11" parent="1.83"></action>
+          </actions>
+        </module>
+
+
+        <module name="1.3.1" url="model.aspx?opt=1&amp;model=stockOutOrder&amp;temp=stockOutOrder_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="发料新增"></module>
+        <module name="1.3.2" url="model.aspx?opt=2&amp;model=stockOutOrder&amp;temp=stockOutOrder_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="发料修改"></module>
+        <module name="1.3.3" url="model.aspx?opt=1&amp;model=stockOutTask&amp;temp=stockOutTask_allocate" showInMenu="false" parent="1" defaultPrivilege="all" text="发料分派"></module>
+        <module name="1.1.61" url="model.aspx?opt=3&amp;model=stockOutOrder&amp;temp=stockOutOrder_view" showInMenu="false" parent="1" defaultPrivilege="all" text="发料单据查看"></module>
+
+
+
+        <module name="1.4" url="model.aspx?model=stockOutTaskWithCommon&amp;temp=stockOutTask_list" showInMenu="false"    parent="1"   text="出库任务">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2"  parent="1.4"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.4"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.4"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.4"></action>
+            <action name="sending" displayName="下发" controlID="btnsending" maskNo="11" parent="1.4"></action>
+            <action name="execute" displayName="执行" controlID="execute" maskNo="12" parent="1.4"></action>
+            <action name="printTag" displayName="打印排队号" controlID="printTag" maskNo="13" parent="1.4"></action>
+          </actions>
+        </module>
+
+        <module name="1.94" url="model.aspx?model=my_stockOutTaskWithCommon&amp;temp=my_stockOutTask_list" showInMenu="false"  showInAuthority ="true"    parent="1"   text="我的发料任务">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2"  parent="1.94"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="1.94"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="1.94"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="1.94"></action>
+            <action name="sending" displayName="下发" controlID="btnsending" maskNo="11" parent="1.94"></action>
+            <action name="execute" displayName="执行" controlID="execute" maskNo="12" parent="1.94"></action>
+            <action name="printTag" displayName="打印排队号" controlID="printTag" maskNo="13" parent="1.94"></action>
+          </actions>
+        </module>
+
+        <module name="1.4.1" url="model.aspx?opt=1&amp;model=stockOutTask&amp;temp=stockOutTask_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="发料任务新增"></module>
+        <module name="1.4.2" url="model.aspx?opt=2&amp;model=stockOutTask&amp;temp=stockOutTask_edit" showInMenu="false" parent="1" defaultPrivilege="all" text="发料任务修改"></module>
+        <module name="1.4.5" url="model.aspx?opt=2&amp;model=stockOutTaskSending&amp;temp=stockOutTask_sending" showInMenu="false" parent="1" defaultPrivilege="all" text="发料任务下发"></module>
+        <module name="1.4.6" url="model.aspx?opt=3&amp;model=stockOutTask&amp;temp=stockOutTask_view" showInMenu="false" parent="1" defaultPrivilege="all" text="发料任务查看"></module>
+
+      </child>
+    </module>
+
+    <module name="3" url="" showInMenu="true" parent="0" text="库内管理">
+      <child>
+        <module name="3.0"  url="depotView.aspx?target=_blank&amp;opt=view&amp;isAll=0&amp;whCode={whCode}" showInMenu="true" parent="3" text="货位视图">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.1"></action>
+          </actions>
+        </module>
+
+        <module name="3.3" url="model.aspx?model=stockTakingOrderWithCommon&amp;temp=stockTakingOrder_list" showInMenu="true" parent="3" text="盘点">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="3.3"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.3"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="3.3"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.3"></action>
+            <action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.3"></action>
+            <action name="submit" displayName="提交" controlID="btnsubmit" maskNo="8" parent="3.3"></action>
+            <action name="rollback" displayName="回退" controlID="btnrollback" maskNo="9" parent="3.3"></action>
+            <action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="3.3"></action>
+          </actions>
+        </module>
+
+		  <!--<module name="3.4" url="model.aspx?model=stockIntoOrder&amp;temp=stockIntoOrder_list" showInMenu="true" parent="3" text="初期录入">
+			  <action>
+				  <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="3.4"></action>
+				  <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.4"></action>
+				  <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="3.4"></action>
+				  <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.4"></action>
+				  <action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.4"></action>
+				  <action name="submit" displayName="提交" controlID="btnsubmit" maskNo="8" parent="3.4"></action>
+				  <action name="rollback" displayName="回退" controlID="btnrollback" maskNo="9" parent="3.4"></action>
+				  <action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="3.4"></action>
+			  </action>
+			  
+		  </module>-->
+
+        <module name="3.5" url="model.aspx?model=stockAjustingOrderWithCommon&amp;temp=stockAjustingOrder" showInMenu="false" parent="3" text="库存调账">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="3.5"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.5"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="3.5"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.5"></action>
+            <!--<action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.5"></action>-->
+            <!--<action name="submit" displayName="提交" controlID="btnsubmit" maskNo="8" parent="3.5"></action>-->
+            <!--<action name="rollback" displayName="回退" controlID="btnrollback" maskNo="9" parent="3.5"></action>-->
+            <!--<action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="3.5"></action>-->
+            <action name="ajusting" displayName="生效" controlID="btnajusting" maskNo="11" parent="3.5"></action>
+          </actions>
+        </module>
+
+        <module name="3.95" url="model.aspx?model=my_stockAjustingOrderWithCommon&amp;temp=my_stockAjustingOrder" showInMenu="false"  showInAuthority ="true" parent="3" text="我的库存调账">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="3.95"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.95"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="3.95"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.95"></action>
+            <!--<action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.95"></action>
+            <action name="submit" displayName="提交" controlID="btnsubmit" maskNo="8" parent="3.95"></action>
+            <action name="rollback" displayName="回退" controlID="btnrollback" maskNo="9" parent="3.95"></action>
+            <action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="3.95"></action>-->
+            <action name="ajusting" displayName="生效" controlID="btnajusting" maskNo="11" parent="3.95"></action>
+          </actions>
+        </module>
+        
+        <module name="3.6" url="model.aspx?model=stockTransferTaskWithCommon&amp;temp=stockTransferTask_list" showInMenu="false" parent="3" text="移位任务">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2"  parent="3.6"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4"  parent="3.6"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5"  parent="3.6"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.6"></action>
+            <!--<action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.6"></action>
+            <action name="submit" displayName="提交" controlID="btnsubmit" maskNo="8" parent="3.6"></action>
+            <action name="rollback" displayName="回退" controlID="btnrollback" maskNo="9" parent="3.6"></action>-->
+            <action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="3.6"></action>
+            <action name="sending" displayName="下发" controlID="btnsending" maskNo="11" parent="3.6"></action>
+          </actions>
+        </module>
+
+        <module name="3.96" url="model.aspx?model=my_stockTransferTaskWithCommon&amp;temp=my_stockTransferTask_list" showInMenu="false" showInAuthority ="true"  parent="3" text="我的移位任务">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2"  parent="3.96"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4"  parent="3.96"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5"  parent="3.96"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.96"></action>
+            <action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.96"></action>
+            <action name="submit" displayName="提交" controlID="btnsubmit" maskNo="8" parent="3.96"></action>
+            <action name="rollback" displayName="回退" controlID="btnrollback" maskNo="9" parent="3.96"></action>
+            <action name="backout" displayName="撤销" controlID="btnbackout" maskNo="10" parent="3.96"></action>
+            <action name="sending" displayName="下发" controlID="btnsending" maskNo="11" parent="3.96"></action>
+          </actions>
+        </module>
+
+        <module name="3.7" url="model.aspx?model=stockInfo_materials&amp;temp=stockInfo_materials_list" showInMenu="true" parent="3" text="库存产品">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="3.7"></action>
+            <action name="lock" displayName="冻结物料" controlID="lock" maskNo="2" parent="3.7"></action>
+            <action name="unlock" displayName="解除冻结" controlID="unlock" maskNo="3" parent="3.7"></action>
+            <action name="qualityCheck" displayName="质检" controlID="qualityCheck" maskNo="4" parent="3.7"></action>
+          </actions>
+        </module>
+        
+        <module name="3.8" url="model.aspx?model=devices&amp;temp=devices_map" showInMenu="true" parent="3" text="终端活动">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="3.8"></action>
+          </actions>
+        </module>
+        <module name="3.9" url="model.aspx?model=wp_queue&amp;temp=wp_queue_list" showInMenu="false" parent="3" text="车辆队列">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="3.9"></action>
+          </actions>
+        </module>
+        <module name="3.10" url="VehicleQueue.aspx?target=_blank" showInMenu="false" parent="3" text="LED队列">
+        </module>
+
+        <module name="3.12" url="model.aspx?model=stockTakingTaskWithCommon&amp;temp=stockTakingTask_list" showInMenu="false" parent="3" text="盘点任务">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.12"></action>
+            <action name="ajusting" displayName="调账" controlID="btnajusting" maskNo="12" parent="3.12"></action>
+          </actions>
+        </module>
+        
+        <module name="3.13" url="model.aspx?model=qualityCheckOrderWithCommon&amp;temp=qualityCheckOrder_list" showInMenu="false" parent="3" text="质检管理">
+          <actions>
+            <!--<action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="3.13"></action>-->
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.13"></action>
+            <!--<action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.13"></action>
+            <action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.13"></action>-->
+          </actions>
+        </module>
+
+        <module name="3.913" url="model.aspx?model=my_qualityCheckOrderWithCommon&amp;temp=my_qualityCheckOrder_list" showInMenu="false"  showInAuthority ="true" parent="3" text="我的质检管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="delete" maskNo="2" parent="3.913"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.913"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.913"></action>
+            <action name="audit" displayName="审核" controlID="btnaudit" maskNo="7" parent="3.913"></action>
+          </actions>
+        </module>
+        
+        <module name="3.14" url="model.aspx?model=stockInfo_materials_scattered&amp;temp=stockInfo_materials_scattered_list" showInMenu="false" parent="3" text="零头区管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="3.14"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="3.14"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5"  parent="3.14"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="3.14"></action>
+          </actions>
+        </module>
+      </child>
+    </module>
+
+    <module name="4" url="" showInMenu="false" parent="0" text="报警管理">
+      <child>
+        <module name="4.1" url="model.aspx?model=alarms_list&amp;temp=alarms_list"  showInMenu="true" parent="4" text="报警处理">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="4.1"></action>
+            <action name="process" displayName="处理" controlID="process" maskNo="2" parent="4.1"></action>
+          </actions>
+        </module>
+      </child>
+    </module>
+
+    
+    <module name="6" url="" showInMenu="true" parent="0" text="统计报表">
+      <child>
+        <module name="6.1" url="model.aspx?model=stockInfo_materials_logic&amp;temp=stockMaterialsReport" showInMenu="true" parent="6" text="库存产品报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.1"></action>
+
+          </actions>
+        </module>
+
+        <module name="6.2" url="model.aspx?model=stockInReport&amp;temp=stockInReport" showInMenu="true" parent="6" text="入库台账报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.2"></action>
+          </actions>
+        </module>
+        <module name="6.3" url="model.aspx?model=stockOutOrder_logic&amp;temp=stockOutReport" showInMenu="true" parent="6" text="出库台账报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.3"></action>
+          </actions>          
+        </module>       
+        <module name="6.5" url="model.aspx?model=employeeTaskAssess&amp;temp=employeeTaskAssess" showInMenu="true" parent="6" text="员工绩效报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.5"></action>
+          </actions>
+        </module>
+        <module name="6.6" url="model.aspx?model=dayReport_logic&amp;temp=dayReport" showInMenu="true" parent="6" text="累计报表（日、月）">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.6"></action>
+          </actions>
+        </module>
+        <module name="6.7" url="model.aspx?model=monthReport_logic&amp;temp=stockMonthReport" showInMenu="false" parent="6" text="月报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.7"></action>
+          </actions>
+        </module>
+        <module name="6.8" url="model.aspx?model=stockInOutReport_logic&amp;temp=stockInOutReport" showInMenu="true" parent="6" text="产品出入库明细">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.8"></action>
+          </actions>
+        </module>
+        <!--<module name="6.9" url="model.aspx?model=salesDetailsReport_logic&amp;temp=salesDetialsReport" showInMenu="true" parent="6" text="销售明细对账报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.9"></action>
+          </actions>
+        </module>-->
+
+        <module name="6.9" url="model.aspx?model=unsalableReport_logic&amp;temp=unsalableReport" showInMenu="true" parent="6" text="滞销产品报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.9"></action>
+          </actions>
+        </module>
+
+        <module name="6.10" url="model.aspx?model=MaterialPackUnit&amp;temp=materialPackUnit" showInMenu="true" parent="6" text="包装物耗用差异报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.10"></action>
+          </actions>
+        </module>
+        <!--<module name="6.6" url="model.aspx?model=inOutStockDayReport&amp;temp=inOutStockDayReport" showInMenu="true" parent="6" text="成品收发存日报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.6"></action>
+          </actions>
+        </module>
+
+        <module name="6.7" url="model.aspx?model=weekAlarmRpt&amp;temp=weekAlarmRpt" showInMenu="true" parent="6" text="库存成品酒周预警报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.7"></action>
+          </actions>
+        </module>
+
+        <module name="6.8" url="model.aspx?model=stockTakingDay&amp;temp=stockTakingDayReport" showInMenu="true" parent="6" text="日盘点报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.7"></action>
+          </actions>
+        </module>
+        
+        <module name="6.9" url="model.aspx?model=stockInfoItem&amp;temp=stockInfoItemReport" showInMenu="true" parent="6" text="物料品种统计报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.7"></action>
+          </actions>
+        </module>
+        
+        <module name="6.10" url="model.aspx?model=stockInfoStatus&amp;temp=stockInfoStatusReport" showInMenu="true" parent="6" text="酒龄状态报表">
+          <actions>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="1" parent="6.7"></action>
+          </actions>
+        </module>-->
+        
+      </child>
+    </module>
+
+
+    <module name="7" url="" showInMenu="true" parent="0" text="系统管理">
+      <child>
+        <!--部门管理 start-->
+        <module name="7.1" url="Pages/depart_main.htm" limitUrl="model.aspx?model=departments&amp;temp=departments_list" showInMenu="false" parent="7" text="部门管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="7.1"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="7.1"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="7.1"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="7.1"></action>
+
+          </actions>
+        </module>
+
+        <!--岗位管理 end-->
+        <module name="7.2" url="model.aspx?model=roleInfo&amp;temp=role_list" showInMenu="true" parent="7" text="岗位管理">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="7.2"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="7.2"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="7.2"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="7.2"></action>
+
+            <action name="stationAuthorize" displayName="功能授权" controlID="btstationAuthorize" maskNo="1" parent="7.2"></action>
+            <!--<action name="depotAuthorize" displayName="货位授权" controlID="btDepotAuthorize" maskNo="2" parent="7.2"></action>-->
+          </actions>
+        </module>
+        
+        <module name="7.3" url="model.aspx?model=userInfo&amp;temp=userInfo_1_list"   showInMenu="true" parent="7" text="用户管理">
+          <actions>
+
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="7.3"></action>
+            <action name="setRight" displayName="岗位分配" controlID="setRight" maskNo="9" parent="7.3"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="7.3"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="7.3"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="7.3"></action>
+            <action name="recoverPassword" displayName="重置密码" controlID="recoverPassword" maskNo="7" parent="7.3"></action>
+
+          </actions>
+        </module>
+
+        <!--数据词典 start-->
+        <module name="7.7" url="model.aspx?model=sys_dictionary_items&amp;temp=sys_dictionary_items_list" showInMenu="true" parent="7" text="数据词典">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="7.7"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="7.7"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="7.7"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="7.7"></action>
+            <action name="maintainDictName" displayName="词典名称维护" controlID="maintainDictName" maskNo="7" parent="7.7"></action>
+          </actions>
+        </module>
+        <!--数据词典 end -->
+
+        <!--系统配置 start-->
+        <module name="7.8" url="model.aspx?model=sys_settings&amp;temp=sys_settings_list" showInMenu="true" parent="7" text="系统配置">
+          <actions>
+            <action name="delete" displayName="删除" controlID="btndel" maskNo="2" parent="7.8"></action>
+            <action name="search" displayName="查询" controlID="btnsearch" maskNo="4" parent="7.8"></action>
+            <action name="add" displayName="新增" controlID="btnadd" maskNo="5" parent="7.8"></action>
+            <action name="modify" displayName="修改" controlID="btnmodify" maskNo="6" parent="7.8"></action>
+          </actions>
+        </module>
+        <!--系统配置 end-->
+
+        <!--手持版本管理 start-->
+        <module name="7.9" url="SmartManager.aspx" showInMenu="true" parent="7" text="手持版本管理">
+          <actions>
+          </actions>
+        </module>
+        <!--手持终端版本管理 end-->
+      </child>
+    </module>
+  </child>
+</modules>

@@ -1,0 +1,67 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <ColumnMap>
+    <SourceName>FItemID</SourceName>
+    <TargetName>ID</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>Fnumber</SourceName>
+    <TargetName>Code</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FName</SourceName>
+    <TargetName>UNITNAME</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FDeleted</SourceName>
+    <TargetName>ISDELETE</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>false</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FDeleted</SourceName>
+    <TargetName>IsDisable</TargetName>
+    <IsSelect>true</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft>false</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName>FModifyTime</SourceName>
+    <TargetName />
+    <IsSelect>true</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft>0</Deluft>
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>Creationdate</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>true</IsInsert>
+    <IsUpdate>false</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+  <ColumnMap>
+    <SourceName />
+    <TargetName>Modifieddate</TargetName>
+    <IsSelect>false</IsSelect>
+    <IsInsert>false</IsInsert>
+    <IsUpdate>true</IsUpdate>
+    <Deluft />
+  </ColumnMap>
+</DocumentElement>

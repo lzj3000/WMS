@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<alias>
+  <add key="UserManager" value="AcctrueWMS.Bll.Manager.UserManager,AcctrueWMS.Bll"/>
+  <add key="DevicesManager" value="AcctrueWMS.Bll.Manager.DevicesManager,AcctrueWMS.Bll"/>
+  <add key="MaterialManager" value="AcctrueWMS.Bll.Manager.MaterialManager,AcctrueWMS.Bll"/>
+  <add key="WarehouseManager" value="AcctrueWMS.Bll.Manager.WarehouseManager,AcctrueWMS.Bll"/>
+  <add key="PackUnitManager" value="AcctrueWMS.Bll.Manager.PackUnitManager,AcctrueWMS.Bll"/>
+  <add key="StoreOutOrderManager" value="AcctrueWMS.Bll.Manager.StoreOutOrderManager,AcctrueWMS.Bll"/>
+  <add key="DataModelManager" value="AcctrueWMS.Foundation.Data.DataModelManager,AcctrueWMS.Foundation"/>
+  <add key="StockTakingOrderManager" value="AcctrueWMS.Bll.Manager.StockTakingOrderManager,AcctrueWMS.Bll"/>
+  <add key="RoleManager" value="AcctrueWMS.Bll.Manager.RoleManager,AcctrueWMS.Bll"/> <!--用户  角色   权限 相关-->
+  <add key="SysDictManager" value="AcctrueWMS.Bll.Manager.SysDictManager,AcctrueWMS.Bll"/>
+  <add key="SettingManager" value="AcctrueWMS.Bll.Manager.SettingManager,AcctrueWMS.Bll"/>
+  <add key="TaskManager" value="AcctrueWMS.Bll.Manager.TaskManager,AcctrueWMS.Bll"/>
+  <add key="ActionManager" value="AcctrueWMS.Bll.Manager.ActionManager,AcctrueWMS.Bll"/>
+  <add key="StockInTaskManager" value="AcctrueWMS.Bll.Manager.StockInTaskManager,AcctrueWMS.Bll"/>
+  <add key="StockInActionManager" value="AcctrueWMS.Bll.Manager.StockInActionManager,AcctrueWMS.Bll"/>
+  <add key="StockOutTaskManager" value="AcctrueWMS.Bll.Manager.StockOutTaskManager,AcctrueWMS.Bll"/>
+  <add key="StockOutActionManager" value="AcctrueWMS.Bll.Manager.StockOutActionManager,AcctrueWMS.Bll"/>
+  <add key="StockTakingTaskManager" value="AcctrueWMS.Bll.Manager.StockTakingTaskManager,AcctrueWMS.Bll"/>
+  <add key="StockTakingActionManager" value="AcctrueWMS.Bll.Manager.StockTakingActionManager,AcctrueWMS.Bll"/>
+  <add key="StockTransferTaskManager" value="AcctrueWMS.Bll.Manager.StockTransferTaskManager,AcctrueWMS.Bll"/>
+  <add key="StockTransferActionManager" value="AcctrueWMS.Bll.Manager.StockTransferActionManager,AcctrueWMS.Bll"/>
+  <add key="PackingTaskManager" value="AcctrueWMS.Bll.Manager.PackingTaskManager,AcctrueWMS.Bll"/>
+  <add key="PackingActionManager" value="AcctrueWMS.Bll.Manager.PackingActionManager,AcctrueWMS.Bll"/>
+  <add key="UnpackTaskManager" value="AcctrueWMS.Bll.Manager.UnpackTaskManager,AcctrueWMS.Bll"/>
+  <add key="UnpackActionManager" value="AcctrueWMS.Bll.Manager.UnpackActionManager,AcctrueWMS.Bll"/>
+  <add key="DataModelManager" value="AcctrueWMS.Foundation.Data.DataModelManager,AcctrueWMS.Foundation"/>
+  <add key="CommonFunction" value="AcctrueWMS.Foundation.Web.CommonFunction,AcctrueWMS.Foundation"/>
+  <add key="OrderManager" value="AcctrueWMS.Bll.Manager.OrderManager,AcctrueWMS.Bll"/>
+  <add key="SerialManager" value="AcctrueWMS.Bll.Manager.SerialManager,AcctrueWMS.Bll"/>
+  <add key="StockManager" value="AcctrueWMS.Bll.Manager.StockManager,AcctrueWMS.Bll"/>
+  <add key="StockInOrderManager" value="AcctrueWMS.Bll.Manager.StockInOrderManager,AcctrueWMS.Bll"/>
+  <add key="StockOutOrderManager" value="AcctrueWMS.Bll.Manager.StockOutOrderManager,AcctrueWMS.Bll"/>
+  <add key="DepotInfoManager" value="AcctrueWMS.Bll.Manager.DepotInfoManager,AcctrueWMS.Bll"/>
+  <add key="StockAjustingOrderManager" value="AcctrueWMS.Bll.Manager.StockAjustingOrderManager,AcctrueWMS.Bll"/>
+  <add key="QueueManager" value="AcctrueWMS.Bll.Manager.QueueManager,AcctrueWMS.Bll"/>
+  <add key="LogManager" value="AcctrueWMS.Bll.Manager.LogManager,AcctrueWMS.Bll"/>
+  <add key="WareHouseDepotsManager" value="AcctrueWMS.Bll.Manager.WareHouseDepotsManager,AcctrueWMS.Bll"/>
+  <add key="TTSWebServiceManager" value="AcctrueWMS.Bll.Manager.TTSWebServiceManager,AcctrueWMS.Bll"/>
+  <add key="QualityCheckManager" value="AcctrueWMS.Bll.Manager.QualityCheckManager,AcctrueWMS.Bll"></add>
+  <add key="BarCodeManager" value="AcctrueWMS.Bll.Manager.BarCodeManager,AcctrueWMS.Bll"></add> <!--条码打印相关-->
+
+  <add key="DataValidater" value="AcctrueWMS.Foundation.Web.DataValidater,AcctrueWMS.Foundation"></add>
+  <add key="CommonFunctions" value="AcctrueWMS.Bll.Common.CommonFunctions,AcctrueWMS.Bll"></add>
+  <add key="AlarmManager" value="AcctrueWMS.Bll.Manager.AlarmManager,AcctrueWMS.Bll"/>
+  <add key="StockInfoManager" value="AcctrueWMS.Bll.Manager.StockInfoManager,AcctrueWMS.Bll"/>
+  <add key="RecyleBinManager" value="AcctrueWMS.Bll.Manager.RecyleBinManager,AcctrueWMS.Bll"/>
+  
+  <add key="DepartmentManager"  value="AcctrueWMS.Bll.Manager.DepartmentManager,AcctrueWMS.Bll"/>
+  <add key="ReportManager"  value="AcctrueWMS.Bll.Manager.ReportManager,AcctrueWMS.Bll"/>
+  <add key="StockOutEstimate"       value="AcctrueWMS.Bll.Manager.StockOutEstimate,AcctrueWMS.Bll"/>
+  <add key="PrinterParameter"       value="AcctrueWMS.Bll.Manager.PrinterParameter,AcctrueWMS.Bll"/>
+  
+  <add key="SynInformation"       value=" AcctrueWMS.Bll.Manager.SynInformation,AcctrueWMS.Bll"/>
+  
+  <!--CE's key and value hkl20110927-->
+  <add key="UserManagerCE" value="AcctrueWMS.CE.Bll.Manager.UserManager,AcctrueWMS.CE.Bll"/>
+  <add key="WarehouseManagerCE" value="AcctrueWMS.CE.Bll.Manager.WarehouseManager,AcctrueWMS.CE.Bll"/>
+  <add key="TaskManagerCE" value="AcctrueWMS.CE.Bll.Manager.TaskManager,AcctrueWMS.CE.Bll"/>
+  <add key="InManagerCE" value="AcctrueWMS.CE.Bll.Manager.InManager,AcctrueWMS.CE.Bll"/>
+  <add key="OutManagerCE" value="AcctrueWMS.CE.Bll.Manager.OutManager,AcctrueWMS.CE.Bll"/>
+  <add key="TakeManagerCE" value="AcctrueWMS.CE.Bll.Manager.TakeManager,AcctrueWMS.CE.Bll"/>
+  <add key="TransferManagerCE" value="AcctrueWMS.CE.Bll.Manager.TransferManager,AcctrueWMS.CE.Bll"/>
+  <add key="QueueManagerCE" value="AcctrueWMS.CE.Bll.Manager.QueueManager,AcctrueWMS.CE.Bll"/>
+  <add key="MaterialsManagerCE" value="AcctrueWMS.CE.Bll.Manager.MaterialsManager,AcctrueWMS.CE.Bll"/>
+  <add key="ServiceManagerCE" value="AcctrueWMS.CE.Bll.Manager.ServiceManager,AcctrueWMS.CE.Bll"/>
+  <add key="StockInfoManagerCE" value="AcctrueWMS.CE.Bll.Manager.StockInfoManager,AcctrueWMS.CE.Bll"/>
+  <add key="SaleAreaManagerCE" value="AcctrueWMS.CE.Bll.Manager.SaleAreaManager,AcctrueWMS.CE.Bll"/>
+</alias>

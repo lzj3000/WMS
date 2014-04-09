@@ -1,0 +1,42 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.PurchaseInNoticeOrderController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+                        p.onForeigned = function (sender, fdata, rows) {
+//                            if (fdata.tablename.toString() == "Acc_Bus_BusinessCommodity" && sender.field.toString() == "MATERIALCODE") {
+
+//                                var row = sender.parent.selectrow();
+//                                var on = sender.parent.geteditor("BATCHNO");
+//                                var myDate = new Date();
+//                                var year = String(myDate.getFullYear()).substr(2);
+//                                var month = parseInt(parseInt(myDate.getMonth(), 10) + 1).toString();
+//                                var day = myDate.getDate().toString();
+//                                if (parseInt(month) < 9) {
+//                                    month = '0' + month;
+//                                }
+//                                if (parseInt(day) < 9) {
+//                                    day = '0' + day;
+//                                }
+//                                var pici = year + month + day;
+//                                String(myDate.getFullYear()).substr(2) + parseInt(parseInt(myDate.getMonth(), 10) + 1).toString() + myDate.getDate().toString();
+//                                on.actions.setValue(on.target, pici, row);
+//                            }
+                            //通知单下推，选择其他原单时改变待入库明细的数据
+                            if (fdata.tablename.toString() == "Acc_WMS_InNotice" && sender.field.toString() == "SOURCECODE") {
+                                var id = rows.ID;
+                                //sender.parent.unionobj["SOURCEID"] = id;
+                                var tt = p.datasource.post("GetNoticeStayGrid", "NoticeId=" + fdata.filedvalue + "");
+                                if (tt != "[]") {
+                                    var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockInNoticeMaterials"];
+                                    grid.clear();
+                                    grid.insertRow(tt);
+                                }
+                            }
+                        }
+
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

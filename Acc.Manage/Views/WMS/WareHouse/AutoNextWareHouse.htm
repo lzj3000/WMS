@@ -1,0 +1,90 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+        ///加载仓库
+        if (window.parID) {
+            $("#ck").append("请选择生成的下级<select id='selName'><option value=1>货区<option/><option value=2>货位<option/></select><br/>");
+            $("#ck").append("请输入行开始数量<input type='text' id='StartHNum' /><br/>");
+            $("#ck").append("请输入行结束数量<input type='text' id='EndHNum' /><br/>");
+
+            $("#ck").append("请输入列开始数量<input type='text' id='StartLNum' /><br/>");
+            $("#ck").append("请输入列结束数量<input type='text' id='EndLNum' /><br/>");
+
+            $("#ck").append("请输入层总数量<input type='text' id='cengnum' /><br/><br/>");
+
+            $("#ck").append("<input type='button' value='确定生成' id='" + window.parID + "' onclick='test(this)' /><br/>");
+
+        }
+
+    });
+
+    function checkForm(StartHNum, EndHNum, StartLNum, EndLNum, cengnum) {
+        if (StartHNum > EndHNum) {
+            alert("行开始数量不能大于结束数量！");
+                return;
+
+            }
+            if (StartHNum == "") {
+                alert("行开始数量不能为空！");
+            }
+            if (EndHNum == "") {
+                alert("行结束数量不能为空！");
+            }
+            if (StartLNum > EndLNum) {
+                alert("列开始数量不能大于结束数量！");
+                return;
+
+            }
+            if (StartLNum == "") {
+                alert("列开始数量不能为空！");
+            }
+            if (EndLNum == "") {
+                alert("列结束数量不能为空！");
+            }
+            if (cengnum == "") {
+                alert("层总数量不能为空！");
+                return;
+             }
+        }
+
+        function test($obj) {
+            var StartHNum = document.getElementById("StartHNum").value;
+            var EndHNum = document.getElementById("EndHNum").value;
+            var StartLNum = document.getElementById("StartLNum").value;
+            var EndLNum = document.getElementById("EndLNum").value;
+            var cengnum = document.getElementById("cengnum").value;
+                var selName = document.getElementById("selName").value;
+                checkForm(StartHNum, EndHNum, StartLNum, EndLNum, cengnum);
+                var data = new datasource();
+                data.c = "Acc.Business.WMS.Controllers.WareHouseController";
+                var tt = data.post("AutoNext", "id=" + $obj.id + "," + selName + "," + StartHNum + "," + EndHNum + "," + StartLNum + "," + EndLNum + "," + cengnum + "");
+                alert("生成完成！请刷新查看");
+    }
+    
+
+
+</script>
+<style type="text/css">
+    .hw1Class
+    {
+        background-color:#AAEEBE;
+        color:Black;    
+    }
+        .hw2Class
+    {
+        background-color:#FDAFEA;
+        color:Black;    
+    }
+        .hw3Class
+    {
+        background-color:#FDA342;
+        color:Black;    
+    }
+</style>
+
+<!--显示货位-->
+
+<div id="ck" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-bottom: 10px; margin-top: 10px; margin-left: 20px;">
+</div>

@@ -1,0 +1,565 @@
+﻿namespace AcctrueTerminal.Stock
+{
+    partial class WarehouseInventory
+    {
+        /// <summary>
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows 窗体设计器生成的代码
+
+        /// <summary>
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txt_Type = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_WarehouseName = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btn_CheckOrderQuery = new System.Windows.Forms.Button();
+            this.txt_OrderCode = new System.Windows.Forms.TextBox();
+            this.txt_Store = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.mainMenu1 = new System.Windows.Forms.MainMenu();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.tabControlSet = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lv_OrderList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader12 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txt_Desc = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txt_SsNum = new System.Windows.Forms.TextBox();
+            this.txt_Part = new System.Windows.Forms.TextBox();
+            this.txt_Material = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader17 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader18 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader19 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader20 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader21 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader22 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader23 = new System.Windows.Forms.ColumnHeader();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            this.tabControlSet.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel1.Controls.Add(this.txt_Type);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.txt_WarehouseName);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.btn_CheckOrderQuery);
+            this.panel1.Controls.Add(this.txt_OrderCode);
+            this.panel1.Controls.Add(this.txt_Store);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Location = new System.Drawing.Point(1, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(238, 91);
+            // 
+            // txt_Type
+            // 
+            this.txt_Type.BackColor = System.Drawing.Color.White;
+            this.txt_Type.Location = new System.Drawing.Point(44, 58);
+            this.txt_Type.Multiline = true;
+            this.txt_Type.Name = "txt_Type";
+            this.txt_Type.ReadOnly = true;
+            this.txt_Type.Size = new System.Drawing.Size(191, 21);
+            this.txt_Type.TabIndex = 17;
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(3, 63);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(37, 14);
+            this.label9.Text = "类型";
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular);
+            this.label5.ForeColor = System.Drawing.Color.IndianRed;
+            this.label5.Location = new System.Drawing.Point(3, 79);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(235, 6);
+            this.label5.Text = "－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txt_WarehouseName
+            // 
+            this.txt_WarehouseName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txt_WarehouseName.Enabled = false;
+            this.txt_WarehouseName.Location = new System.Drawing.Point(44, 32);
+            this.txt_WarehouseName.Name = "txt_WarehouseName";
+            this.txt_WarehouseName.Size = new System.Drawing.Size(191, 21);
+            this.txt_WarehouseName.TabIndex = 12;
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(2, 36);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 14);
+            this.label8.Text = "仓库";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(2, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 14);
+            this.label2.Text = "单号";
+            // 
+            // btn_CheckOrderQuery
+            // 
+            this.btn_CheckOrderQuery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btn_CheckOrderQuery.Font = new System.Drawing.Font("Arial", 10.5F, System.Drawing.FontStyle.Bold);
+            this.btn_CheckOrderQuery.Location = new System.Drawing.Point(125, 6);
+            this.btn_CheckOrderQuery.Name = "btn_CheckOrderQuery";
+            this.btn_CheckOrderQuery.Size = new System.Drawing.Size(32, 21);
+            this.btn_CheckOrderQuery.TabIndex = 6;
+            this.btn_CheckOrderQuery.Text = "...";
+            this.btn_CheckOrderQuery.Click += new System.EventHandler(this.btn_CheckOrderQuery_Click);
+            // 
+            // txt_OrderCode
+            // 
+            this.txt_OrderCode.Location = new System.Drawing.Point(44, 6);
+            this.txt_OrderCode.Name = "txt_OrderCode";
+            this.txt_OrderCode.Size = new System.Drawing.Size(83, 21);
+            this.txt_OrderCode.TabIndex = 7;
+            // 
+            // txt_Store
+            // 
+            this.txt_Store.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txt_Store.Enabled = false;
+            this.txt_Store.Location = new System.Drawing.Point(155, 6);
+            this.txt_Store.Name = "txt_Store";
+            this.txt_Store.ReadOnly = true;
+            this.txt_Store.Size = new System.Drawing.Size(80, 21);
+            this.txt_Store.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular);
+            this.label3.ForeColor = System.Drawing.Color.IndianRed;
+            this.label3.Location = new System.Drawing.Point(-2, 101);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(246, 6);
+            this.label3.Text = "－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // mainMenu1
+            // 
+            this.mainMenu1.MenuItems.Add(this.menuItem1);
+            this.mainMenu1.MenuItems.Add(this.menuItem2);
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Text = "保存";
+            this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Text = "";
+            // 
+            // tabControlSet
+            // 
+            this.tabControlSet.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tabControlSet.Controls.Add(this.tabPage2);
+            this.tabControlSet.Controls.Add(this.tabPage1);
+            this.tabControlSet.Controls.Add(this.tabPage6);
+            this.tabControlSet.Dock = System.Windows.Forms.DockStyle.None;
+            this.tabControlSet.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.tabControlSet.Location = new System.Drawing.Point(1, 102);
+            this.tabControlSet.Name = "tabControlSet";
+            this.tabControlSet.SelectedIndex = 0;
+            this.tabControlSet.Size = new System.Drawing.Size(239, 166);
+            this.tabControlSet.TabIndex = 7;
+            this.tabControlSet.SelectedIndexChanged += new System.EventHandler(this.tabControlSet_SelectedIndexChanged);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tabPage1.Controls.Add(this.lv_OrderList);
+            this.tabPage1.Location = new System.Drawing.Point(0, 0);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(239, 138);
+            this.tabPage1.Text = "盘点记录";
+            // 
+            // lv_OrderList
+            // 
+            this.lv_OrderList.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.lv_OrderList.Columns.Add(this.columnHeader1);
+            this.lv_OrderList.Columns.Add(this.columnHeader2);
+            this.lv_OrderList.Columns.Add(this.columnHeader3);
+            this.lv_OrderList.Columns.Add(this.columnHeader5);
+            this.lv_OrderList.Columns.Add(this.columnHeader4);
+            this.lv_OrderList.Columns.Add(this.columnHeader12);
+            this.lv_OrderList.Columns.Add(this.columnHeader15);
+            this.lv_OrderList.FullRowSelect = true;
+            this.lv_OrderList.Location = new System.Drawing.Point(1, 0);
+            this.lv_OrderList.Name = "lv_OrderList";
+            this.lv_OrderList.Size = new System.Drawing.Size(237, 138);
+            this.lv_OrderList.TabIndex = 1;
+            this.lv_OrderList.View = System.Windows.Forms.View.Details;
+            this.lv_OrderList.ItemActivate += new System.EventHandler(this.lv_OrderList_ItemActivate);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "行";
+            this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader1.Width = 40;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "编码";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 60;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "描述";
+            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader3.Width = 60;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "数量";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader5.Width = 36;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "单位";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader4.Width = 39;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "制造商";
+            this.columnHeader12.Width = 0;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "仓库";
+            this.columnHeader15.Width = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.txt_Desc);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.textBox3);
+            this.tabPage2.Controls.Add(this.txt_SsNum);
+            this.tabPage2.Controls.Add(this.txt_Part);
+            this.tabPage2.Controls.Add(this.txt_Material);
+            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Location = new System.Drawing.Point(0, 0);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(239, 138);
+            this.tabPage2.Text = "盘点";
+            // 
+            // txt_Desc
+            // 
+            this.txt_Desc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txt_Desc.Enabled = false;
+            this.txt_Desc.Location = new System.Drawing.Point(67, 22);
+            this.txt_Desc.Name = "txt_Desc";
+            this.txt_Desc.ReadOnly = true;
+            this.txt_Desc.Size = new System.Drawing.Size(161, 21);
+            this.txt_Desc.TabIndex = 98;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(2, 28);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(60, 16);
+            this.label11.Text = "产品名称";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(67, 91);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(160, 21);
+            this.textBox1.TabIndex = 89;
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.White;
+            this.textBox3.Location = new System.Drawing.Point(67, 68);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(161, 21);
+            this.textBox3.TabIndex = 81;
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
+            // 
+            // txt_SsNum
+            // 
+            this.txt_SsNum.BackColor = System.Drawing.Color.White;
+            this.txt_SsNum.Location = new System.Drawing.Point(67, 115);
+            this.txt_SsNum.Name = "txt_SsNum";
+            this.txt_SsNum.Size = new System.Drawing.Size(68, 21);
+            this.txt_SsNum.TabIndex = 30;
+            // 
+            // txt_Part
+            // 
+            this.txt_Part.BackColor = System.Drawing.Color.White;
+            this.txt_Part.Location = new System.Drawing.Point(67, 45);
+            this.txt_Part.Name = "txt_Part";
+            this.txt_Part.Size = new System.Drawing.Size(161, 21);
+            this.txt_Part.TabIndex = 15;
+            this.txt_Part.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Part_KeyPress);
+            // 
+            // txt_Material
+            // 
+            this.txt_Material.BackColor = System.Drawing.Color.White;
+            this.txt_Material.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.txt_Material.Location = new System.Drawing.Point(67, 0);
+            this.txt_Material.Name = "txt_Material";
+            this.txt_Material.Size = new System.Drawing.Size(161, 20);
+            this.txt_Material.TabIndex = 21;
+            this.txt_Material.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_OrderNum_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(2, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 16);
+            this.label1.Text = "存放位置";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(2, 117);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(60, 16);
+            this.label10.Text = "盘点数量";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(1, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 16);
+            this.label4.Text = "托盘编码";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(3, 3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 16);
+            this.label7.Text = "产品编码";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tabPage6.Controls.Add(this.label6);
+            this.tabPage6.Controls.Add(this.textBox2);
+            this.tabPage6.Controls.Add(this.listView1);
+            this.tabPage6.Location = new System.Drawing.Point(0, 0);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(231, 135);
+            this.tabPage6.Text = "记录";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(6, 4);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 20);
+            this.label6.Text = "编   码";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(67, 1);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(164, 21);
+            this.textBox2.TabIndex = 9;
+            // 
+            // listView1
+            // 
+            this.listView1.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.listView1.Columns.Add(this.columnHeader17);
+            this.listView1.Columns.Add(this.columnHeader18);
+            this.listView1.Columns.Add(this.columnHeader19);
+            this.listView1.Columns.Add(this.columnHeader20);
+            this.listView1.Columns.Add(this.columnHeader21);
+            this.listView1.Columns.Add(this.columnHeader22);
+            this.listView1.Columns.Add(this.columnHeader23);
+            this.listView1.FullRowSelect = true;
+            this.listView1.Location = new System.Drawing.Point(1, 27);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(237, 142);
+            this.listView1.TabIndex = 2;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "行";
+            this.columnHeader17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader17.Width = 40;
+            // 
+            // columnHeader18
+            // 
+            this.columnHeader18.Text = "编码";
+            this.columnHeader18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader18.Width = 60;
+            // 
+            // columnHeader19
+            // 
+            this.columnHeader19.Text = "描述";
+            this.columnHeader19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader19.Width = 60;
+            // 
+            // columnHeader20
+            // 
+            this.columnHeader20.Text = "数量";
+            this.columnHeader20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader20.Width = 36;
+            // 
+            // columnHeader21
+            // 
+            this.columnHeader21.Text = "单位";
+            this.columnHeader21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader21.Width = 39;
+            // 
+            // columnHeader22
+            // 
+            this.columnHeader22.Text = "制造商";
+            this.columnHeader22.Width = 0;
+            // 
+            // columnHeader23
+            // 
+            this.columnHeader23.Text = "仓库";
+            this.columnHeader23.Width = 0;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(8, 96);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(55, 17);
+            this.label12.Text = "批      次";
+            // 
+            // WarehouseInventory
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(240, 268);
+            this.Controls.Add(this.tabControlSet);
+            this.Controls.Add(this.panel1);
+            this.Menu = this.mainMenu1;
+            this.Name = "WarehouseInventory";
+            this.Text = "仓库盘点";
+            this.Load += new System.EventHandler(this.WarehouseInventory_Load);
+            this.Closed += new System.EventHandler(this.WarehouseInventory_Closed);
+            this.panel1.ResumeLayout(false);
+            this.tabControlSet.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txt_WarehouseName;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btn_CheckOrderQuery;
+        private System.Windows.Forms.TextBox txt_OrderCode;
+        private System.Windows.Forms.TextBox txt_Store;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.MainMenu mainMenu1;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem menuItem2;
+        private System.Windows.Forms.TabControl tabControlSet;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ListView lv_OrderList;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txt_SsNum;
+        private System.Windows.Forms.TextBox txt_Part;
+        private System.Windows.Forms.TextBox txt_Material;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
+        private System.Windows.Forms.ColumnHeader columnHeader18;
+        private System.Windows.Forms.ColumnHeader columnHeader19;
+        private System.Windows.Forms.ColumnHeader columnHeader20;
+        private System.Windows.Forms.ColumnHeader columnHeader21;
+        private System.Windows.Forms.ColumnHeader columnHeader22;
+        private System.Windows.Forms.ColumnHeader columnHeader23;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_Desc;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txt_Type;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label12;
+    }
+}

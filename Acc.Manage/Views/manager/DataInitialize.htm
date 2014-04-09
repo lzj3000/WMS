@@ -1,0 +1,41 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.Controllers.DataInitializeController";
+            p.applyTo = "t1";
+            p.isgridcheck = true;
+            p.onAfterEdit = function (index, item, changes) {
+            }
+            p.onSelectTab = function (index, f, grid) {
+
+            }
+            p.onCommandClick = function (command, form, item) {
+
+//                if (command == "add") {
+//                    form.setform("创建人", webjs.username); //或创建人
+//                }
+
+            }
+            p.init();
+        });
+
+        //多行选择初始化
+        function GetSelectModels(data) {
+            var rows = data.sender.datasource.grid.getcheckrows();
+            if (rows.length > 0) {
+                var ids = "";
+                for (var r in rows) {
+                    if (ids == "") {
+                        ids = rows[r].ID;
+                    }
+                    else
+                        ids += ";" + rows[r].ID;
+                }
+                var data1 = new datasource();
+                data1.c = "Acc.Business.Controllers.DataInitializeController";
+                data1.post("InitializeSelectModels", "ids=" + ids);
+            }
+        }
+      </script>
+<div id="t1"></div>
+

@@ -1,0 +1,96 @@
+﻿/* 左侧菜单按钮 */
+ .tool_button:hover
+{
+	background-color: #FFF68F !important;
+}
+
+
+.tools_left 
+{
+  
+}
+
+.tool_button_current
+{
+    background-color: #FFFF00;
+    }
+.tool_button_other
+{
+    background-color: #EEEEEE;
+    }
+
+ .tools_left .tool_button {
+	position: relative;
+	z-index: 11;
+}
+ .tool_button
+{
+	height: 20px;
+	width: 50px;
+	margin: 2px 2px 4px 2px;
+	padding: 3px;
+	-webkit-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	moz-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	cursor: pointer;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+/*顶部菜单*/
+.tools_top
+{
+    display:inline;
+    }
+    
+    .tools_top_left
+{ 
+       display:inline;
+    }
+    
+    .tools_top_block
+    {
+    margin-left:20px;    
+        }
+
+#shape_style
+{
+    margin-left:2px;
+    }
+
+.attr_changer
+{
+    font-size:12px;
+    width:35px;
+    }    
+    
+     div.palette_item {
+	height: 25px;
+	width: 15px;
+	float: left;
+    }
+    
+    .color_panel_current
+    {
+        	background-color: #FFFF00;
+        }
+        
+      .color_panel_current
+    {
+        	background-color: #EEEEEE;
+        }
+        
+    .color_panel
+    {
+	height: 20px;
+	width: 20px;
+	margin: 2px 2px 4px 2px;
+	padding: 3px;
+	-webkit-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	moz-box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	box-shadow: inset 1px 1px 2px white, 1px 1px 1px rgba(0,0,0,0.3);
+	cursor: pointer;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}

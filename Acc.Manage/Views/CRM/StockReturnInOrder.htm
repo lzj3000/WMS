@@ -1,0 +1,25 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.Controllers.StockReturnInOrderController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    var myDate = new Date();
+                    var scx = myDate.getFullYear().toString() + myDate.getMonth().toString() + myDate.getDate().toString();
+                    form.setform("PRODUCTIONLINE", scx.toString());
+                    form.setform("STOCKTYPE", "003");
+                    form.setform("STATE", "01");
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.onForeigned = function (sender, fdata, rows){
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

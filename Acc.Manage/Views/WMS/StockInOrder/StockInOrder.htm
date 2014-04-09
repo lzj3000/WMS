@@ -1,0 +1,36 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.Controllers.StockInOrderController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    var tt = p.datasource.post("GetStockInOrder", null);
+                    form.setform("ORDERNO", tt);
+                    var myDate = new Date();
+                    var scx = myDate.getFullYear().toString() + myDate.getMonth().toString() + myDate.getDate().toString();
+                    form.setform("PRODUCTIONLINE", scx.toString());
+                    form.setform("STOCKTYPE", "001");
+                    form.setform("STATE", "01");
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.onForeigned = function (sender, fdata, rows) {
+                if (fdata.tablename.toString() == "Acc_Bus_BusinessCommodity" && sender.field.toString() == "MATERIALCODE") {
+                    var tt = p.datasource.post("VoliGetUnit", "MaterialsId=" + rows.ID + "");
+                    if (tt != "") {
+                        var row = sender.parent.selectrow();
+                        var eb = sender.parent.geteditor("MATERIALPACKID");
+                        eb.setValue(eb.target, tt, row);
+                    }
+                    //grid.load({ total: tt.length, rows: tt });
+                }
+            }
+            p.init();
+        });
+    </script>
+<div id="t1"></div>

@@ -1,0 +1,22 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.ReturnInOrderController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            p.onForeigned = function (sender, fdata, rows) {
+                
+                if (fdata.tablename.toString() == "Acc_WMS_InNotice" && sender.field.toString() == "SOURCECODE") {
+                    var id = rows.ID;
+                   // sender.parent.unionobj["SOURCEID"] = id;
+                    var tt = p.datasource.post("GetNoticeStayGrid", "NoticeId=" + fdata.filedvalue + "");
+                    if (tt != "[]") {
+                        var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockInOrderMaterials"];
+                        grid.insertRow(tt);
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

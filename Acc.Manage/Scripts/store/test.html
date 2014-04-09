@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+	<title>store.js test</title>
+	<style type="text/css">
+		body { margin: 50px; font-family: helvetica; color: #333; }
+		div { color: green; }
+		#errorOutput div { color: red; }
+	</style>
+	<script src="store.js"></script>
+</head>
+<body>
+	tests for <a href="http://github.com/marcuswestin/store.js">store.js</a>
+	<div id="errorOutput"></div>
+
+	<script>
+		(function() {
+			var doc = document,
+				errorOutput = doc.getElementById('errorOutput'),
+				testFailed = false,
+				isSecondPass = (doc.location.hash == '#secondPass')
+
+			function outputError(msg) { errorOutput.appendChild(doc.createElement('div')).innerHTML = msg }
+			function assert(truthy, msg) { 
+				if (!truthy) {
+					outputError((isSecondPass ? 'second' : 'first') + ' pass bad assert: ' + msg);
+					testFailed = true
+				}
+			}
+			
+			function doFirstPass() {
+				store.clear()
+				
+				store.set('foo', 'bar')
+				assert(store.get('foo') == 'bar', "stored key 'foo' not equal to stored value 'bar'")
+
+				store.remove('foo')
+				assert(store.get('foo') == null, "removed key 'foo' not null")
+
+				store.set('foo', 'bar1')
+				store.set('foo', 'bar2')
+				assert(store.get('foo') == 'bar2', "key 'foo' is not equal to second value set 'bar2'")
+				
+				store.set('foo', 'bar')
+				store.set('bar', 'foo')
+				store.remove('foo')
+				assert(store.get('bar') == 'foo', "removing key 'foo' also removed key 'bar'")
+				
+				store.set('foo', 'bar')
+				store.set('bar', 'foo')
+				store.clear()
+				assert(store.get('foo') == null && store.get('bar') == null, "keys foo and bar not cleared after store cleared")
+				
+				// The following stored values get tested in doSecondPass after a page reload
+				store.set('firstPassFoo', 'bar')
+			}
+			
+			function doSecondPass() {
+				assert(store.get('firstPassFoo') == 'bar', "first pass key 'firstPassFoo' not equal to stored value 'bar'")
+				store.clear()
+				assert(store.get('firstPassFoo') == null, "first pass key 'firstPassFoo' not null after store cleared")
+			}
+			
+			try {
+				if (isSecondPass) { doSecondPass() }
+				else { doFirstPass() }
+			} catch(e) {
+				assert(false, 'Tests should not throw: "' + e + '"')
+			}
+
+			if (!testFailed) {
+				if (!isSecondPass) {
+					doc.location.hash = '#secondPass'
+					doc.location.reload()
+				} else {
+					doc.location.hash = '#'
+					doc.body.appendChild(doc.createElement('div')).innerHTML = 'Tests passed'
+				}
+			}
+		})()
+	</script>
+</body>
+</html>

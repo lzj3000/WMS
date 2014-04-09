@@ -1,0 +1,521 @@
+﻿<script type="text/javascript">
+    $(function () {
+        //添加了一个为datagrid手动添加编辑，和删除编辑状态的方法
+        /****************************************************************************************************************************************************/
+        $.extend($.fn.datagrid.methods, {
+            addEditor: function (jq, param) {
+                if (param instanceof Array) {
+                    $.each(param, function (index, item) {
+                        var e = $(jq).datagrid('getColumnOption', item.field);
+                        e.editor = item.editor;
+                    });
+                } else {
+                    var e = $(jq).datagrid('getColumnOption', param.field);
+                    e.editor = param.editor;
+                }
+            },
+            removeEditor: function (jq, param) {
+                if (param instanceof Array) {
+                    $.each(param, function (index, item) {
+                        var e = $(jq).datagrid('getColumnOption', item);
+                        e.editor = {};
+                    });
+                } else {
+                    var e = $(jq).datagrid('getColumnOption', param);
+                    e.editor = {};
+                }
+            }
+        });
+        //获取要导入界面的参数
+        /****************************************************************************************************************************************************/
+        var data = window.ddata;
+        var controllername = data.sender.datasource.c;
+        var p = window.pdata;
+        var ipage = 0;
+        console.info("得到的data----"+controllername);
+        console.info("得到的p-------"+p.c);
+        //初始化界面控件
+        /****************************************************************************************************************************************************/
+        //初始化显示
+        $('#dd0').show();
+        $('#ddbtn').show();
+        $('#dd1').hide();
+        $('#dd2').hide();
+        $('#dd3').hide();
+        var t = new textbox();
+        t.type = "file";
+        t.applyTo = "tfile";
+        t.title = "源文件:"
+        t.init();
+        t.ready();
+        t.onevent();
+        t.onfilecomplate = function (sender, file) {
+            var objs = [];
+            $('#sheeltitem').combobox('clear');
+            var tt = p.post("GetExcelTables", "FilePath1=" + t.val());
+            console.info(tt);
+            if (tt == null) {
+                $.messager.alert('提示', '请检查导入的文件格式!', 'info');
+                $('#sheeltitem').combobox({ data: objs, valueField: 'id', textField: 'text' }).combobox('clear');
+                return;
+            }
+            var result = tt.split(",");
+            for (var t1 in result) {
+                var o = {};
+                o.id = t1;
+                o.text = result[t1];
+                objs.push(o);
+            }
+            $('#sheeltitem').combobox({ data: objs, valueField: 'id', textField: 'text' }).combobox('clear'); //'loadData', objs);
+        }
+        t.setwidth(298);
+        //(加载目标列表)
+        $('#importSelect').html('');
+        var dsmodel = data.sender.datasource.modeldata;
+        var ioption = $("<option value='" + dsmodel.tablename + "'>" + dsmodel.title + "</option>");
+        $(ioption).appendTo($("#importSelect"));
+        for (var i = 0; i < dsmodel.childmodel.length; i++) {
+            var m = dsmodel.childmodel[i];
+            if (m.title != "流程状态") {
+                var ioptions = $("<option value='" + m.tablename + "'>" + m.title + "</option>");
+                $(ioptions).appendTo($("#importSelect"));
+            }
+        }
+        $("#importSelect").attr("class", "easyui-combobox")
+        $('.easyui-combobox').combobox();
+
+        //映射关系列定义
+        var stypejsondata = [];
+        var obj = {};
+        obj.text = '主键';
+        obj.value = 'PID';
+        stypejsondata.push(obj);
+        obj = {};
+        obj.text = '外键';
+        obj.value = 'FID';
+        stypejsondata.push(obj);
+        obj = {};
+        obj.text = '自动编码';
+        obj.value = 'ACODE';
+        stypejsondata.push(obj);
+
+        //初始化数据(列名称和源文件数据集合)
+        var initdata;
+        //目标列名
+        var tcnamejsondata
+        var tcnamejsondataz
+        //映射配置
+        var maps;
+        var fuzi = "";
+        var number = 0;
+        var targetTable1 = "";
+        var datagrid;
+        //导入操作
+        /****************************************************************************************************************************************************/
+        //上一步
+        $('#prebtni').bind('click', function () {
+            fuzi = "";
+            if (ipage <= 0)
+                return;
+            $('#dd' + ipage).hide();
+            ipage--;
+            $('#dd' + ipage).show();
+            console.info(ipage);
+            if (ipage == 1) {
+                $('#dgm').datagrid('resize');
+            }
+            else if (ipage == 2) {
+                $('#ipp').datagrid('resize');
+            }
+            else if (ipage == 0) {
+                targetTable1 = "";
+                $('#dgm').datagrid();
+                $('#dgm').datagrid('loadData', { total: 0, rows: [] });
+                $('#prebtni').linkbutton('disable');
+            }
+            if (ipage != 2) {
+                $('#nextbtni').linkbutton('enable');
+                $('#btnImport').linkbutton('disable');
+                $('#btnImport').unbind("handler");
+            }
+        });
+        //下一步
+        $('#nextbtni').bind('click', function () {
+            console.info(ipage);
+            var sheel = $('#sheeltitem').combobox("getText");
+            var Select2 = 1; //$("#Select2").combobox("getValue");
+            if (ipage >= 2)
+                return;
+            if (t.val() == undefined) {
+                $.messager.alert('提示', '源文件路径不可为空！', 'info');
+                return;
+            } if (sheel == "") {
+                $.messager.alert('提示', '工作薄不可为空，请检查是否选择工作薄，确认导入文件格式', 'info');
+                return;
+            }
+
+            $('#dd' + ipage).hide();
+            ipage++;
+            $('#dd' + ipage).show();
+            if (ipage != 0) {
+                $('#prebtni').linkbutton('enable');
+            }
+            if (ipage == 2) {
+                $('#nextbtni').linkbutton('disable');
+            }
+            if (ipage == 1) {
+                //【提交到服务端，获取列名称和源文件数据集合】
+                initdata = p.post("Import", "IOperate=1&FilePath=" + t.val() + "&IsHeader=" + Select2 + "&Excel_Workspace=" + sheel);
+                if (initdata != null) {
+                    if (initdata == '0') {
+                        $('#nextbtni').linkbutton('disable');
+                        $.messager.alert('提示', '没有数据可导入，请查看', 'info');
+                        return;
+                    }
+                    //(获取源列名称)
+                    var scnamejsondata = [];
+                    for (var i in initdata) {
+                        var obj = {};
+                        obj.scname = initdata[i].ColumnName;
+                        if (obj.scname == null) {
+                            $('#nextbtni').linkbutton('disable');
+                            $.messager.alert('提示', '没有数据可导入，请查看', 'info');
+                            return;
+                        }
+                        scnamejsondata.push(obj);
+                    }
+                    //（获取目标列名）
+                    tcnamejsondata = [];
+                    var targettable = $('#importSelect').combobox("getValue");
+                    var ds = data.sender.datasource;
+                    //alert(ds.modeldata.childitem);
+                    if (ds.modeldata.tablename == targettable) {
+                        for (var i = 0; i < ds.modeldata.childitem.length; i++) {
+                            var obj = {};
+                            obj.text = ds.modeldata.childitem[i].title;
+
+                            if (obj.text == '序号') continue;
+                            obj.value = ds.modeldata.childitem[i].field;
+                            //alert(obj.value);
+                            obj.type = ds.modeldata.childitem[i].type;
+                            tcnamejsondata.push(obj);
+                        }
+                    }
+                    else {
+                        for (var i = 0; i < ds.modeldata.childmodel.length; i++) {
+                            if (ds.modeldata.childmodel[i].tablename == targettable) {
+                                for (var j = 0; j < ds.modeldata.childmodel[i].childitem.length; j++) {
+                                    var obj = {};
+                                    obj.text = ds.modeldata.childmodel[i].childitem[j].title;
+                                    if (obj.text == '序号') continue;
+                                    obj.value = ds.modeldata.childmodel[i].childitem[j].field;
+                                    obj.type = ds.modeldata.childmodel[i].childitem[j].type;
+                                    tcnamejsondata.push(obj);
+                                }
+                                break;
+                            }
+                        }
+                        //获取父表列名
+                        tcnamejsondataz = [];
+                        var objz1 = {};
+                        objz1.text = "ID";
+                        objz1.value = "ID";
+                        tcnamejsondataz.push(objz1);
+                        var dsz = data.sender.datasource;
+                        targetTable1 = dsz.modeldata.tablename;
+                        for (var i = 0; i < dsz.modeldata.childitem.length; i++) {
+                            var objz = {};
+                            objz.text = dsz.modeldata.childitem[i].title;
+                            if (obj.text == '序号') continue;
+                            objz.value = dsz.modeldata.childitem[i].field;
+                            //alert("获取父表列名:" + objz.text + ":" + objz.value)
+                            tcnamejsondataz.push(objz);
+                        }
+                    }
+                    //初始DataGrid数据
+                    var rows = [];
+                    for (var i in tcnamejsondata) {
+                        var tt = tcnamejsondata[i];
+                        var obj = {};
+                        obj.TcName = tt.value;
+                        obj.Type = tt.type;
+                        for (var n in scnamejsondata) {
+                            if (scnamejsondata[n].scname == tt.text || scnamejsondata[n].scname.toUpperCase() == tt.value.toUpperCase()) {
+                                obj.ScName = scnamejsondata[n].scname;
+                                break;
+                            }
+                        }
+                        rows.push(obj);
+                    }
+                    //加载映射表
+                    $('#dgm').html('');
+                    var lastIndex;
+                    datagrid = $('#dgm').datagrid({
+                        title: '字段映射编辑',
+                        width: 'auto',
+                        height: 'auto',
+                        fitColumns: true,
+                        singleSelect: true,
+                        columns: [[
+        					{ field: 'ScName', title: '源列名', width: 60,
+        					    editor: {
+        					        type: 'combobox',
+        					        options: {
+        					            textField: 'scname',
+        					            valueField: 'scname',
+        					            data: scnamejsondata
+        					        }
+        					    }
+        					},
+        				    { field: 'TcName', title: '目标列名', width: 60, formatter: function (value) {
+        				        for (var i = 0; i < tcnamejsondata.length; i++) {
+        				            if (tcnamejsondata[i].value == value)
+        				                return tcnamejsondata[i].text;
+        				        }
+        				        return value;
+        				    },
+        				        editor: {
+        				            type: 'combobox',
+        				            options: {
+        				                textField: 'text',
+        				                valueField: 'value',
+        				                disabled: true,
+        				                data: tcnamejsondata
+        				            }
+        				        }
+        				    },
+                              { field: 'IsAuto', title: '自动编码', width: 60, align: 'center',
+                                  formatter: function (value) {
+                                      if (value == false) {
+                                          return '';
+                                      }
+                                  },
+                                  editor: { type: 'checkbox', options: { on: true, off: false} }
+                              },
+                              { field: 'FZGX', title: '父列名', width: 60,
+                                  editor: {
+                                      type: 'combobox',
+                                      options: {
+                                          textField: 'text',
+                                          valueField: 'value',
+                                          data: tcnamejsondataz
+                                      }
+                                  }
+                              },
+                            { field: 'Value', title: '自定义文本', width: 60, editor: {
+                                type: 'combobox',
+                                options: {
+                                    textField: 'text',
+                                    valueField: 'value'
+                                }
+                            }
+                            },
+                            { field: 'Type', title: '类型', width: 60, editor: {
+                                type: 'combobox',
+                                options: {
+                                    textField: 'text',
+                                    valueField: 'value',
+                                    disabled: true
+                                }
+                            }
+                            }
+        				 ]], onClickRow: function (rowIndex) {
+        				     console.info(targetTable1);
+        				     if (targetTable1.toString() != "") {
+        				         console.info("是子集");
+        				         datagrid.datagrid('removeEditor', 'IsAuto');
+        				         datagrid.datagrid('addEditor', {
+        				             field: 'FZGX',
+        				             editor: {
+        				                 type: 'combobox',
+        				                 options: {
+        				                     textField: 'text',
+        				                     valueField: 'value',
+        				                     data: tcnamejsondataz
+        				                 }
+        				             }
+        				         });
+        				     } else {
+        				         console.info("不是子集");
+        				         datagrid.datagrid('removeEditor', 'FZGX');
+        				         datagrid.datagrid('addEditor', {
+        				             field: 'IsAuto',
+        				             editor: { type: 'checkbox', options: { on: true, off: false }
+        				             }
+        				         });
+        				     }
+        				     if (lastIndex != rowIndex) {
+        				         //自动编码
+        				         var edp = $('#dgm').datagrid('getEditor', { index: lastIndex, field: 'IsAuto' });
+        				         if (edp) {
+        				             edp.target.val(false);
+        				         }
+        				         $('#dgm').datagrid('endEdit', lastIndex);
+        				         $('#dgm').datagrid('beginEdit', rowIndex);
+        				     }
+        				     lastIndex = rowIndex;
+        				 }
+                    });
+                    $('#dgm').datagrid('loadData', { total: rows.length, rows: rows });
+                }
+            }
+            else if (ipage == 2) {
+                number = 0;
+                $('#ipp').html('');
+                var prewSC = [];
+                var prewColumns = [];
+                for (var i in tcnamejsondata) {
+                    var obj = {};
+                    obj.field = tcnamejsondata[i].value;
+                    obj.title = tcnamejsondata[i].text;
+                    obj.width = 60;
+                    //alert(obj.field + "$$$" + obj.title);
+                    prewColumns.push(obj);
+                }
+                prewSC.push(prewColumns);
+
+                $('#ipp').datagrid({
+                    title: '预览',
+                    width: 'auto',
+                    height: 'auto',
+                    fitColumns: false,
+                    singleSelect: true,
+                    columns: prewSC
+                });
+                var rows = initdata[0].Table;
+                $('#dgm').datagrid('acceptChanges');
+                maps = $('#dgm').datagrid('getRows');
+                var yls = [];
+                for (var r in rows) {
+                    var obj = {};
+                    number++;
+                    for (var i in maps) {
+                        var mm = maps[i];
+                        if (mm.ScName && mm.ScName != "") {
+                            if (number == 1) {
+                                if (mm.FZGX == "undefined" || mm.FZGX == "" || mm.FZGX == null)
+                                { }
+                                else {
+                                    fuzi += mm.TcName + "," + mm.FZGX + ";"
+                                }
+                            }
+                            obj[mm.TcName] = rows[r][mm.ScName];
+                            if (mm.Value) {
+                                obj[mm.TcName] = mm.Value;
+                            }
+                        }
+                    }
+                    yls.push(obj);
+                }
+                $('#ipp').datagrid('loadData', { total: yls.length, rows: yls });
+                $('#btnImport').linkbutton('enable');
+            }
+        });
+        //导入
+        $('#btnImport').bind('click', function () {
+            console.info(fuzi);
+            $('#progresspic').show();
+            if (targetTable1 != "") {
+                if (fuzi == "" || fuzi == null) {
+                    $('#progresspic').hide();
+                    $.messager.alert('提示', '导入失败！' + "本次导入是子集，必须选择父集和子集的对照关系,请点击上一步进行设置", 'info');
+                    return;
+                } else {
+                    //alert(fuzi);
+                    console.info(fuzi);
+                    var result = fuzi.split(";");
+                    //alert(result.length);
+                    if (result.length - 1 > 1) {
+                        $('#progresspic').hide();
+                        fuzi = "";
+                        $.messager.alert('提示', '导入失败！' + "父集和子集的对照关系只能选择一个,请点击上一步进行重新设置", 'info');
+                        return;
+                    }
+                }
+            }
+            var targetTable = $('#importSelect').combobox("getValue");
+            var Mapping = JSON.stringify(maps);
+            $('#progresspic').show();
+            var isMasterTable = "";
+            console.info(targetTable1.toString());
+            if (targetTable1.toString() == "") {
+                isMasterTable = "1";
+            } else {
+                isMasterTable = "0";
+            }
+            console.info(isMasterTable);
+            var result = p.post("Import", "Controllername=" + controllername + "&IsMasterTable=" + isMasterTable + "&IOperate=2&TargetTable=" + targetTable + "&MappingInfo=" + Mapping + "&ParentAndChild_field=" + fuzi + "&TargetTableP=" + targetTable1);
+            if (result == "0") {
+                $('#progresspic').hide();
+                fuzi = "";
+                $.messager.alert('提示', '没有可以导入的数据，请查看！', 'info');
+                return;
+            }
+            else if (result == "1") {
+                $('#progresspic').hide();
+                $.messager.alert('提示', '导入成功！', 'info');
+                return;
+            }
+            else {
+                $('#progresspic').hide();
+                $.messager.alert('提示', '导入失败！' + result, 'info');
+                return;
+            }
+
+        });
+    });
+    </script>
+   <div id="cc" class="easyui-layout" fit="true" border="false"><!--style="width:685px;height:400px;"-->
+   <div data-options="region:'center'" style="background:#eee; text-align:center; vertical-align:middle;" border="false">
+    <div id="dd0" style=" width: auto; height: auto;">
+        <div id="sf" style="border: 0px solid #ccc; width: auto; height: auto;  margin-left:170px; margin-top:50px;
+            margin-bottom: 10px;">
+            <div id="tfile" />
+        </div>
+         <div id="excel" style="border: 0px solid #ccc; width: auto; height: auto;  margin-top:10px;
+             margin-bottom: 10px;">
+            <label>
+                选择Excel工作薄:</label>
+            <select id="sheeltitem" style="width: 247px;" class="easyui-combobox" editable="false" panelHeight="auto">
+            </select>
+        </div>
+        <div id="tf" style="border: 0px solid #ccc; width: auto; height: auto; 
+            margin-bottom: 10px;">
+            <label>
+                导入表:</label>
+            <select id="importSelect"  style="width: 300px;" editable="false" panelHeight="auto">
+            </select>
+        </div>
+       <!-- <div style="border: 0px solid #ccc; width: auto; height: auto;
+            margin-bottom: 10px; margin-top: 10px;">
+            <label>
+                是否将Excel第一行作为表属性字段:</label>
+            <select id="Select2" class="easyui-combobox" style="width: 150px;">
+                <option value="0">是</option>
+                <option value="1">否</option>
+            </select>
+        </div>-->
+    </div>
+    <div id="dd1" style=" width: auto; height: auto;">
+        <div id="dgm" style="border: 0px solid #ccc; width: auto; height: auto; margin-bottom: 10px;
+            margin-top: 10px;">
+        </div>
+    </div>
+    <div id="dd2"  style=" width: auto; height: auto;">
+        <div id="ipp" style="border: 0px solid #ccc; width: auto; height: auto; margin-bottom: 10px;
+            margin-top: 10px;">
+        </div>
+        <div id="progresspic" style="display: none; width: 400px; z-index: 1; position: absolute;
+            top: 47%; left: 46%;">
+            <img src="../../images/wait.gif" />
+        </div>
+    </div> 
+    </div>
+    <div data-options="region:'south'" style="height:70px; text-align:right; vertical-align:middle;">
+    <div id="ddbtn" style=" margin-bottom:0px; margin-right:0px;" border="false">
+            <a id="prebtni" href="#" class="easyui-linkbutton" disabled="true">上一步</a>
+          <a id="nextbtni" href="#" class="easyui-linkbutton">下一步</a>
+           <a id="btnImport" href="#" class="easyui-linkbutton" disabled="true">导入</a>
+    </div>
+    </div>
+    </div>

@@ -1,0 +1,82 @@
+﻿<html>
+<link rel="stylesheet" type="text/css" href="../Scripts/jquery/themes/default/easyui.css"/>
+       <link rel="stylesheet" type="text/css" href="../Scripts/jquery/themes/icon.css"/>
+       <script type="text/javascript" src="../Scripts/jquery/jquery-1.7.1.min.js"></script>
+       <script type="text/javascript" src="../Scripts/jquery/jquery.easyui.min.js"></script>
+       <script type="text/javascript" src="../Scripts/jquery/easyloader.js"></script>
+        <script type="text/javascript" src="../Scripts/jsbase.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/webcontrol.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/textbox.js"></script>
+<script type="text/javascript">
+    var t1;
+    var t2;
+    var t3;
+    var t4;
+    var t5;
+    $(document).ready(function () {
+        t1 = new textbox();
+        t1.applyTo = "tt";
+        t1.type = "date";
+        t1.field = "t";
+        t1.title = "TEST";
+        t1.readonly = true;
+        t1.init();
+
+        t2 = new textbox();
+        t2.applyTo = "t2";
+        t2.field = "t2";
+        t2.title = "TEST2"
+        t2.comvtp = {
+            isvtp: true,
+            items: [{ "Text": "T111", "Value": 1 }, { "Text": "T222", "Value": 2}]
+        }
+        t2.init();
+
+        t3 = new textbox();
+        t3.applyTo = "t3";
+        t3.field = "t3";
+        t3.title = "";
+        t3.foreign = { isfkey: true, objectname: "tt", filedname: "t1" };
+        t3.init();
+        //t3.onevent();
+
+        t4 = new textbox();
+        t4.applyTo = "t4";
+        t4.field = "t6";
+        t4.title = "TEST4";
+        t4.init();
+
+        t5 = new textbox();
+        t5.applyTo = "t5";
+        t5.field = "t6";
+        t5.title = "TEST5";
+        var i = t5.box();
+        $("#t5").append(i);
+
+
+        $("#but").click(function () {
+            var v = t1.val();
+            var vv = t2.val();
+            var vvv = t5.val();
+            alert(v + "====" + vv + "----" + vvv);
+        });
+        $("#bse").click(function () {
+            t1.val("2012-09-12");
+            
+            //$("#" + t1.id).datebox("setValue", "2012-09-18");
+            t2.val(2);
+             t5.val("teset");
+            // $("#" + t5.id).spinnerbox("setValue", "sdfsdf");
+            //$("#" + t5.id).val("tests");
+            //t4.val("test");
+        });
+
+    });
+</script>
+<body>
+<div id="tt"></div><div id="t2"></div><div id="t3"></div><div id="t4"></div><div id="t5"></div>
+<button id="but">GET</button>
+<button id="bse">SET</button>
+<input type="text" class="spinner-text"></input>
+    </body>
+</html>

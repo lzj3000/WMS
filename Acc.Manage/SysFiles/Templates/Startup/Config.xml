@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config>
+  <add key="showValideCode" value="false"/>
+ <!--是否启用单件 明细-->
+  <add key="enableSN" value="false"/>   
+  <!--<add key="enableSN" value="false"/>-->
+  
+</config>

@@ -1,0 +1,55 @@
+﻿<html>
+<link rel="stylesheet" type="text/css" href="../Scripts/jquery/themes/default/easyui.css"/>
+       <link rel="stylesheet" type="text/css" href="../Scripts/jquery/themes/icon.css"/>
+       <script type="text/javascript" src="../Scripts/jquery/jquery-1.7.1.min.js"></script>
+       <script type="text/javascript" src="../Scripts/jquery/jquery.easyui.min.js"></script>
+       <script type="text/javascript" src="../Scripts/jquery/easyloader.js"></script>
+        <script type="text/javascript" src="../Scripts/jsbase.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/toolstrip.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/datagrid.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/webcontrol.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/datasource.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/textbox.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/form.js"></script>
+<script type="text/javascript">
+    var f;
+    $(document).ready(function () {
+        f = new form();
+        f.title = "这是个测试form";
+        f.applyTo = "tt";
+        f.childitem = [
+         { field: "t1", title: "测试1", visible: true, isedit: true, foreign: { isfkey: true, objectname: "tt", filedname: "t1"} },
+         { field: "t2", title: "测试2", visible: true, isedit: true, type: "date" },
+         { field: "t3", title: "测试3", visible: true, isedit: true, type: "datetime" },
+         { field: "t4", title: "测试4", visible: true, isedit: true, type: "time" },
+         { field: "t5", title: "测试5", visible: true, isedit: true, type: "int" },
+         { field: "t6", title: "测试6", visible: true, isedit: true, comvtp: { isvtp: true, items: [{ "Text": "T111", "Value": 1 }, { "Text": "T222", "Value": 2}]} },
+         { field: "t7", title: "测试7", visible: true, isedit: true, type: "bool" },
+         { field: "t8", title: "测试8", visible: true, isedit: true }
+         ];
+        f.init();
+        $("#t1").click(function () {
+            f.remove();
+        });
+        $("#t2").click(function () {
+            alert(f.json());
+        });
+        $("#t3").click(function () {
+            f.applyTo = "t4";
+            f.init();
+            //$("body").append(f.init());
+        });
+        $("#t4").click(function () {
+            f.show();
+        });
+    });
+</script>
+<body>
+<div id="tt"></div>
+<button id="t1">TEST</button>
+<button id="t2">JSON</button>
+<button id="t3">INSERT</button>
+<button id="t4">SHOW</button>
+<div id="t4"></div>
+</body>
+</html>

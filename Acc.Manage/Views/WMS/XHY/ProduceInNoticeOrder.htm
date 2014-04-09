@@ -1,0 +1,21 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.ProduceInNoticeOrderController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            //通知单下推，选择其他原单时改变待入库明细的数据
+            p.onForeigned = function (sender, fdata, rows) {
+                  if (fdata.tablename.toString() == "Acc_WMS_InNotice" && sender.field.toString() == "SOURCECODE") {
+                    var tt = p.datasource.post("GetNoticeStayGrid", "NoticeId=" + fdata.filedvalue + "");
+                    if (tt != "[]") {
+                        var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockInNoticeMaterials"];
+                        grid.clear();
+                        grid.insertRow(tt);
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

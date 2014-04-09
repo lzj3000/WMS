@@ -1,0 +1,20 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.Controllers.MoveOrderController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            p.onCommandClick = function (command, form, item) {
+
+                if (command == "edit") {
+                    form.setdisabled(true);
+                    for (var i in form.griditems) {
+                        var grid = form.griditems[i];
+                        grid.setdisabled(true);
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

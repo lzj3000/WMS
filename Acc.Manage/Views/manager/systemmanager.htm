@@ -1,0 +1,135 @@
+﻿    <script type="text/javascript">
+        function showmsg(p) {
+            $("#managermsg").dialog({
+                buttons: [{
+                    text: '确定',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        var m = $("#msg").val();
+                        if (m == "" || m == null) {
+                            $.messager.alert('异常', "消息不能为空！", 'error');
+                        }
+                        else {
+                            p.datasource.submit("showmsg", "msg=" + m, function (e) {
+                                if (e && e.error) {
+                                    $.messager.alert('异常', e.errormsg, 'error');
+                                }
+                                else {
+                                    $.messager.show({ title: '消息', msg: '发送消息完成。', showType: 'show' });
+                                }
+                            });
+
+                        }
+                    }
+                },
+                        {
+                            text: '取消',
+                            handler: function () {
+                                $('#managermsg').dialog('close');
+                            }
+                        }]
+            });
+            $('#managermsg').dialog('open');
+        }
+        function logcz(p) {
+            var cp = new singlepage();
+            cp.c = "Acc.Business.Controllers.OverseeController";
+            cp.applyTo = "t2";
+            cp.showfooter = false;
+            cp.closesearch=true;
+            cp.init();
+            cp.onCommandClick = function (command, form, item) {
+               if(command=="clear")
+               {
+               if(cp.datasource.grid)
+                  cp.datasource.grid.load(null);
+                  return false;
+               }
+            };
+            cp.onExpandRow=function(data)
+            {
+               $(data.tabs).tabs({onSelect:function(){}});
+               var cgrid=data.grids[0];
+               var row=data.row;
+               var name=data.childmodel[0].name;
+               if(row[name]!=null)
+               {
+                var os = data.datasource.getcmsource(0);
+                var ns = new datasource();
+                ns.c = os.c;
+                ns.modeldata = os.modeldata;
+                ns.keys = os.keys;
+                ns.items = os.items;
+                ns.sort = os.sort;
+                ns.page = os.page;
+                ns.where = os.where;
+                ns.commands = data.datasource.commands;
+//                ns.commands=[];
+//                ns.commands.push({command:"edit",disabled:true,visible:false});
+                cgrid.datasource=ns;
+                cgrid.init();
+                cgrid.clickrow=null;
+                cgrid.sortcolumn=null;
+                  var obj={};
+                  obj.total=row[name].length;
+                  obj.rows=row[name];
+                  cgrid.load(obj);
+               }
+               return false;
+            }
+            if (webjs.obj && webjs.obj.ss) {
+                cp.mmmsg = webjs.obj.ss.onmessage;
+                webjs.obj.ss.onmessage = function (data) {
+                    if (data.RecipientID)
+                        cp.mmmsg(data);
+                    else {
+                        var grid = cp.datasource.grid;
+                        if(data["ROWINDEX"]!=undefined)
+                        {
+                          var rows=grid.getrows();
+                            data.ROWINDEX=rows.length+1;
+                        }
+                        grid.addRow(data);
+                    }
+                }
+            }
+            $('#logcz').dialog({
+                width: 800,
+                height: 600,
+                cache: false,
+                modal: true,
+                maximizable: true,
+                resizable: true,
+                onClose: function () {
+                   webjs.obj.ss.onmessage=cp.mmmsg;
+                   p.datasource.submit("unLogcz");
+                   $('#logcz').empty();
+                   $('#logcz').append("<div id='t2'/>");
+                },
+            });
+            $('#logcz').dialog('open');
+        }
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.Controllers.SystemManagerController";
+            p.applyTo = "t1";
+            p.showfooter = false;
+            p.init();
+            p.onCommandClick = function (command, form, item) {
+                if (command == "showmsg") {
+                    showmsg(p);
+                    return false;
+                }
+                if (command == "logcz") {
+                    logcz(p);
+                }
+            }
+        });
+     </script>
+<div id="t1"></div>
+<div id="managermsg" class="easyui-dialog"  closed="true" title="消息" style="padding:5px;width:400px;height:200px;">
+           <textarea id='msg' name='msg' style='height: 100%; width: 100%'></textarea>
+</div>
+<div id="logcz" class="easyui-dialog"  closed="true" title="监视">
+<div id="t2"></div>
+</div>

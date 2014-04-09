@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<table>
+  <TableProperty>
+    <name>Acc_Crm_OpportunityData</name>
+    <Kname>CRM_OppProduct</Kname>
+    <note>商机商品明细表</note>
+    <Knote>商机商品明细表</Knote>
+  </TableProperty>
+
+  <!--<ColProperty>
+    <name>ID</name>
+    <Kname>FEntryID</Kname>
+  </ColProperty>-->
+  
+
+  <!--<ColProperty>
+    <name>FOppID</name>
+    <Kname>FOpportunityID</Kname>
+    <note>商机ID</note>
+    <Knote>商机ID</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FCPID</name>
+    <Kname>FProductID</Kname>
+    <note>商品ID</note>
+    <Knote>商品ID</Knote>
+  </ColProperty>-->
+  
+  <!--<ColProperty>
+    <name>Creationdate</name>
+    <Kname>FBillDate</Kname>
+    <note>创建日期</note>
+    <Knote>创建日期</Knote>
+  </ColProperty>-->
+  
+  <ColProperty>
+    <name>FQTY</name>
+    <Kname>FQty</Kname>
+    <note>数量</note>
+    <Knote>数量</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FPRICE</name>
+    <Kname>FAuxTaxPrice</Kname>
+    <note>销售单价</note>
+    <Knote>销售价</Knote>
+  </ColProperty>
+  <ColProperty>
+    <name>FTOTAL</name>
+    <Kname>FAllAmount</Kname>
+    <note>价税合计</note>
+    <Knote>价税合计</Knote>
+  </ColProperty>
+
+  <ColProperty>
+    <name>Remark</name>
+    <Kname>FNote</Kname>
+    <note>备注</note>
+    <Knote>备注</Knote>
+  </ColProperty>
+
+</table>
+

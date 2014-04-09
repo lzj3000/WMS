@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/697/xhy/AcctrueTerminal/Common
+END
+ToJson.cs
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/ToJson.cs
+END
+UIHelper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/UIHelper.cs
+END
+LoadItem.cs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/LoadItem.cs
+END
+UrlTypeData.cs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/UrlTypeData.cs
+END
+InfoMessage.cs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/InfoMessage.cs
+END
+PDASet.cs
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/PDASet.cs
+END
+SqliteHelper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/SqliteHelper.cs
+END
+ForeignData.cs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/ForeignData.cs
+END
+BaseCommon.cs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/697/xhy/AcctrueTerminal/Common/BaseCommon.cs
+END
+PublicEnum.cs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/PublicEnum.cs
+END
+DataBaseConnection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/DataBaseConnection.cs
+END
+SessionModel.cs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/SessionModel.cs
+END
+SqlCEHelper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/696/xhy/AcctrueTerminal/Common/SqlCEHelper.cs
+END

@@ -1,0 +1,296 @@
+﻿using System;
+
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using AcctrueTerminal.Common;
+
+namespace AcctrueTerminal.Stock
+{
+    public partial class Frm_MoveBin : Form
+    {        
+        private UrlTypeData ud;
+        private SessionModel sm;      
+
+        public Frm_MoveBin()
+        {
+            InitializeComponent();
+        }
+
+        private void btn_SelectWh_Click(object sender, EventArgs e)
+        {
+            Frm_Store fs = new Frm_Store("0");
+            DialogResult ret = fs.ShowDialog();
+            if (fs.WhName != null)
+            {
+                txt_WhCode.Text = fs.WhCode;
+                txt_WhName.Text = fs.WhName;
+                sm.WhourseId =Convert.ToInt32(fs.WHID);
+            }
+        }
+
+        /// <summary>
+        /// 转移
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItemSave_Click(object sender, EventArgs e)
+        {
+            if (CheckData())
+            {
+                ud = new UrlTypeData();
+                ud.c = sm.ControllerName;
+                
+                if (sm.MoveOrderId==0)
+                {
+                    ud.m = BaseCommon.Add;
+                    ud.c = "Acc.Business.WMS.Controllers.MoveOrderController";
+                    ud.LoadItem = "{'DEPOTWBS':'" + sm.WhourseId + "','StateBase':0}";
+                    sm.strResult = ToJson.ExecuteMethodStr(ud);
+                    DataTable dt = ToJson.StrJsonToDataTable(sm.strResult);
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        sm.MoveOrderId = Convert.ToInt32(dt.Rows[0]["ID"].ToString());                      
+                    }                  
+                }
+                ud.c = sm.ControllerName;
+                if (checkBoxSelect.Checked)
+                {
+                    ud.m = BaseCommon.MoveData;
+                    ud.LoadItem = "{}&orderid=" + sm.MoveOrderId + "&yhw=" + BaseCommon.GetWhouseInfo(txt_StartBin.Text.Trim(),null).Rows[0]["ID"].ToString() + "&mhw=" + BaseCommon.GetWhouseInfo(txt_EndBin.Text.Trim(),null).Rows[0]["ID"].ToString();
+                    sm.strResult = ToJson.ExecuteMethod(ud);
+                }
+                else
+                {
+                    ud.m = BaseCommon.MoveData;
+                    ud.LoadItem = "{}&orderid=" + sm.MoveOrderId + "&yhw=" + BaseCommon.GetWhouseInfo(txt_StartBin.Text.Trim(),null).Rows[0]["ID"].ToString() + "&mhw=" + BaseCommon.GetWhouseInfo(txt_EndBin.Text.Trim(),null).Rows[0]["ID"].ToString() + "&materials=" + lv_StockInfoList.Items[lv_StockInfoList.SelectedIndices[0]].SubItems[5].Text + "&num=" + txt_Num.Text.Trim();
+                    sm.strResult = ToJson.ExecuteMethod(ud);
+                }
+                if (sm.strResult == "Y" || sm.strResult == "ok")
+                {
+                    UIHelper.ErrorMsg(InfoMessage.MoveSuccess);
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.MoveFailed);
+                }
+            }
+        }
+
+        #region 数据验证
+        /// <summary>
+        /// 数据验证
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckData()
+        {
+            if (lv_StockInfoList.SelectedIndices.Count <=0)
+            {
+                UIHelper.ErrorMsg(InfoMessage.SelectData);
+                return false;
+            }
+            if (string.IsNullOrEmpty(txt_WhCode.Text.Trim()))
+            {
+                txt_WhCode.Text = InfoMessage.SelectStore;
+                txt_WhCode.SelectAll();
+                txt_WhCode.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txt_StartBin.Text.Trim()))
+            {
+                txt_StartBin.Text = InfoMessage.InputOrScanningBin;
+                txt_StartBin.SelectAll();
+                txt_StartBin.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txt_EndBin.Text.Trim()))
+            {
+                txt_EndBin.Text = InfoMessage.InputOrScanningBin;
+                txt_EndBin.SelectAll();
+                txt_EndBin.Focus();
+                return false;
+            }
+            if (lv_StockInfoList.Items.Count <= 0)
+            {                
+                UIHelper.PromptMsg(InfoMessage.NotBin);
+                return false;
+            }
+            if (Convert.ToSingle(txt_Num.Text.Trim()) > Convert.ToSingle(lv_StockInfoList.Items[lv_StockInfoList.SelectedIndices[0]].SubItems[3].Text))
+            {
+                UIHelper.ErrorMsg(InfoMessage.MoveNumberMess);
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region 数据绑定
+        private void BindLv_StockInfoList(DataTable dt)
+        {
+            lv_StockInfoList.Items.Clear();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                ListViewItem list = new ListViewItem((i+1).ToString());
+                list.SubItems.Add(dt.Rows[i]["MCODE"].ToString());
+                list.SubItems.Add(dt.Rows[i]["CODE_FNAME"].ToString());
+                list.SubItems.Add(dt.Rows[i]["NUM"].ToString());
+                list.SubItems.Add("暂无");
+                list.SubItems.Add(dt.Rows[i]["CODE"].ToString());
+                lv_StockInfoList.Items.Add(list);
+            }
+        }
+
+        private void BindLv_MoveData(DataTable dt)
+        {
+            lv_StockInfoList.Items.Clear();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                ListViewItem list = new ListViewItem((i + 1).ToString());
+                list.SubItems.Add(dt.Rows[i]["MCODE"].ToString());
+                list.SubItems.Add(dt.Rows[i]["CODE_FNAME"].ToString());
+                list.SubItems.Add(dt.Rows[i]["NUM"].ToString());
+                list.SubItems.Add(dt.Rows[i]["BATCHNO"].ToString());
+                list.SubItems.Add("暂无");
+                list.SubItems.Add(dt.Rows[i]["FMODEL"].ToString());
+                lv_StockInfoList.Items.Add(list);
+            }
+        }
+        #endregion
+
+        #region 全选或取消
+        private void checkBoxSelect_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (lv_StockInfoList.Items.Count > 0)
+            {
+                if (this.checkBoxSelect.Checked)
+                {
+                    for (int i = 0; i < this.lv_StockInfoList.Items.Count; i++)
+                    {                       
+                        lv_StockInfoList.Items[i].Checked = true;
+                        //lv_StockInfoList.Items[i].Selected = true;
+                    }
+                    this.txt_Num.Text = string.Empty;
+                    this.txt_Num.Enabled = false;
+                    this.txt_Num.BackColor = Color.Gray;
+                }
+                else
+                {
+                    for (int i = 0; i < this.lv_StockInfoList.Items.Count; i++)
+                    {
+                        lv_StockInfoList.Items[i].Checked = false;
+                        lv_StockInfoList.Items[i].Selected = false;
+                    }
+                    this.txt_Num.Enabled = true;
+                    this.txt_Num.BackColor = Color.White;
+                }
+                this.Focus();
+            }
+        }
+        #endregion
+
+        #region 验证货位
+        private void txt_StartBin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(txt_StartBin.Text.Trim()))
+                {                    
+                    SessionModel.DtWHourseInfo = BaseCommon.GetWhouseInfo(txt_StartBin.Text.Trim(),null);
+                    if (SessionModel.DtWHourseInfo != null && SessionModel.DtWHourseInfo.Rows.Count > 0)
+                    {
+                        sm.BinCodeId = SessionModel.DtWHourseInfo.Rows[0]["ID"].ToString();
+                        SessionModel.DtStockInfo = BaseCommon.GetStockInfoMaterials(null, null, sm.BinCodeId.ToString());
+                        if (SessionModel.DtStockInfo != null && SessionModel.DtStockInfo.Rows.Count > 0)
+                        {
+                            BindLv_StockInfoList(SessionModel.DtStockInfo);
+                            txt_EndBin.Focus();
+                        }
+                        else
+                        {
+                            UIHelper.ErrorMsg(InfoMessage.NotTrayCode);
+                            lv_StockInfoList.Items.Clear();
+                            txt_StartBin.Focus();
+                        }
+                    }
+                    else
+                    {
+                        UIHelper.ErrorMsg(InfoMessage.NotBin);
+                    }
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.InputOrScanningBin);
+                }
+            }
+        }
+        private void txt_EndBin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(txt_EndBin.Text.Trim()))
+                {
+                    SessionModel.DtWHourseInfo = BaseCommon.GetWhouseInfo(txt_EndBin.Text.Trim(),null);
+                    if (SessionModel.DtWHourseInfo != null && SessionModel.DtWHourseInfo.Rows.Count > 0)
+                    {
+                        txt_Num.Focus();
+                    }
+                    else
+                    {
+                        UIHelper.ErrorMsg(InfoMessage.NotBin);
+                    }
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.InputOrScanningBin);
+                }
+            }
+        }      
+        #endregion
+
+        /// <summary>
+        /// 完成移位
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItemFinish_Click(object sender, EventArgs e)
+        {
+            sm.MoveOrderId = 0;
+        }      
+
+        private void Frm_MoveBin_Load(object sender, EventArgs e)
+        {
+            sm = new SessionModel();
+            DataTable dt = BaseCommon.GetMobileSetInfo("货位转移");
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                sm.ControllerName = dt.Rows[0]["ControllerName"].ToString();
+            }
+            else
+            {
+                UIHelper.ErrorMsg(InfoMessage.NotControllerName);
+            }
+        }
+
+        private void lv_StockInfoList_ItemActivate(object sender, EventArgs e)
+        {
+            txt_Num.Text = lv_StockInfoList.Items[lv_StockInfoList.SelectedIndices[0]].SubItems[3].Text;
+        }
+
+        private void Frm_MoveBin_Closing(object sender, CancelEventArgs e)
+        {
+            DialogResult result;
+            result = UIHelper.QuestionMsg("是否退出");
+            if (result == DialogResult.Yes)
+            {
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }         
+    }
+}

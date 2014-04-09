@@ -1,0 +1,7 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<session>
+  <!--<add  key="deptName" value="werer" ifadd="true"/>
+  <add  key="deptID" value="sql(select deptid from depts where userid='$session.get(\'userid=\'\'\')')" ifadd="true"/>
+  <add  key="deptID1" value="sql(select deptid from depts where userid=\'4\')" ifadd="true"/>-->
+  <add  key="deptID" value="0001" ifadd="true"/>
+</session>

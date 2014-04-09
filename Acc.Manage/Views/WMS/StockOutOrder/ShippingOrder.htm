@@ -1,0 +1,22 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.Controllers.ShippingOrderController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+//                    var tt = p.datasource.post("GetShippingOrder", null);
+//                    form.setform("SHIPPINGORDERNO", tt);
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED==true) {
+                        form.setdisabled(true);
+                    }
+                }
+
+            }
+
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

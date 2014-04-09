@@ -1,0 +1,29 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.StockPurchaseInOrderController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("STOCKTYPE", "0");
+                    form.setform("STATE", "0");
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.onForeigned = function (sender, fdata, rows) {
+                if (fdata.tablename.toString() == "Acc_Bus_BusinessCommodity" && sender.field.toString() == "MATERIALCODE") {
+                    var rr = p.datasource.post("GetGrid", "MaterialsId=" + rows.ID + "");
+                    if (rr != "[]") {
+                        sender.parent.removeRow(sender.parent.selectIndex);
+                        sender.parent.insertRow(rr);
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

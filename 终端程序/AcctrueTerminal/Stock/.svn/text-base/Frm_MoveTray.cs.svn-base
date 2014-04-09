@@ -1,0 +1,332 @@
+﻿using System;
+
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using AcctrueTerminal.Common;
+
+namespace AcctrueTerminal.Stock
+{
+    public partial class Frm_MoveTray : Form
+    {
+        private UrlTypeData ud;
+        private SessionModel sm;
+        string WHid;
+        private string materials;
+        private string ytp;
+        private string mtp;
+        private string yhw;
+        private string mhw;
+
+        public Frm_MoveTray()
+        {
+            InitializeComponent();
+        }
+
+        private void Frm_MoveTray_Closed(object sender, EventArgs e)
+        {
+            mainMenu1.Dispose();
+        }
+
+        private void menuItem1_Click(object sender, EventArgs e)
+        {
+            if (CheckData())
+            {
+                if (sm.MoveOrderId == 0)
+                {
+                    ud = new UrlTypeData();
+                    ud.c = "Acc.Business.WMS.Controllers.MoveOrderController";
+                    ud.m = BaseCommon.Add;
+                    ud.LoadItem = "{'StateBase':0}";
+                    sm.MoveOrderId = Convert.ToInt32(ToJson.OnOrderInExecuteMethod(ud));
+                }
+                ud = new UrlTypeData();
+                ud.c = "Acc.Business.WMS.Controllers.StockInfoMaterialsController";
+                if (checkBox1.Checked)
+                {
+                    ud.m = BaseCommon.MoveData;
+                    if (textBox5.Text.Trim() != "" && textBox3.Text.Trim() == "")
+                    {
+                        if (!btn_CheckPort(textBox5.Text.Trim()))
+                        {
+                            UIHelper.ErrorMsg("请正确输入托盘码！");
+                            return;
+                        }
+                        ud.LoadItem = "{}&orderid=" + sm.MoveOrderId + "&whid="+WHid+"&ytpm=" + BaseCommon.GetPortsInfo(txt_Gname.Text.Trim()).Rows[0]["ID"].ToString() + "&mtpm=" + BaseCommon.GetPortsInfo(textBox5.Text.Trim()).Rows[0]["ID"].ToString();
+                    }
+                    if (textBox5.Text.Trim() == "" && textBox3.Text.Trim() != "")
+                    {
+                        if (!btn_CheckPort(textBox3.Text.Trim()))
+                        {
+                            UIHelper.ErrorMsg("请正确输入托盘码！");
+                            return;
+                        }
+                        ud.LoadItem = "{}&orderid=" + sm.MoveOrderId + "&whid=" + WHid + "&ytpm=" + BaseCommon.GetPortsInfo(txt_Gname.Text.Trim()).Rows[0]["ID"].ToString() + "&mhw=" + sm.WhourseId.ToString();
+                    }
+                    sm.strResult = ToJson.ExecuteMethod(ud);
+                }
+                else
+                {
+                    ud.m = BaseCommon.MoveData;
+                    if (textBox5.Text.Trim() != "" && textBox3.Text.Trim() == "")
+                    {
+                        if (!btn_CheckPort(textBox5.Text.Trim()))
+                        {
+                            UIHelper.ErrorMsg("请正确输入托盘码！");
+                            return;
+                        }
+                        ud.LoadItem = "{}&orderid=" + sm.MoveOrderId + "&whid=" + WHid + "&ytpm=" + BaseCommon.GetPortsInfo(txt_Gname.Text.Trim()).Rows[0]["ID"].ToString() + "&mtpm=" + BaseCommon.GetPortsInfo(textBox5.Text.Trim()).Rows[0]["ID"].ToString() + "&materials=" + lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[5].Text + "&num=" + textBox2.Text.Trim();
+                    }
+                    if (textBox5.Text.Trim() == "" && textBox3.Text.Trim() != "")
+                    {
+                        if (!btn_Warehouse(textBox3.Text.Trim()))
+                        {
+                            UIHelper.ErrorMsg("货位码不存在或者不存在当前仓库中！");
+                            return;
+                        }
+                        ud.LoadItem = "{}&orderid=" + sm.MoveOrderId + "&whid=" + WHid + "&ytpm=" + BaseCommon.GetPortsInfo(txt_Gname.Text.Trim()).Rows[0]["ID"].ToString() + "&mhw=" + sm.WhourseId.ToString() + "&materials=" + lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[5].Text + "&num=" + textBox2.Text.Trim();
+                    }
+                    sm.strResult = ToJson.ExecuteMethod(ud);
+                }
+                if (sm.strResult == "Y")
+                {
+                    UIHelper.PromptMsg(InfoMessage.MoveSuccess);
+                    txt_Gname.Text = textBox1.Text = textBox2.Text = textBox5.Text =textBox3.Text= "";
+                    txt_Gname.Focus();
+                    lv_OrderList.Items.Clear();
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.MoveFailed);
+                }
+            }
+        }
+
+        private void txt_Gname_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!string.IsNullOrEmpty(txt_Gname.Text.Trim()))
+                {
+                    SessionModel.DtWHourseInfo = BaseCommon.GetPortsInfo(txt_Gname.Text.Trim());
+                    if (SessionModel.DtWHourseInfo != null && SessionModel.DtWHourseInfo.Rows.Count > 0)
+                    {
+                        ytp = SessionModel.DtWHourseInfo.Rows[0]["ID"].ToString();
+                        SessionModel.DtStockInfo = BaseCommon.GetStockInfoMaterials(sm.BinCodeId.ToString(), null,null );
+                        if (SessionModel.DtStockInfo != null && SessionModel.DtStockInfo.Rows.Count > 0)
+                        {
+                            if (SessionModel.DtStockInfo.Rows[0]["WAREHOUSEID"].ToString() != WHid)
+                            {
+                                UIHelper.ErrorMsg("该托盘不属于当前选择仓库！");
+                                return;
+                            }
+                            textBox1.Text = SessionModel.DtStockInfo.Rows[0]["DEPOTWBS_Code"].ToString();
+                            SessionModel.DtWHourseInfo = BaseCommon.GetWhouseInfo(textBox1.Text,WHid);
+                            if (SessionModel.DtWHourseInfo.Rows.Count > 0)
+                                yhw = SessionModel.DtWHourseInfo.Rows[0]["ID"].ToString();
+                            Bindlv_OrderList(SessionModel.DtStockInfo);
+                            textBox2.Focus();
+                        }
+                        else
+                        {
+                            UIHelper.ErrorMsg(InfoMessage.NotTrayCode);
+                            listView1.Items.Clear();
+                            txt_Gname.Focus();
+                        }
+                    }
+                    else
+                    {
+                        UIHelper.ErrorMsg(InfoMessage.NotBin);
+                    }
+                }
+                else
+                {
+                    UIHelper.ErrorMsg(InfoMessage.InputOrScanningBin);
+                }
+            }
+        }
+
+        #region 数据绑定
+        private void Bindlv_OrderList(DataTable dt)
+        {
+            lv_OrderList.Items.Clear();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                ListViewItem list = new ListViewItem((i + 1).ToString());
+                list.SubItems.Add(dt.Rows[i]["MCODE"].ToString());
+                list.SubItems.Add(dt.Rows[i]["CODE_FNAME"].ToString());
+                list.SubItems.Add(dt.Rows[i]["NUM"].ToString());
+                list.SubItems.Add("暂无");
+                list.SubItems.Add(dt.Rows[i]["CODE"].ToString());
+                lv_OrderList.Items.Add(list);
+            }
+        }
+
+        private void lv_OrderList_ItemActivate(object sender, EventArgs e)
+        {
+            textBox2.Text = lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[3].Text;
+        }
+        #endregion
+
+        #region 数据验证
+        /// <summary>
+        /// 数据验证
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckData()
+        {
+            if (!UIHelper.CheckTextBox(txt_OrderCode.Text.Trim()))
+            {
+                UIHelper.ErrorMsg("请选择仓库！");
+                return false;
+            }
+            if (lv_OrderList.SelectedIndices.Count <= 0)
+            {
+                UIHelper.ErrorMsg(InfoMessage.SelectData);
+                return false;
+            }
+            if (string.IsNullOrEmpty(txt_Gname.Text.Trim()))
+            {
+                txt_Gname.Text = InfoMessage.InputOrScanningBin;
+                txt_Gname.SelectAll();
+                txt_Gname.Focus();
+                return false;
+            }
+            if (lv_OrderList.Items.Count <= 0)
+            {
+                UIHelper.PromptMsg("此托盘不存在仓库中！");
+                return false;
+            }
+            if (!UIHelper.CheckNum(textBox2.Text.Trim()))
+            {
+                UIHelper.ErrorMsg(InfoMessage.Number);
+                return false;
+            }
+            if (Convert.ToSingle(textBox2.Text.Trim()) > Convert.ToSingle(lv_OrderList.Items[lv_OrderList.SelectedIndices[0]].SubItems[3].Text))
+            {
+                UIHelper.ErrorMsg(InfoMessage.MoveNumberMess);
+                return false;
+            }
+            if (string.IsNullOrEmpty(textBox5.Text) && string.IsNullOrEmpty(textBox3.Text))
+            {
+                UIHelper.ErrorMsg("不能同时输入托盘和货位！");
+                return false;
+            }
+            return true;
+        }
+
+        private bool btn_CheckPort(string strPortCode)
+        {
+            DataTable dt = BaseCommon.GetPortsInfo(strPortCode);
+            if (dt != null && dt.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+        private bool btn_Warehouse(string strWarehouseCode)
+        {
+            DataTable dt = BaseCommon.GetWhouseInfo(strWarehouseCode,WHid);
+            if (dt != null && dt.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+        #endregion
+
+        private void btn_CheckOrderQuery_Click(object sender, EventArgs e)
+        {
+            Frm_Store fs = new Frm_Store("0");
+            DialogResult ret = fs.ShowDialog();
+            if (ret == DialogResult.OK && fs.WhName != null)
+            {
+                txt_OrderCode.Text = fs.WhCode;
+                tb_OrderCheckDesc.Text = fs.WhName;
+                WHid = fs.WHID;
+                sm.WhourseId = Convert.ToInt32(fs.WHID);
+            }
+        }
+
+        private void Frm_MoveTray_Load(object sender, EventArgs e)
+        {
+            sm = new SessionModel();
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (!UIHelper.CheckTextBox(txt_OrderCode.Text.Trim()))
+                {
+                    UIHelper.ErrorMsg("请选择仓库！");
+                    return;
+                }
+                if (!GetWhourseId(textBox3.Text.Trim()))
+                {
+                    UIHelper.ErrorMsg("该货位不存在或者不存在该仓库中！");
+                    return;
+                }
+            }
+        }
+
+        #region 获取存储位置信息
+        private bool GetWhourseId(string BinCode)
+        {
+            DataTable dt = BaseCommon.GetWhouseInfo(BinCode, WHid);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                sm.WhourseId = Convert.ToInt32(dt.Rows[0]["ID"].ToString());
+                return true;
+            }
+            else
+            {
+                UIHelper.ErrorMsg(InfoMessage.BinCodeNotFound);
+            }
+            return false;
+        }
+        #endregion
+
+        private void tabControlSet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabControlSet.TabPages[tabControlSet.SelectedIndex].Text)
+            {
+                case "记录":
+                    BindlistView1List(BaseCommon.GetMoveOrderInfo(sm.MoveOrderId.ToString()));
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        public void BindlistView1List(DataTable dt)
+        {
+            listView1.Items.Clear();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ListViewItem list = new ListViewItem((i + 1).ToString());
+                    list.SubItems.Add(dt.Rows[i]["F4"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["NUM"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["FROMDEPOT_Code"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["TODEPOT_WAREHOUSENAME"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["FROMPORT_PORTNAME"].ToString());
+                    list.SubItems.Add(dt.Rows[i]["TOPORT_PORTNAME"].ToString());
+                    listView1.Items.Add(list);
+                }
+            }
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            { 
+            
+            }
+        }
+
+    }
+}

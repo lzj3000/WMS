@@ -1,0 +1,27 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.StockFinishInOrderController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("STOCKTYPE", "2");
+                    form.setform("STATE", "0");
+                    for (var i in form.items) {
+                        switch (form.items[i].field) {
+                            case "PARENTID":
+                                form.items[i].setdisabled(true);
+                                break;
+                        }
+                    }
+                }
+                if (command == "edit") {
+                    if (item.ISREVIEWED == true || item.ISSUBMITED == true) {
+                        form.setdisabled(true);
+                    }
+                }
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>

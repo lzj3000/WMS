@@ -1,0 +1,24 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.ishelp = false;
+            p.c = "Acc.Business.Controllers.BillNumberController";
+            p.applyTo = "t1";
+            p.onAfterEdit = function (index, item, changes) {
+            }
+            p.onSelectTab = function (index, f, grid) {
+
+            }
+            p.onCommandClick = function (command, form, item) {
+
+                if (command == "add") {
+                    form.setform("创建人", webjs.username); //或创建人
+
+                }
+
+            }
+            p.init();
+        });
+      </script>
+<div id="t1"></div>
+

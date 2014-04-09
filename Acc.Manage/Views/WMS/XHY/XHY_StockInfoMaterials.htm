@@ -1,0 +1,67 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.XHY_StockInfoMaterialsController";
+            p.applyTo = "t1";
+            p.init();
+            p.onCommandClick = function (command, form, item) {
+
+                if (command == "edit") {
+                    form.setdisabled(true);
+                    for (var i in form.griditems) {
+                        var grid = form.griditems[i];
+                        grid.setdisabled(true);
+                    }
+                }
+            }
+            p.ishelp = false;
+        });
+        function SetDisabled(data) {
+            window.hostWMS = 1;
+            $("#t2").dialog({
+                title: "" + data.item.MATERIALNAME + "",
+                width: 1200,
+                height: 620,
+                maximizable: false,
+                cache: false,
+                shadow: true,
+                modal: true,
+                content: "请选择冻结方式：" + data.item.ID + ""
+            });
+        }
+        function import1(data) {
+        try{
+            //var nnn = webjs.getbasepath(); //http://localhost:8024/Scripts/
+            $('<div id="d2"><div id="d3"/></div>').appendTo($("#temp"));
+            var p1 = new datasource();
+            p1.c = " Acc.Business.WMS.XHY.Controllers.XHY_StockInfoMaterialsDR";
+            p1.applyTo = "d3";
+            //p1.outc = form.parent.c;
+            //p1.ssss = data;
+            window.ddata = data;
+            window.pdata = p1;
+            p1.init();
+           
+            //console.info(p1);
+            //alert(p1.datasource.url); //Views/CRM/Exceldr.htm
+            $('#d2').dialog({
+                title: "导入数据",
+                collapsible: false,
+                resizable: false,
+                width: 700,
+                height: 400,
+                cache: false,
+                href: "Views/manager/Exceldr.htm", //p1.datasource.url,
+                onClose: function () {
+                    $(this).panel('destroy');
+                    $("#temp").empty();
+                    window.ddata = null;
+                }
+            });
+            }catch(e){
+            
+            }
+        }
+      </script>
+<div id="t1"></div>
+<div id="t2"></div>

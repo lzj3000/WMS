@@ -1,0 +1,492 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        var p = new datasource();
+        p.c = "Acc.Business.Controllers.BusinessController";
+
+        p.onAfterEdit = function (index, item, changes) {
+            item.APPROVEDAMOUNT = item.APPLYAMOUNT;
+        }
+
+//        p.onCommandClick = function (command, form, item) {
+//            if (command == "add") {
+//                form.setform("APPLYID", webjs.username); //申请人 
+//                form.setform("CREATEDBY", webjs.username); //创建人
+//                var myDate = new Date();
+//                var d = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+//                form.setform("CREATIONDATE", d); //创建时间
+//                form.setform("APPLYDATE", d); //申请时间
+//            }
+//            if (command == "edit") {
+//                if (item.ISSUBMITED == true || item.ISDISABLE == true) {//判断是否已经提交或者禁用
+//                    form.setdisabled(true); //提交或禁用后所有控件不可编辑
+//                }
+//            }
+//        }
+        p.init();
+    });
+
+    function ImportWindow(data) {
+        var ipage = 0;
+        //初始化显示
+        $('#dd').show();
+        $('#dd0').show();
+        $('#dd1').hide();
+        $('#dd2').hide();
+        $('#dd3').hide();
+
+        var t = new textbox();
+        t.type = "file";
+        t.applyTo = "tfile";
+        t.title = "源文件:"
+        t.init();
+        t.ready();
+        t.onevent();
+        t.setwidth(298);
+
+        //(加载目标列表)
+        $('#importSelect').html('');
+        var dsmodel = data.sender.datasource.modeldata;
+        var ioption = $("<option value='" + dsmodel.tablename + "'>" + dsmodel.title + "</option>");
+        $(ioption).appendTo($("#importSelect"));
+        for (var i = 0; i < dsmodel.childmodel.length; i++) {
+            var m = dsmodel.childmodel[i];
+            if (m.title != "流程状态") {
+                var ioptions = $("<option value='" + m.tablename + "'>" + m.title + "</option>");
+                $(ioptions).appendTo($("#importSelect"));
+            }
+        }
+        $("#importSelect").attr("class", "easyui-combobox")
+        $('.easyui-combobox').combobox();
+
+        //映射关系列定义
+        var stypejsondata = [];
+        var obj = {};
+        obj.text = '主键';
+        obj.value = 'PID';
+        stypejsondata.push(obj);
+        obj = {};
+        obj.text = '外键';
+        obj.value = 'FID';
+        stypejsondata.push(obj);
+        obj = {};
+        obj.text = '自动编码';
+        obj.value = 'ACODE';
+        stypejsondata.push(obj);
+
+        //初始化数据(列名称和源文件数据集合)
+        var initdata;
+        //目标列名
+        var tcnamejsondata
+        //映射配置
+        var maps;
+
+        $('#dd').dialog({
+            title: "导入数据",
+            collapsible: false,
+            minimizable: true,
+            maximizable: true,
+            resizable: true,
+            buttons: [{
+                id: 'prebtni',
+                text: '上一步',
+                handler: function () {
+                    if (ipage <= 0)
+                        return;
+                    $('#dd' + ipage).hide();
+                    ipage--;
+                    $('#dd' + ipage).show();
+                    if (ipage == 1) {
+                        $('#dgm').datagrid('resize');
+                    }
+                    else if (ipage == 2) {
+                        $('#ipp').datagrid('resize');
+                    }
+                    else if (ipage == 0) {
+                        $('#prebtni').linkbutton('disable');
+                    }
+                    if (ipage != 2) {
+                        $('#nextbtni').linkbutton('enable');
+                        $('#btnImport').linkbutton('disable');
+                        $('#btnImport').unbind("handler");
+                    }
+                }
+            }, {
+                id: 'nextbtni',
+                text: '下一步',
+                handler: function () {
+                    if (ipage >= 2)
+                        return;
+                    if (t.val() == undefined) {
+                        $.messager.alert('提示', '源文件路径不可为空！', 'info');
+                        return;
+                    }
+                    $('#dd' + ipage).hide();
+                    ipage++;
+                    $('#dd' + ipage).show();
+                    if (ipage != 0) {
+                        $('#prebtni').linkbutton('enable');
+                    }
+                    if (ipage == 2) {
+                        $('#nextbtni').linkbutton('disable');
+                    }
+                    if (ipage == 1) {
+                        //【提交到服务端，获取列名称和源文件数据集合】
+                        initdata = data.sender.datasource.post(data.command, "IOperate=1&FilePath=" + t.val());
+                        if (initdata != null) {
+                            //(获取源列名称)
+                            var scnamejsondata = [];
+                            for (var i in initdata) {
+                                var obj = {};
+                                obj.scname = initdata[i].ColumnName;
+                                scnamejsondata.push(obj);
+                            }
+                            //（获取目标列名）
+                            tcnamejsondata = [];
+                            var targettable = $('#importSelect').combobox("getValue");
+                            var ds = data.sender.datasource;
+                            if (ds.modeldata.tablename == targettable) {
+                                for (var i = 0; i < ds.modeldata.childitem.length; i++) {
+                                    var obj = {};
+                                    obj.text = ds.modeldata.childitem[i].title;
+                                    if (obj.text == '序号') continue;
+                                    obj.value = ds.modeldata.childitem[i].field;
+                                    obj.type = ds.modeldata.childitem[i].type;
+                                    tcnamejsondata.push(obj);
+                                }
+                            }
+                            else {
+                                for (var i = 0; i < ds.modeldata.childmodel.length; i++) {
+                                    if (ds.modeldata.childmodel[i].tablename == targettable) {
+                                        for (var j = 0; j < ds.modeldata.childmodel[i].childitem.length; j++) {
+                                            var obj = {};
+                                            obj.text = ds.modeldata.childmodel[i].childitem[j].title;
+                                            obj.value = ds.modeldata.childmodel[i].childitem[j].field;
+                                            obj.type = ds.modeldata.childmodel[i].childitem[j].type;
+                                            tcnamejsondata.push(obj);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            //初始DataGrid数据
+                            var rows = [];
+                            for (var i in tcnamejsondata) {
+                                var tt = tcnamejsondata[i];
+                                var obj = {};
+                                obj.TcName = tt.value;
+                                obj.Type = tt.type;
+                                for (var n in scnamejsondata) {
+                                    if (scnamejsondata[n].scname == tt.text || scnamejsondata[n].scname.toUpperCase() == tt.value.toUpperCase()) {
+                                        obj.ScName = scnamejsondata[n].scname;
+                                        break;
+                                    }
+                                }
+                                rows.push(obj);
+                            }
+                            //加载映射表
+                            $('#dgm').html('');
+                            var lastIndex;
+                            $('#dgm').datagrid({
+                                title: '字段映射编辑',
+                                width: 'auto',
+                                height: 'auto',
+                                fitColumns: true,
+                                singleSelect: true,
+                                columns: [[
+        					{ field: 'ScName', title: '源列名', width: 60,
+        					    editor: {
+        					        type: 'combobox',
+        					        options: {
+        					            textField: 'scname',
+        					            valueField: 'scname',
+        					            data: scnamejsondata
+        					        }
+        					    }
+        					},
+        				    { field: 'TcName', title: '目标列名', width: 60, formatter: function (value) {
+        				        for (var i = 0; i < tcnamejsondata.length; i++) {
+        				            if (tcnamejsondata[i].value == value)
+        				                return tcnamejsondata[i].text;
+        				        }
+        				        return value;
+        				    }
+        				                                    ,
+        				        editor: {
+        				            type: 'combobox',
+        				            options: {
+        				                textField: 'text',
+        				                valueField: 'value',
+        				                disabled: true,
+        				                data: tcnamejsondata
+        				            }
+        				        }
+        				    },
+                              { field: 'IsAuto', title: '自动编码', width: 60, align: 'center',
+
+                                  formatter: function (value) {
+                                      if (value == false) {
+                                          return '';
+                                      }
+                                  },
+
+                                  editor: { type: 'checkbox', options: { on: true, off: false} }
+                              },
+                                     { field: 'Value', title: '自定义文本', width: 60, editor: {
+                                         type: 'combobox',
+                                         options: {
+                                             textField: 'text',
+                                             valueField: 'value'
+                                         }
+                                     }
+                                     },
+                                   { field: 'Type', title: '类型', width: 60, editor: {
+                                       type: 'combobox',
+                                       options: {
+                                           textField: 'text',
+                                           valueField: 'value',
+                                           disabled: true
+                                       }
+                                   }
+                                   }
+        				 ]], onClickRow: function (rowIndex) {
+        				     if (lastIndex != rowIndex) {
+        				         var edp = $('#dgm').datagrid('getEditor', { index: lastIndex, field: 'IsAuto' });
+        				         if (edp) {
+        				             edp.target.val(false);
+        				         }
+        				         $('#dgm').datagrid('endEdit', lastIndex);
+        				         $('#dgm').datagrid('beginEdit', rowIndex);
+        				     }
+        				     lastIndex = rowIndex;
+        				 }
+                            });
+                            $('#dgm').datagrid('loadData', { total: rows.length, rows: rows });
+                        }
+                    }
+                    else if (ipage == 2) {
+                        $('#ipp').html('');
+                        var prewSC = [];
+                        var prewColumns = [];
+
+                        for (var i in tcnamejsondata) {
+                            var obj = {};
+                            obj.field = tcnamejsondata[i].value;
+                            obj.title = tcnamejsondata[i].text;
+                            obj.width = 60;
+                            prewColumns.push(obj);
+                        }
+                        prewSC.push(prewColumns);
+
+                        $('#ipp').datagrid({
+                            title: '预览',
+                            width: 'auto',
+                            height: 'auto',
+                            fitColumns: true,
+                            singleSelect: true,
+                            columns: prewSC
+                        });
+                        var rows = initdata[0].Table;
+                        $('#dgm').datagrid('acceptChanges');
+                        maps = $('#dgm').datagrid('getRows');
+                        var yls = [];
+
+                        for (var r in rows) {
+                            var obj = {};
+                            for (var i in maps) {
+                                var mm = maps[i];
+                                if (mm.ScName && mm.ScName != "") {
+                                    obj[mm.TcName] = rows[r][mm.ScName];
+                                    if (mm.Value) {
+                                        obj[mm.TcName] = mm.Value;
+                                    }
+                                }
+                            }
+                            yls.push(obj);
+                        }
+                        $('#ipp').datagrid('loadData', { total: yls.length, rows: yls });
+                        $('#btnImport').linkbutton('enable');
+                    }
+                }
+            },
+            {
+                id: 'btnImport',
+                text: '导入',
+                disabled: true,
+                handler: function () {
+                    var targetTable = $('#importSelect').combobox("getValue");
+                    var Mapping = JSON.stringify(maps);
+                    $('#progresspic').show();
+                    data.sender.datasource.submit(data.command, "IOperate=2&TargetTable=" + targetTable + "&MappingInfo=" + Mapping, function (e) {
+                        if (e && e.error) {
+
+                            $.messager.alert('提示', '导入失败！' + e.errormsg, 'info');
+                        }
+                        else
+                            $.messager.alert('提示', '导入成功！', 'info');
+                        $('#progresspic').hide();
+                    });
+                }
+            }],
+            onOpen: function () {
+                var isdata = $('#importSelect').combobox('getData');
+                $('#importSelect').combobox('select', isdata[0].value);
+                if (ipage == 0) {
+                    $('#prebtni').linkbutton('disable');
+                    $('#btnImport').linkbutton('disable');
+                }
+            },
+            onResize: function () {
+                if (ipage == 1) {
+                    $('#dgm').datagrid('resize');
+                }
+                else if (ipage == 2) {
+                    $('#ipp').datagrid('resize');
+                }
+            }
+        });
+        return false;
+    }
+
+    function ExportWindow(data) {
+        var epage = 0;
+        $('#de').show();
+        $('#de0').show();
+        $('#de1').hide();
+        var url = data.url;
+        $('#de').dialog({
+            title: "导出数据",
+            collapsible: false,
+            minimizable: false,
+            maximizable: false,
+            buttons: [{
+                id: 'prebtne',
+                text: '上一步',
+                handler: function () {
+                    if (epage <= 0)
+                        return;
+                    $('#de' + epage).html('');
+                    $('#de' + epage).hide();
+                    epage--;
+                    $('#de' + epage).show();
+                    if (epage == 0) {
+                        $('#prebtne').linkbutton('disable');
+                        $('#nextbtne').linkbutton('enable');
+                    }
+                }
+            }, {
+                id: 'nextbtne',
+                text: '下一步',
+                handler: function () {
+                    if (epage >= 1)
+                        return;
+                    $('#de' + epage).hide();
+                    epage++;
+                    if (epage == 1) {
+                        $('#prebtne').linkbutton('enable');
+                        $('#nextbtne').linkbutton('disable');
+                        $('#de' + epage).html('');
+                        var isexportAll = $("#isexportAll").combobox("getValue");
+                        var exportType = $("#exportType").combobox("getValue");
+                        if (isexportAll == 0) {
+                            $('#de' + epage).append("<span style='padding-left:20px;'>当前导出页</span><input type=\"button\" value=\"导出当前页\" onclick=\"submitforExport('" + url + "&ExportType=" + exportType + "&EOperate=0&CurrentPage=-1');\"/>");
+                        }
+                        else {
+                            data.sender.datasource.submit(data.command, "EOperate=1", function (e) {
+                                if (e != null) {
+                                    var ev = eval("(" + e.responseText + ")");
+                                    // 取得pagenum
+                                    var pagenum = ev.pagecount;
+                                    var downItems = $('<table style="width: 100%;height:100%;border-collapse: collapse;"></table>');
+                                    for (var i = 0; i < pagenum; i++) {
+                                        var indexnum = i + 1;
+                                        item = $("<tr><td style='border-bottom: 1px solid #ccc;padding-left:20px;'>当前导出文件" + indexnum + "</td><td style='width: 30%;border-bottom: 1px solid #ccc;'><input type='button' value='导出' onclick=\"submitforExport('" + url + "&ExportType=" + exportType + "&EOperate=0&CurrentPage=" + i + "');\"/></td></tr>");
+                                        $(item).appendTo(downItems);
+                                    }
+                                    $('#de' + epage).append(downItems);
+                                }
+                                else {
+                                    $('#de' + epage).append("<div style='margin-top:10px'><span style='padding-left:20px;'>当前查询条件为空!<span></div>"); ;
+                                }
+                            });
+                        }
+                    }
+                    $('#de' + epage).show();
+                }
+            }],
+            onOpen: function () {
+                if (epage == 0) {
+                    $('#prebtne').linkbutton('disable');
+                }
+                $('#isexportAll').combobox('select', '1');
+                $('#exportType').combobox('select', 'xls');
+            }
+        });
+        return false;
+    }
+
+    function submitforExport(url) {
+        var form = $("<form>");
+        form.attr('style', 'display:none');
+        form.attr('target', '');
+        form.attr('method', 'post');
+        form.attr('action', url);
+        $('body').append(form);
+        form.submit();
+        form.remove();
+    }
+</script>
+<div id="t1">
+</div>
+<div id="dd" style="display: none; width: 400px; height: 300px;">
+    <div id="dd0">
+        <div id="sf" style="border: 0px solid #ccc; width: auto; height: auto; margin-left: 18px;
+            margin-bottom: 10px; margin-top: 10px;">
+            <div id="tfile" />
+        </div>
+        <div id="tf" style="border: 0px solid #ccc; width: auto; height: auto; clear: right;
+            margin-left: 20px; margin-bottom: 10px;">
+            <label>
+                导入表:</label>
+            <select id="importSelect" style="width: 300px;">
+            </select>
+        </div>
+    </div>
+    <div id="dd1" style="display: none">
+        <div id="dgm" style="border: 0px solid #ccc; width: auto; height: auto; margin-bottom: 10px;
+            margin-top: 10px;">
+        </div>
+    </div>
+    <div id="dd2" style="display: none">
+        <div id="ipp" style="border: 0px solid #ccc; width: auto; height: auto; margin-bottom: 10px;
+            margin-top: 10px;">
+        </div>
+        <div id="progresspic" style="display: none; width: 400px; z-index: 1; position: absolute;
+            top: 47%; left: 46%;">
+            <img src="../../images/wait.gif" />
+        </div>
+    </div>
+</div>
+<div id="de" style="display: none; width: 400px; height: 300px;">
+    <div id="de0">
+        <div style="border: 0px solid #ccc; width: auto; height: auto; float: left; margin-left: 20px;
+            margin-bottom: 10px; margin-top: 10px;">
+            <label>
+                导出全部:</label>
+            <select id="isexportAll" class="easyui-combobox" style="width: 300px;">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </div>
+        <div style="border: 0px solid #ccc; width: auto; height: auto; float: left; clear: right;
+            margin-left: 20px; margin-bottom: 10px;">
+            <label>
+                导出格式:</label>
+            <select id="exportType" class="easyui-combobox" style="width: 300px;">
+                <option value="xls">Xls</option>
+                <option value="xml">Xml</option>
+            </select>
+        </div>
+    </div>
+    <div id="de1" style="display: none;">
+    </div>
+</div>

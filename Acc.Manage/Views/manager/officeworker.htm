@@ -1,0 +1,45 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.XHY_OfficersController";
+            p.applyTo = "t1";
+            p.showfooter = false;
+            p.init();
+            p.ishelp = false;
+        });
+        function selectRequisition(data) {
+            if (data.comm.oldname == null) {
+                if (data.sender.datasource.grid) {
+                    var grid = data.sender.datasource.grid;
+                    var rows = grid.datasource.load(" ");
+                    if (rows && rows.total > 0) {
+                        grid.check = true;
+                        grid.reinit();
+                        grid.load(rows);
+                        data.sender.setname(data.comm, "打印人员条码");
+                    }
+                    else {
+                        data.comm.oldname = null;
+                        $.messager.alert("消息", "请选择需要打印的人员条码！");
+                    }
+                }
+            }
+            else {
+                var rows1 = data.sender.datasource.grid.getcheckrows();
+                if (rows1.length > 0) {
+                    var id = "";
+                    for (var r in rows1) {
+                        if (id == "")
+                            id = rows1[r].LOGINNAME + "|" + rows1[r].WORKNAME;
+                        else
+                            id += ";" + rows1[r].LOGINNAME + "|" + rows1[r].WORKNAME;
+                    }
+                    window.open("DesginManager/PrintSet.aspx?selectPortsRows=" + id, "_black", "width=300,height=200,left=200,top=200");
+                }
+                else {
+                    $.messager.alert("错误", "错误，请选择需要打印人员的条码！");
+                }
+            }
+        }
+      </script>
+<div id="t1"></div>

@@ -1,0 +1,53 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.PRO.XHY.Controllers.PROCrudeMaterialsController";
+            p.applyTo = "t1";
+            p.onCommandClick = function (command, form, item) {
+                if (command == "add") {
+                    form.setform("SEQUENCECODE", "1");
+                    form.setform("STATUS", "0");
+                    form.setform("STOREAMOUNT", "1");
+                    form.setform("LOWESTSTOCK", "1");
+                }
+            }
+            p.onSaveing = function (command, item) {
+                if (command == "add") {
+                    
+                }
+            }
+            p.init();
+        });
+
+        function SetDisable(data) {
+            window.MaterialCode = data.item.FNAME;
+            $("#t2").dialog({
+                title: "冻结" + data.item.FNAME + "",
+                width: 400,
+                height: 220,
+                maximizable: false,
+                cache: false,
+                shadow: true,
+                modal: true,
+                content: "" + data.item.ID + ""
+            });
+        }
+        function openWindow(data) {
+            window.FID = data.item.ID;
+            $("#t2").dialog({
+                title: "合并"+data.item.FNAME+"",
+                width: 800,
+                height: 520,
+                maximizable: true,
+                cache: false,
+                closable:true,
+                href: "Views/PRO/Acctrue/test.htm"
+            });
+        }
+        function d_close() {
+            $('#t2').dialog('close'); 
+         }
+    </script>
+<div id="t1"></div>
+<div id="t2"></div>
+

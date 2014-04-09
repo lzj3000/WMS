@@ -1,0 +1,57 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        var p = new singlepage();
+        p.c = "Acc.Business.WMS.XHY.Controllers.EndowedInNoticeOrderController";
+        p.applyTo = "t1";
+        p.ishelp = false;
+        //通知单下推，选择其他原单时改变待入库明细的数据
+        p.onForeigned = function (sender, fdata, rows) {
+            if (fdata.tablename.toString() == "Acc_WMS_InNoticeMaterials1" && sender.field.toString() == "SOURCECODE") {
+                var tt = p.datasource.post("GetNoticeStayGrid", "NoticeId1=" + fdata.filedvalue + "");
+                if (tt != "[]") {
+                    // sender.parent.setform("STAY5", tt[0].OrganizationName);
+                    var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockInNoticeMaterials1"];
+                    grid.clear();
+                    grid.insertRow(tt);
+                }
+            }
+        }
+        p.init();
+    });
+
+    function SetPrintModel(data) {
+        window.open("DesginManager/SetPrintModel.aspx?strController=" + data.sender.datasource.c, "_black", "width=300,height=200,left=200,top=200");
+    }
+
+    function openFMCode(data) {
+        window.parID = data.item.ID;
+        $("#fm").dialog({
+            title: "打印单件码",
+            width: 300,
+            height: 500,
+            maximizable: false,
+            cache: false,
+            href: "Views/WMS/XHY/PrintFMCODE.htm"
+        });
+    }
+
+    function openAutoNext(data) {
+        window.parID = data.item.ID;
+        window.STAY5 = data.item.STAY5;
+        window.MATERIALCODE = data.item.MATERIALCODE;
+        $("#t3").dialog({
+            title: "生成单件码",
+            width: 300,
+            height: 100,
+            maximizable: false,
+            cache: false,
+            href: "Views/WMS/WareHouse/AutoCreateMCODE.htm"
+        });
+    }
+</script>
+<div id="t1">
+</div>
+<div id="t3">
+</div>
+<div id="fm">
+</div>

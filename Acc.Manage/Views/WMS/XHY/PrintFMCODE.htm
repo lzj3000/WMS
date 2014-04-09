@@ -1,0 +1,106 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        initFun();
+        tempStr = window.parID;
+    });
+
+    function initFun() {
+        var data = new datasource();
+        data.c = "Acc.Business.WMS.XHY.Controllers.EndowedInNoticeOrderController";
+        ///加载赋码单单件码
+        if (window.parID) {
+            tempStr = window.parID;
+            var fm = data.post("GetInsCode", "inOrderCode=" + tempStr);
+            ///根据id查询仓库货位并直接显示
+            GetFMCode(fm);
+        }
+    }
+    var tempStr = "";
+    ///查询仓库
+    function GetFMCode($obj) {
+        $("#ck").html("请输入单件码：<input type='text' id='djm'/><input type='button' onclick='findFM()' value='查询' /><br />");
+        var ck = $obj.length;
+        for (var i = 0; i < ck; i++) {
+            var linkbutton = $("<a href=\"javascript:PrintCode('" + $obj[i].SEQUENCECODE + "')\" class=\"easyui-linkbutton\" style=\"margin-top:10px\">" + $obj[i].SEQUENCECODE + "</a>");
+            $(linkbutton).appendTo($("#ck"));
+             $(linkbutton).linkbutton();
+          
+        }
+     }
+     function PrintCode($obj) {
+         window.open("DesginManager/PrintSet.aspx?strController=Acc.Business.WMS.XHY.Controllers.EndowedInNoticeOrderController&selectPortsRows=" + $obj, "_black", "width=300,height=200,left=200,top=200");
+     }
+     var ss = "";
+     function test($obj) {
+         var fmid = $obj;
+         ss += $obj + ";";
+         $("#test").html(ss);
+     }
+     function findFM() {
+         var djm = $("#djm").val();
+         if (djm != "") {
+             var data1 = new datasource();
+             data1.c = "Acc.Business.WMS.XHY.Controllers.EndowedInNoticeOrderController";
+             var test = data1.post("GetDJM", "DJM=" + djm);
+             $("#ck").html("");
+             if (test != "[]") {
+                 for (var i = 0; i < test.length; i++) {
+                     var lin = $("<a href=\"javascript:PrintCode(" + test[i].SEQUENCECODE + ")\" class=\"easyui-linkbutton\" style=\"margin-top:10px\">" + test[i].SEQUENCECODE + "</a><br/><input type='button' value='返回上一页' onclick='initFun()'>");
+                     $(lin).appendTo($("#ck"));
+                     $(lin).linkbutton();
+                 }
+             }
+             else {
+                 $("#ck").html("未找到此单件码数据！<br/><input type='button' value='返回上一页' onclick='initFun()'>");
+                 return;
+
+             }
+
+         }
+         else {
+             alert("请输入单件码进行查询！");
+         }
+     }
+</script>
+<style type="text/css">
+    .hw1Class
+    {
+        background-color:#AAEEBE;
+        color:Black;    
+    }
+        .hw2Class
+    {
+        background-color:#FDAFEA;
+        color:Black;    
+    }
+        .hw3Class
+    {
+        background-color:#FDA342;
+        color:Black;    
+    }
+    .abc
+    {
+        color:Red;
+        background-color:Red;
+    }
+</style>
+
+<!--显示货位-->
+
+<div id="ck" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-bottom: 10px; margin-top: 10px; margin-left: 20px;">
+    
+</div>
+<div id="tt" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-left: 20px;">
+</div>
+<div id="depots" style="position: relative; overflow: hidden; border: 0px solid #ccc;
+    width: auto; height: auto; margin-left: 20px;">
+</div>
+<div id="p-tools">
+    <a href="#" class="icon-mini-add" onclick="alert('add')"></a><a href="#" class="icon-mini-edit"
+        onclick="alert('edit')"></a><a href="#" class="icon-mini-refresh" onclick="alert('refresh')">
+        </a>
+</div>
+<div id="infoAlert"></div>
+<div id="test"></div>

@@ -1,0 +1,90 @@
+﻿    <script type="text/javascript">
+        $(document).ready(function () {
+            var p = new singlepage();
+            p.c = "Acc.Business.WMS.XHY.Controllers.ProduceInOrderController";
+            p.applyTo = "t1";
+            p.ishelp = false;
+            p.onForeigned = function (sender, fdata, rows) {
+
+                if (fdata.tablename.toString() == "Acc_Bus_BusinessCommodity" && sender.field.toString() == "MATERIALCODE") {
+                    var tt = p.datasource.post("VoliGetUnit", "MaterialsId=" + rows.ID + "");
+                    if (tt != "") {
+                        var row = sender.parent.selectrow();
+                        var eb = sender.parent.geteditor("MATERIALPACKID");
+                        eb.setValue(eb.target, tt, row);
+                    }
+                    //grid.load({ total: tt.length, rows: tt });
+                }
+                if (fdata.tablename.toString() == "Acc_WMS_InNoticeMaterials1" && sender.field.toString() == "SOURCECODE") {
+                    var tt = p.datasource.post("GetNoticeStayGrid", "NoticeId1=" + fdata.filedvalue + "");
+                    if (tt != "[]") {
+                       // sender.parent.setform("STAY5", tt[0].OrganizationName);
+                        var grid = sender.parent.griditems["Acc.Business.WMS.Model.StockInNoticeMaterials1"];
+                        grid.insertRow(tt);
+                    }
+                }
+            }
+            p.init();
+        });
+
+//        function selectRequisition(data) {
+//            if (data.comm.oldname == null) {
+//                if (data.sender.datasource.grid) {
+//                    var grid = data.sender.datasource.grid;
+//                    var rows = grid.datasource.load(" ");
+//                    if (rows && rows.total > 0) {
+//                        grid.check = true;
+//                        grid.reinit();
+//                        grid.load(rows);
+//                        data.sender.setname(data.comm, "打印单件条码");
+//                    }
+//                    else {
+//                        data.comm.oldname = null;
+//                        $.messager.alert("消息", "请选择需要打印的产品单件条码！");
+//                    }
+//                }
+//            }
+//            else {
+//                var rows = data.sender.datasource.grid.getcheckrows();
+//                if (rows.length > 0) {
+//                    var id = "";
+//                    for (var r in rows) {
+//                        
+//                        var data = new datasource();
+//                        data.c = "Acc.Business.WMS.XHY.Controllers.ProduceInOrderController";
+//                        var res = data.post("GetInsCode", "inOrderCode=" + rows[r].ID);
+//                        for (var a in res) {
+//                            if (id == "") {
+//                                id = res[a].SEQUENCECODE;
+//                            } else {
+
+//                                id += ";" + res[a].SEQUENCECODE;
+
+//                            }
+//                        }
+//                        if (id != "undefined;undefined") {
+//                            window.open("DesginManager/PrintSet.aspx?selectPortsRows=" + id, "_black", "width=300,height=200,left=200,top=200");
+//                        }
+
+//                        else {
+//                            alert("明细行无单件码不能打印！");
+//                        }
+//                                             
+//                                                
+//                    }
+//                  
+//                }
+//                else {
+//                    $.messager.alert("错误", "错误，请选择需要打印的条码！");
+//                }
+//            }
+//        }
+
+      
+        function SetPrintModel(data) {
+            window.open("DesginManager/SetPrintModel.aspx?strController=" + data.sender.datasource.c, "_black", "width=300,height=200,left=200,top=200");
+        }
+    </script>
+<div id="t1"></div>
+
+<div id="t3"></div>

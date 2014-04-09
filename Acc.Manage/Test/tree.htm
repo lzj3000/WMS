@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="../Scripts/jquery/themes/default/easyui.css"/>
+       <link rel="stylesheet" type="text/css" href="../Scripts/jquery/themes/icon.css"/>
+       <script type="text/javascript" src="../Scripts/jquery/jquery-1.7.1.min.js"></script>
+       <script type="text/javascript" src="../Scripts/jquery/jquery.easyui.min.js"></script>
+       <script type="text/javascript" src="../Scripts/jquery/easyloader.js"></script>
+        <script type="text/javascript" src="../Scripts/jsbase.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/toolstrip.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/datagrid.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/webcontrol.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/datasource.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/textbox.js"></script>
+        <script type="text/javascript" src="../Scripts/webcontrols/form.js"></script>
+         <script type="text/javascript" src="../Scripts/webcontrols/tree.js"></script>
+         <script type="text/javascript">
+             $(document).ready(function () {
+                 var t = new tree();
+                 t.applyTo = "t1";
+                 t.displayid = "ID";
+                 t.displayname = "NAME";
+                 t.title = "TESTTREE";
+                 t.isload = false;
+                 t.init();
+                 var data = [{ "ID": 1, "text": "T1" }, { "ID": 2, "text": "T2" }, { "ID": 3, "text": "T3"}];
+                 t.loaddata(data);
+                 t.onSelect = function (node) {
+                     node.children = data;
+                 }
+             });
+         </script>
+            
+</head>
+<div id="t1"></div>
+</html>
